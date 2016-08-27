@@ -1,0 +1,13 @@
+D:\Epam\EPAM.KnowledgeControlSystem\BLL\bin\Debug\BLL.dll
+D:\Epam\EPAM.KnowledgeControlSystem\BLL\bin\Debug\BLL.pdb
+D:\Epam\EPAM.KnowledgeControlSystem\BLL\bin\Debug\DAL.dll
+D:\Epam\EPAM.KnowledgeControlSystem\BLL\bin\Debug\DAL.pdb
+D:\Epam\EPAM.KnowledgeControlSystem\BLL\obj\Debug\BLL.csprojResolveAssemblyReference.cache
+D:\Epam\EPAM.KnowledgeControlSystem\BLL\obj\Debug\BLL.dll
+D:\Epam\EPAM.KnowledgeControlSystem\BLL\obj\Debug\BLL.pdb
+D:\Epam\EPAM.KnowledgeControlSystem\BLL\bin\Debug\EntityFramework.dll
+D:\Epam\EPAM.KnowledgeControlSystem\BLL\bin\Debug\ORM.dll
+D:\Epam\EPAM.KnowledgeControlSystem\BLL\bin\Debug\EntityFramework.xml
+D:\Epam\EPAM.KnowledgeControlSystem\BLL\bin\Debug\ORM.pdb
+D:\Epam\EPAM.KnowledgeControlSystem\BLL\bin\Debug\AutoMapper.dll
+D:\Epam\EPAM.KnowledgeControlSystem\BLL\bin\Debug\AutoMapper.xml

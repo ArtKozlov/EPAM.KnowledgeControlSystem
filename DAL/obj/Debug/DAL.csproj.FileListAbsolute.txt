@@ -1,0 +1,12 @@
+D:\Epam\EPAM.KnowledgeControlSystem\DAL\bin\Debug\DAL.dll
+D:\Epam\EPAM.KnowledgeControlSystem\DAL\bin\Debug\DAL.pdb
+D:\Epam\EPAM.KnowledgeControlSystem\DAL\bin\Debug\ORM.dll
+D:\Epam\EPAM.KnowledgeControlSystem\DAL\bin\Debug\EntityFramework.dll
+D:\Epam\EPAM.KnowledgeControlSystem\DAL\bin\Debug\ORM.pdb
+D:\Epam\EPAM.KnowledgeControlSystem\DAL\bin\Debug\EntityFramework.xml
+D:\Epam\EPAM.KnowledgeControlSystem\DAL\obj\Debug\DAL.csprojResolveAssemblyReference.cache
+D:\Epam\EPAM.KnowledgeControlSystem\DAL\obj\Debug\DAL.dll
+D:\Epam\EPAM.KnowledgeControlSystem\DAL\obj\Debug\DAL.pdb
+D:\Epam\EPAM.KnowledgeControlSystem\DAL\bin\Debug\DAL.dll.config
+D:\Epam\EPAM.KnowledgeControlSystem\DAL\bin\Debug\EntityFramework.SqlServer.dll
+D:\Epam\EPAM.KnowledgeControlSystem\DAL\bin\Debug\EntityFramework.SqlServer.xml
