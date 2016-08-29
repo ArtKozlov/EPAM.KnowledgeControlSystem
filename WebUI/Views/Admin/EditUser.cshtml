@@ -1,10 +1,11 @@
 ﻿
 @model WebUI.ViewModels.UserViewModel
+
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@using (Html.BeginForm("Edit", "Admin", FormMethod.Post,
+@using (Html.BeginForm("EditUser", "Admin", FormMethod.Post,
     new {@class = "form-horizontal", role = "form"}))
 {
     <h3></h3>
@@ -32,7 +33,7 @@
         @Html.LabelFor(m => m.IsModerator, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
             Yes: @Html.RadioButtonFor(m => m.IsModerator, true, new {@class = "radio-inline"})
-            No:  @Html.RadioButtonFor(m => m.IsModerator, false, new {@class = "radio-inline"})
+            No: @Html.RadioButtonFor(m => m.IsModerator, false, new {@class = "radio-inline"})
         </div>
     </div>
     <div class="form-group">

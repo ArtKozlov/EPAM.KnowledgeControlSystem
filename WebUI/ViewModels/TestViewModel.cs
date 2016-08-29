@@ -6,11 +6,7 @@ namespace WebUI.ViewModels
 {
     public class TestViewModel
     {
-        public TestViewModel()
-        {
-            Questions = new List<QuestionDTO>();
-            Answers = new List<AnswerDTO>();
-        }
+
         public int Id { get; set; }
 
         [Display(Name = "Test name")]
@@ -24,8 +20,13 @@ namespace WebUI.ViewModels
 
         [Display(Name = "bad answers")]
         public int BadAnswers { get; set; }
-        public ICollection<AnswerDTO> Answers { get; set; }
-        public ICollection<QuestionDTO> Questions { get; set; }
+        [Display(Name = "Test is valid")]
+        public bool IsValid { get; set; }
+
+        [Display(Name = "Creator")]
+        public string Creator { get; set; }
+        public List<AnswerDTO> Answers { get; set; }
+        public List<QuestionDTO> Questions { get; set; }
         public int? TestResultId { get; set; }
         public TestResultDTO TestResult { get; set; }
     }

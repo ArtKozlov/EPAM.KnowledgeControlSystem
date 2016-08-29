@@ -1,4 +1,5 @@
-﻿using BLL.DTO;
+﻿using System.Collections.Generic;
+using BLL.DTO;
 using WebUI.ViewModels;
 
 namespace WebUI.Infrastructure.Mappers
@@ -45,8 +46,10 @@ namespace WebUI.Infrastructure.Mappers
                 BadAnswers = testEntity.BadAnswers,
                 GoodAnswers = testEntity.GoodAnswers,
                 Time = testEntity.Time,
-                Questions = testEntity.Questions,
-                Answers = testEntity.Answers
+                IsValid = testEntity.IsValid,
+                Creator = testEntity.Creator,
+                Questions = (List<QuestionDTO>)testEntity.Questions,
+                Answers = (List<AnswerDTO>)testEntity.Answers
 
             };
         }
@@ -60,6 +63,8 @@ namespace WebUI.Infrastructure.Mappers
                 BadAnswers = testViewModel.BadAnswers,
                 GoodAnswers = testViewModel.GoodAnswers,
                 Time = testViewModel.Time,
+                IsValid = testViewModel.IsValid,
+                Creator = testViewModel.Creator,
                 Questions = testViewModel.Questions,
                 Answers = testViewModel.Answers
             };

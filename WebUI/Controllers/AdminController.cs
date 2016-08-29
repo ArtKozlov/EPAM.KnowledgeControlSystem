@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Mvc;
-using BLL.DTO;
 using BLL.Interfaces;
-using BLL.Mapping;
-using Ninject;
-using WebUI.Infrastructure;
 using WebUI.Infrastructure.Mappers;
 using WebUI.ViewModels;
 
@@ -24,14 +20,14 @@ namespace WebUI.Controllers
             _roleService = roleService;
         }
 
-        public ActionResult UsersEdit()
+        public ActionResult UsersEditor()
         {
             var model = _userService.GetAllUsers().Select(u => u.ToMvcUser());
 
             return View(model);
         }
         [HttpGet]
-        public ActionResult Edit(string email)
+        public ActionResult EditUser(string email)
         {
             var model = _userService.GetUserByEmail(email).ToMvcUser();
 
@@ -39,7 +35,7 @@ namespace WebUI.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(UserViewModel viewModel)
+        public ActionResult EditUser(UserViewModel viewModel)
         {
             if (viewModel.IsModerator)
             {
@@ -51,9 +47,9 @@ namespace WebUI.Controllers
                 viewModel.Roles.Add(_roleService.GetRole(3));
             }
             _userService.UpdateUser(viewModel.ToBllUser());
-            return Redirect(Url.Action("UsersEdit", "Admin"));
+            return Redirect(Url.Action("UsersEditor", "Admin"));
         }
-        public ActionResult Delete(int? id)
+        public ActionResult DeleteUser(int? id)
         {
             if (!ReferenceEquals(id, null))
             {

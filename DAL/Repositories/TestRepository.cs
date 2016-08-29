@@ -42,11 +42,10 @@ namespace DAL.Repositories
         {
             var entity = _context.Tests.Find(test.Id);
             entity.Name = test.Name;
-            entity.Questions = test.Questions;
-            entity.Answers = test.Answers;
             entity.GoodAnswers = test.GoodAnswers;
             entity.BadAnswers = test.BadAnswers;
             entity.Time = test.Time;
+            entity.IsValid = test.IsValid;
             entity.TestResultId = test.TestResultId;
             _context.Entry(entity).State = EntityState.Modified;
         }

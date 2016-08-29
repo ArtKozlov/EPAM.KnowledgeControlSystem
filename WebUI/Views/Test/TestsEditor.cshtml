@@ -1,0 +1,55 @@
+﻿
+@model IEnumerable<WebUI.ViewModels.TestViewModel>
+@{
+    ViewBag.Title = "TestEdit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Creator)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsValid)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.Creator)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsValid)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditTest", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "DeleteTest", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+
+
+
+
+

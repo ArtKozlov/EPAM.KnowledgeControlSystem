@@ -157,10 +157,7 @@
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
     <Compile Include="Providers\CustomMembershipProvider.cs" />
     <Compile Include="Providers\CustomRoleProvider.cs" />
-    <Compile Include="ViewModels\AnswerViewModel.cs" />
     <Compile Include="ViewModels\LogOnViewModel.cs" />
-    <Compile Include="ViewModels\CreateTestViewModel.cs" />
-    <Compile Include="ViewModels\QuestionViewModel.cs" />
     <Compile Include="ViewModels\RegisterViewModel.cs" />
     <Compile Include="ViewModels\TestResultViewModel.cs" />
     <Compile Include="ViewModels\TestViewModel.cs" />
@@ -204,16 +201,18 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Admin\UsersEdit.cshtml" />
+    <Content Include="Views\Admin\UsersEditor.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
     <Content Include="Views\Account\RegisterComplited.cshtml" />
     <Content Include="Views\Profile\Information.cshtml" />
     <Content Include="Views\Test\CreateTest.cshtml" />
     <Content Include="Views\Profile\Settings.cshtml" />
-    <Content Include="Views\Admin\Edit.cshtml" />
-    <Content Include="Views\Admin\Delete.cshtml" />
+    <Content Include="Views\Admin\EditUser.cshtml" />
+    <Content Include="Views\Admin\DeleteUser.cshtml" />
     <Content Include="Views\Test\Home.cshtml" />
-    <Content Include="Views\Test\TestEdit.cshtml" />
+    <Content Include="Views\Test\TestsEditor.cshtml" />
+    <Content Include="Views\Test\DeleteTest.cshtml" />
+    <Content Include="Views\Test\EditTest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

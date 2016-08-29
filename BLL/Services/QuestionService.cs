@@ -46,5 +46,11 @@ namespace BLL.Services
                 return null;
             return question.ToQuestionDto();
         }
+
+        public void UpdateQuestion(QuestionDTO question)
+        {
+            _uow.Questions.Update(question.ToQuestionEntity());
+            _uow.Save();
+        }
     }
 }

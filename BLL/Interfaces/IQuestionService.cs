@@ -11,5 +11,6 @@ namespace BLL.Interfaces
         void CreateQuestion(QuestionDTO question);
         void DeleteQuestion(QuestionDTO question);
         void DeleteQuestion(int id);
+        void UpdateQuestion(QuestionDTO question);
     }
 }

@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using BLL.DTO;
 using BLL.Interfaces;
 using WebUI.Infrastructure.Mappers;
 using WebUI.ViewModels;
@@ -33,40 +31,15 @@ namespace WebUI.Controllers
 
         [Authorize(Roles = "User")]
         [HttpPost]
-        public ActionResult CreateTest(CreateTestViewModel viewModel)
+        public ActionResult CreateTest(TestViewModel viewModel)
         {
-            TestDTO test = new TestDTO()
-            {
-                Name = viewModel.Name,
-                Time = viewModel.Time
-            };
-
+            var test = viewModel.ToBllTest();
+            test.Creator = User.Identity.Name;
             _testService.CreateTest(test);
-            test = _testService.GetAllTests().Last();
-            foreach (var question in viewModel.Questions)
-            {
-                var tempQuestion = new QuestionDTO()
-                {
-                    Value = question,
-                    TestId = test.Id
-                };
-
-               // test.Questions.Add(tempQuestion);
-                _questionService.CreateQuestion(tempQuestion);
-            }
-            foreach (var answer in viewModel.Answers)
-            {
-                var tempAnswer = new AnswerDTO()
-                {
-                    Value = answer,
-                    TestId = test.Id
-                };
-               // test.Answers.Add(tempAnswer);
-                _answerService.CreateAnswer(tempAnswer);
-            }
-           // _testService.UpdateTest(test);
             return Redirect(Url.Action("Home", "Test"));
         }
+ 
+        [Authorize(Roles = "User")]
         [HttpGet]
         public ActionResult CreateTest()
         {
@@ -74,11 +47,57 @@ namespace WebUI.Controllers
         }
 
         [Authorize(Roles = "Moderator")]
-        public ActionResult TestEdit()
+        public ActionResult TestsEditor()
         {
             var model = _testService.GetAllTests().Select(u => u.ToMvcTest());
 
             return View(model);
+        }
+
+        [Authorize(Roles = "Moderator")]
+        [HttpGet]
+        public ActionResult EditTest(int? id)
+        {
+            var model = new TestViewModel();
+            if (!ReferenceEquals(id, null))
+            {
+                model = _testService.GetTest(Convert.ToInt32(id)).ToMvcTest();
+            }
+            else
+            {
+                model = null;
+            }
+            return View(model);
+        }
+
+        [Authorize(Roles = "Moderator")]
+        [HttpPost]
+        public ActionResult EditTest(TestViewModel viewModel)
+        {
+            foreach (var question in viewModel.Questions)
+            {
+                _questionService.UpdateQuestion(question);
+            }
+            foreach (var answer in viewModel.Answers)
+            {
+                _answerService.UpdateAnswer(answer);
+            }
+            _testService.UpdateTest(viewModel.ToBllTest());
+            return Redirect(Url.Action("TestsEditor", "Test"));
+        }
+        [Authorize(Roles = "Moderator")]
+        public ActionResult DeleteTest(int? id)
+        {
+            if (!ReferenceEquals(id, null))
+            {
+                _testService.DeleteTest(Convert.ToInt32(id));
+                ViewBag.Name = "is";
+            }
+            else
+            {
+                ViewBag.Name = "is not";
+            }
+            return View();
         }
         public ActionResult About()
         {

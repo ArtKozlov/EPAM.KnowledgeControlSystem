@@ -40,7 +40,9 @@ namespace DAL.Repositories
 
         public void Update(Answer answer)
         {
-            _context.Entry(answer).State = EntityState.Modified;
+            var entity = _context.Answers.Find(answer.Id);
+            entity.Value = answer.Value;
+            _context.Entry(entity).State = EntityState.Modified;
         }
 
         public void Delete(int key)

@@ -11,5 +11,6 @@ namespace BLL.Interfaces
         void CreateAnswer(AnswerDTO answer);
         void DeleteAnswer(AnswerDTO answer);
         void DeleteAnswer(int key);
+        void UpdateAnswer(AnswerDTO answer);
     }
 }

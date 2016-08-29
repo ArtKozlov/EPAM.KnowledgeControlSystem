@@ -14,11 +14,11 @@
                     </li>
                     @if (User.IsInRole("Admin"))
                     {
-                        <li>@Html.ActionLink("Admin room", "UsersEdit", "Admin")</li>
+                        <li>@Html.ActionLink("Admin room", "UsersEditor", "Admin")</li>
                     }
                     @if (User.IsInRole("Moderator"))
                     {
-                        <li>@Html.ActionLink("Moderator room", "TestEdit", "Test")</li>
+                        <li>@Html.ActionLink("Moderator room", "TestsEditor", "Test")</li>
                     }
                     <li>
                         @Html.ActionLink("Settings", "Settings", "Profile")

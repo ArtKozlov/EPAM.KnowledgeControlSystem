@@ -99,6 +99,8 @@ namespace BLL.Mapping
                 GoodAnswers = testEntity.GoodAnswers,
                 BadAnswers = testEntity.BadAnswers,
                 Time = testEntity.Time,
+                IsValid = testEntity.IsValid,
+                Creator = testEntity.Creator,
                 Answers = testEntity.Answers.ToAnswerDtoCollection().ToList(),
                 Questions = testEntity.Questions.ToQuestionDtoCollection().ToList()
             };
@@ -118,6 +120,8 @@ namespace BLL.Mapping
                 GoodAnswers = testDto.GoodAnswers,
                 BadAnswers = testDto.BadAnswers,
                 Time = testDto.Time,
+                IsValid = testDto.IsValid,
+                Creator = testDto.Creator,
                 Answers = testDto.Answers.ToAnswerCollection().ToList(),
                 Questions = testDto.Questions.ToQuestionCollection().ToList()
 

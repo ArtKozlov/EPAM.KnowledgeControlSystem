@@ -18,6 +18,8 @@ namespace ORM.Entities
         public int GoodAnswers { get; set; }
 
         public int BadAnswers { get; set; }
+        public bool IsValid { get; set; }
+        public string Creator { get; set; }
         public virtual ICollection<Answer> Answers { get; set; }
         public virtual ICollection<Question> Questions { get; set; }
         public int? TestResultId { get; set; }

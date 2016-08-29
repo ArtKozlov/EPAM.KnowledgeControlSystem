@@ -46,5 +46,10 @@ namespace BLL.Services
                 return null;
             return answer.ToAnswerDto();
         }
+        public void UpdateAnswer(AnswerDTO answer)
+        {
+            _uow.Answers.Update(answer.ToAnswerEntity());
+            _uow.Save();
+        }
     }
 }

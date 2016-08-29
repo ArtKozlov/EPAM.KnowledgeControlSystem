@@ -1,4 +1,4 @@
-﻿@model WebUI.ViewModels.CreateTestViewModel
+﻿@model WebUI.ViewModels.TestViewModel
 @{
     ViewBag.Title = "CreateQuestion";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -25,17 +25,17 @@
     {
         <div class="form-group">
             <div class="col-xs-2">
-                @Html.LabelFor(m => m.Questions[i], "Enter question #" + i + ":", new {@class = "col-md-2 control-label"})
+                @Html.LabelFor(m => m.Questions, "Enter question #" + i + ":", new {@class = "col-md-2 control-label"})
                 <div class="col-md-10">
-                    @Html.TextAreaFor(m => m.Questions[i], new {@class = "form-control"})
+                    @Html.TextAreaFor(m => m.Questions[i].Value, new {@class = "form-control"})
                     @Html.ValidationMessageFor(m => m.Questions[i], null, new {@class = "text-danger"})
                 </div>
             </div>
 
             <div class="col-xs-2">
-                @Html.LabelFor(m => m.Answers[i], "Enter answer #" + i + ":", new { @class = "col-md-2 control-label" })
+                @Html.LabelFor(m => m.Answers, "Enter answer #" + i + ":", new { @class = "col-md-2 control-label" })
                 <div class="col-md-10">
-                    @Html.TextBoxFor(m => m.Answers[i], new {@class = "form-control"})
+                    @Html.TextBoxFor(m => m.Answers[i].Value, new {@class = "form-control"})
                     @Html.ValidationMessageFor(m => m.Answers[i], null, new {@class = "text-danger"})
                 </div>
                 </div>
