@@ -1,6 +1,7 @@
 ﻿//Select Assemblies - > Extensions -> System.Web.Helpers
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Helpers;
 using System.Web.Security;
@@ -28,16 +29,17 @@ namespace WebUI.Providers
                 Name = name,
                 Email = email,
                 Password = Crypto.HashPassword(password),
-                Age = age
+                Age = age,
+                TestResults = new List<TestResultDTO>()
             };
 
-          //  var adminRole = roleService.GetRole(1);
-           // var moderatorRole = roleService.GetRole(2);
+            //var adminRole = roleService.GetRole(1);
+            //var moderatorRole = roleService.GetRole(2);
             var userRole = roleService.GetRole(3);
             if (userRole != null)
             {
-               // userDTO.Roles.Add(adminRole);
-               // userDTO.Roles.Add(moderatorRole);
+                //userDTO.Roles.Add(adminRole);
+                //userDTO.Roles.Add(moderatorRole);
                 userDTO.Roles.Add(userRole);
             }
 

@@ -35,5 +35,6 @@ namespace WebUI.ViewModels
 
         [Display(Name = "Roles")]
         public ICollection<RoleDTO> Roles { get; set; }
+        public ICollection<TestResultDTO> TestResults { get; set; }
     }
 }

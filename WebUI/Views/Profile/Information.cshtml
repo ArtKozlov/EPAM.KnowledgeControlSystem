@@ -39,12 +39,48 @@
             @foreach (var elem in Model.Roles)
             {
                 @Html.DisplayFor(modelItem => elem.Name)
-                <br />
+                <br/>
             }
         </td>
 
     </tr>
 </table>
+
+<h2>Your completed tests</h2>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TestResults.GetEnumerator().Current.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TestResults.GetEnumerator().Current.GoodAnswers)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TestResults.GetEnumerator().Current.BadAnswers)
+        </th>
+    </tr>
+
+    @foreach (var item in Model.TestResults)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GoodAnswers)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BadAnswers)
+            </td>
+            <td>
+                @Html.ActionLink("Delete", "DeleteTestResult", new { id = item.Id }) 
+            </td>
+        </tr>
+    }
+
+</table>
+
+
 
 
 

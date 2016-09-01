@@ -38,12 +38,8 @@ namespace ORM
                 });
 
             modelBuilder.Entity<User>()
-                .HasOptional(i => i.TestResult)
+                .HasMany(i => i.TestResults)
                 .WithRequired(u => u.User);
-
-            modelBuilder.Entity<Test>()
-                .HasOptional(i => i.TestResult)
-                .WithMany(u => u.Tests);
 
             modelBuilder.Entity<Test>()
                 .HasMany(i => i.Questions)

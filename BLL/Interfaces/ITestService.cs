@@ -13,5 +13,6 @@ namespace BLL.Interfaces
         void DeleteTest(TestDTO test);
         void DeleteTest(int id);
         void UpdateTest(TestDTO test);
+        TestResultDTO CheckAnswers(TestDTO test);
     }
 }

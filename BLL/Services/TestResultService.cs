@@ -16,6 +16,22 @@ namespace BLL.Services
         {
             _uow = uow;
         }
+
+        public void CreateTestResult(TestResultDTO test)
+        {
+            _uow.TestResults.Create(test.ToTestResultEntity());
+        }
+
+        public void DeleteTestResult(int id)
+        {
+            _uow.TestResults.Delete(id);
+        }
+
+        public void DeleteTestResult(TestResultDTO test)
+        {
+            _uow.TestResults.Delete(test.ToTestResultEntity());
+        }
+
         public IEnumerable<TestResultDTO> GetAllTestResults()
         {
             return _uow.TestResults.GetAll().Select(test => test.ToTestResultDto());

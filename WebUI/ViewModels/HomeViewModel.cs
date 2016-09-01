@@ -7,7 +7,7 @@ namespace WebUI.ViewModels
 {
     public class HomeViewModel
     {
-        public IEnumerable<TestViewModel> TestsViewModel { get; set; }
-        public PageInfoViewModel PageInfoViewModel { get; set; }
+        public IEnumerable<TestViewModel> Tests { get; set; }
+        public PageInfoViewModel PageInfo { get; set; }
     }
 }

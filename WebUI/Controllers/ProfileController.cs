@@ -14,15 +14,18 @@ namespace WebUI.Controllers
     {
 
         private readonly IUserService _userService;
+        private readonly ITestResultService _testResultService;
 
-        public ProfileController(IUserService service)
+        public ProfileController(IUserService service, ITestResultService testResult)
         {
             _userService = service;
+            _testResultService = testResult;
         }
         public ActionResult Information()
         {
             var model = _userService.GetUserByEmail(User.Identity.Name).ToMvcUser();
-
+            //var testResult = _testResultService.GetAllTestResults().Where(m => m.ToMvcTestResult().UserId == user.Id);
+            //var model = new ProfileViewModel(testResult, user);
             return View(model);
         }
         [HttpGet]
@@ -39,6 +42,14 @@ namespace WebUI.Controllers
 
             _userService.UpdateUser(viewModel.ToBllUser());
 
+            return RedirectToAction("Information");
+        }
+        public ActionResult DeleteTestResult(int? id)
+        {
+            if (!ReferenceEquals(id, null))
+            {
+                _testResultService.DeleteTestResult(Convert.ToInt32(id));
+            }
             return RedirectToAction("Information");
         }
     }

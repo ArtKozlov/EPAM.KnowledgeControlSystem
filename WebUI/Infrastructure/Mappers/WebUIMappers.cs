@@ -16,6 +16,7 @@ namespace WebUI.Infrastructure.Mappers
                 Email = userEntity.Email,
                 Age = userEntity.Age,
                 Roles = userEntity.Roles,
+                TestResults = userEntity.TestResults,
                 Password = userEntity.Password,
                 OldPassword = userEntity.OldPassword,
                 NewPassword = userEntity.NewPassword,
@@ -33,6 +34,7 @@ namespace WebUI.Infrastructure.Mappers
                 Email = userViewModel.Email,
                 Age = userViewModel.Age,
                 Roles = userViewModel.Roles,
+                TestResults = userViewModel.TestResults,
                 Password = userViewModel.Password,
                 OldPassword = userViewModel.OldPassword,
                 NewPassword = userViewModel.NewPassword,
@@ -71,6 +73,32 @@ namespace WebUI.Infrastructure.Mappers
                 Creator = testViewModel.Creator,
                 Questions = testViewModel.Questions,
                 Answers = testViewModel.Answers
+            };
+        }
+        #endregion
+        #region testResult mapping
+        public static TestResultViewModel ToMvcTestResult(this TestResultDTO testResultEntity)
+        {
+            return new TestResultViewModel()
+            {
+                Id = testResultEntity.Id,
+                Name = testResultEntity.Name,
+                GoodAnswers = testResultEntity.GoodAnswers,
+                BadAnswers = testResultEntity.BadAnswers,
+                UserId = testResultEntity.UserId
+
+            };
+        }
+
+        public static TestResultDTO ToBllTestResult(this TestResultViewModel testResultViewModel)
+        {
+            return new TestResultDTO()
+            {
+                Id = testResultViewModel.Id,
+                Name = testResultViewModel.Name,
+                GoodAnswers = testResultViewModel.GoodAnswers,
+                BadAnswers = testResultViewModel.BadAnswers,
+                UserId = testResultViewModel.UserId
             };
         }
         #endregion

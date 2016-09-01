@@ -22,7 +22,5 @@ namespace ORM.Entities
         public string Creator { get; set; }
         public virtual ICollection<Answer> Answers { get; set; }
         public virtual ICollection<Question> Questions { get; set; }
-        public int? TestResultId { get; set; }
-        public virtual TestResult TestResult { get; set; }
     }
 }

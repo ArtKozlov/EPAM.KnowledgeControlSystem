@@ -24,7 +24,8 @@ namespace BLL.Mapping
                 Email = userEntity.Email,
                 Password = userEntity.Password,
                 Age = userEntity.Age,
-                Roles = userEntity.Roles.ToRoleDTOCollection().ToList()
+                Roles = userEntity.Roles.ToRoleDTOCollection().ToList(),
+                TestResults = userEntity.TestResults.ToTestResultDTOCollection().ToList()
             };
         }
 
@@ -42,7 +43,8 @@ namespace BLL.Mapping
                 Email = userDto.Email,
                 Password = userDto.Password,
                 Age = userDto.Age,
-                Roles = userDto.Roles.ToRoleCollection().ToList()
+                Roles = userDto.Roles.ToRoleCollection().ToList(),
+                TestResults = userDto.TestResults.ToTestResultCollection().ToList()
 
             };
         }
@@ -211,9 +213,11 @@ namespace BLL.Mapping
             return new TestResultDTO()
             {
                 Id = testResultEntity.Id,
+                Name = testResultEntity.Name,
                 GoodAnswers = testResultEntity.GoodAnswers,
                 BadAnswers = testResultEntity.BadAnswers,
                 UserId = testResultEntity.UserId,
+                DateCompleted = testResultEntity.DateComplete
             };
         }
 
@@ -227,9 +231,11 @@ namespace BLL.Mapping
             return new TestResult()
             {
                 Id = testResultDto.Id,
+                Name = testResultDto.Name,
                 GoodAnswers = testResultDto.GoodAnswers,
                 BadAnswers = testResultDto.BadAnswers,
                 UserId = testResultDto.UserId,
+                DateComplete = testResultDto.DateCompleted
 
             };
         }
@@ -280,6 +286,21 @@ namespace BLL.Mapping
                 yield return question.ToQuestionDto();
             }
         }
-#endregion
+        private static IEnumerable<TestResult> ToTestResultCollection(this ICollection<TestResultDTO> collectionTestResultDto)
+        {
+            foreach (var testResultDTO in collectionTestResultDto)
+            {
+                yield return testResultDTO.ToTestResultEntity();
+            }
+        }
+
+        private static IEnumerable<TestResultDTO> ToTestResultDTOCollection(this ICollection<TestResult> collectionTestResult)
+        {
+            foreach (var testResult in collectionTestResult)
+            {
+                yield return testResult.ToTestResultDto();
+            }
+        }
+        #endregion
     }
 }

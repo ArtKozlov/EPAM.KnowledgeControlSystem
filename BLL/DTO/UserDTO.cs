@@ -20,9 +20,7 @@ namespace BLL.DTO
         public string ConfirmPassword { get; set; }
         public int Age { get; set; }
         public ICollection<RoleDTO> Roles { get; set; }
-
-        public int? TestResultId { get; set; }
-        public TestResultDTO TestResult { get; set; }
+        public ICollection<TestResultDTO> TestResults { get; set; }
 
     }
 }

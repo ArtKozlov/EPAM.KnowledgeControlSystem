@@ -13,12 +13,17 @@ namespace WebUI.Controllers
         private readonly ITestService _testService;
         private readonly IQuestionService _questionService;
         private readonly IAnswerService _answerService;
+        private readonly ITestResultService _testResultService;
+        private readonly IUserService _userService;
 
-        public TestController(ITestService testService, IQuestionService questionService, IAnswerService answerService)
+        public TestController(ITestService testService, IQuestionService questionService, 
+            IAnswerService answerService, ITestResultService testResultService, IUserService userService)
         {
             _testService = testService;
             _questionService = questionService;
             _answerService = answerService;
+            _testResultService = testResultService;
+            _userService = userService;
 
         }
 
@@ -27,8 +32,8 @@ namespace WebUI.Controllers
         {
             var model = new HomeViewModel();
             var allTests = _testService.GetAllTests().Select(u => u.ToMvcTest());
-            model.TestsViewModel = allTests.Skip((page - 1)*2).Take(2);
-            model.PageInfoViewModel = new PageInfoViewModel(page, 2, allTests.Count());
+            model.Tests = allTests.Skip((page - 1)*2).Take(2);
+            model.PageInfo = new PageInfoViewModel(page, 2, allTests.Count());
             return View(model);
         }
 
@@ -102,6 +107,40 @@ namespace WebUI.Controllers
             }
             return View();
         }
+        [HttpGet]
+        public ActionResult Passing(int id)
+        {
+            var model = _testService.GetTest(id).ToMvcTest();
+            foreach (var answer in model.Answers)
+            {
+                answer.Value = "";
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult Passing(TestViewModel testViewModel)
+        {
+            var resultModel = _testService.CheckAnswers(testViewModel.ToBllTest());
+            var entityTest = _testService.GetTest(testViewModel.Id);
+            entityTest.GoodAnswers += resultModel.GoodAnswers;
+            entityTest.BadAnswers += resultModel.BadAnswers;
+            _testService.UpdateTest(entityTest);
+            resultModel.Name = entityTest.Name;
+            resultModel.UserId = _userService.GetUserByEmail(User.Identity.Name).Id;
+            resultModel.DateCompleted = DateTime.Now;
+            _testResultService.CreateTestResult(resultModel);
+            var user = _userService.GetUserByEmail(User.Identity.Name);
+            user.TestResults.Add(resultModel);
+            _userService.UpdateUser(user);
+            return RedirectToAction("TestComplete", resultModel.ToMvcTestResult());
+        }
+
+        public ActionResult TestComplete(TestResultViewModel testViewModel)
+        {
+            return View(testViewModel);
+        }
+
         public ActionResult About()
         {
             var cookie = new HttpCookie("cookies");

@@ -7,6 +7,7 @@ namespace ORM.Entities
         public User()
         {
             Roles = new List<Role>();
+            TestResults = new List<TestResult>();
         }
         public int Id { get; set; }
         public string Name { get; set; }
@@ -18,7 +19,6 @@ namespace ORM.Entities
         public int Age { get; set; }
 
         public virtual ICollection<Role> Roles { get; set; }
-        public int? TestResultId { get; set; }
-        public virtual TestResult TestResult { get; set; }
+        public virtual ICollection<TestResult> TestResults { get; set; }
     }
 }

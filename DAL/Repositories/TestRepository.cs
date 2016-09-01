@@ -46,7 +46,6 @@ namespace DAL.Repositories
             entity.BadAnswers = test.BadAnswers;
             entity.Time = test.Time;
             entity.IsValid = test.IsValid;
-            entity.TestResultId = test.TestResultId;
             _context.Entry(entity).State = EntityState.Modified;
         }
 

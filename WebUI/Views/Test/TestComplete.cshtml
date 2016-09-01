@@ -1,0 +1,10 @@
+﻿@model  WebUI.ViewModels.TestResultViewModel
+@{
+    ViewBag.Title = "TestComplete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>TestComplete</h2>
+
+@Model.GoodAnswers / @Model.BadAnswers
+

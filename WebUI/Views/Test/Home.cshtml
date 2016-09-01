@@ -4,24 +4,24 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.TestsViewModel.GetEnumerator().Current.Name)
+            @Html.DisplayNameFor(model => model.Tests.GetEnumerator().Current.Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TestsViewModel.GetEnumerator().Current.Creator)
+            @Html.DisplayNameFor(model => model.Tests.GetEnumerator().Current.Creator)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TestsViewModel.GetEnumerator().Current.Time)
+            @Html.DisplayNameFor(model => model.Tests.GetEnumerator().Current.Time)
         </th>
         <th></th>
     </tr>
 
-    @foreach (var item in Model.TestsViewModel)
+    @foreach (var item in Model.Tests)
     {
         if(item.IsValid)
         {
             <tr>
                 <td>
-                    @Html.ActionLink(item.Name, "TestsEditor", new {email = item.Id})
+                    @Html.ActionLink(item.Name, "Passing", new {id = item.Id})
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Creator)
@@ -35,5 +35,5 @@
 
 </table>
 <div class="btn-group">
-    @Html.PageLinks(Model.PageInfoViewModel, x => Url.Action("Home", new { page = x }))
+    @Html.PageLinks(Model.PageInfo, x => Url.Action("Home", new { page = x }))
 </div>
