@@ -26,7 +26,24 @@
         @Html.LabelFor(m => m.Email, new {@class = "col-md-2 control-label"})
         <div class="col-md-10">
             @Html.TextBoxFor(m => m.Email, new {@class = "form-control"})
-            <p hidden="true"> @Html.TextBoxFor(m => m.Id, new { @class = "form-control" })</p>
+            <p hidden="true"> @Html.TextBoxFor(m => m.Id, new {@class = "form-control"})</p>
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.Label("Roles this user:");
+        <div class="col-md-10">
+            @foreach (var item in Model.Roles)
+            {
+                <br/>
+                @item.Name
+            }
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.IsAdmin, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            Yes: @Html.RadioButtonFor(m => m.IsAdmin, true, new { @class = "radio-inline" })
+            No: @Html.RadioButtonFor(m => m.IsAdmin, false, new { @class = "radio-inline" })
         </div>
     </div>
     <div class="form-group">

@@ -24,7 +24,6 @@ namespace BLL.Mapping
                 Email = userEntity.Email,
                 Password = userEntity.Password,
                 Age = userEntity.Age,
-                IsModerator = userEntity.IsModerator,
                 Roles = userEntity.Roles.ToRoleDTOCollection().ToList()
             };
         }
@@ -43,7 +42,6 @@ namespace BLL.Mapping
                 Email = userDto.Email,
                 Password = userDto.Password,
                 Age = userDto.Age,
-                IsModerator = userDto.IsModerator,
                 Roles = userDto.Roles.ToRoleCollection().ToList()
 
             };

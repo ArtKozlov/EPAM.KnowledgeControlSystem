@@ -37,15 +37,12 @@ namespace WebUI.Controllers
         [HttpPost]
         public ActionResult EditUser(UserViewModel viewModel)
         {
+            if (viewModel.IsAdmin)
+                viewModel.Roles.Add(_roleService.GetRole(1));
             if (viewModel.IsModerator)
-            {
                 viewModel.Roles.Add(_roleService.GetRole(2));
+
                 viewModel.Roles.Add(_roleService.GetRole(3));
-            }
-            else
-            {
-                viewModel.Roles.Add(_roleService.GetRole(3));
-            }
             _userService.UpdateUser(viewModel.ToBllUser());
             return Redirect(Url.Action("UsersEditor", "Admin"));
         }

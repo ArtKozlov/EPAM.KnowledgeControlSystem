@@ -53,7 +53,12 @@ namespace DAL.Repositories
             entity.Roles = user.Roles;
             _context.Entry(entity).State = EntityState.Modified;
         }
-
+        public void UpdatePassword(User user)
+        {
+            var entity = _context.Users.Find(user.Id);
+            entity.Password = user.Password;
+            _context.Entry(entity).State = EntityState.Modified;
+        }
         public void Delete(int key)
         {
             var expectedUser = _context.Users.Find(key);

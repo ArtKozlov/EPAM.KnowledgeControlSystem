@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.Helpers;
 using BLL.DTO;
 using BLL.Interfaces;
 using BLL.Mapping;
@@ -55,6 +56,14 @@ namespace BLL.Services
         {
             _uow.Users.Update(user.ToUserEntity());
             _uow.Save();
+            var entityUser = _uow.Users.GetById(user.Id);
+            if (!ReferenceEquals(user.OldPassword, null) && !ReferenceEquals(user.NewPassword, null)
+                && user.NewPassword == user.ConfirmPassword && Crypto.VerifyHashedPassword(entityUser.Password, user.OldPassword))
+            {
+                user.Password = Crypto.HashPassword(user.NewPassword);
+                _uow.Users.UpdatePassword(user.ToUserEntity());
+                _uow.Save();
+            }
         }
 
         public void DeleteUser(int id)

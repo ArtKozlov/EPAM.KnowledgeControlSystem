@@ -18,3 +18,12 @@ D:\Epam\EPAM.KnowledgeControlSystem\DependencyResolver\bin\Debug\Ninject.Web.Com
 D:\Epam\EPAM.KnowledgeControlSystem\DependencyResolver\obj\Debug\DependencyResolver.csprojResolveAssemblyReference.cache
 D:\Epam\EPAM.KnowledgeControlSystem\DependencyResolver\obj\Debug\DependencyResolver.dll
 D:\Epam\EPAM.KnowledgeControlSystem\DependencyResolver\obj\Debug\DependencyResolver.pdb
+D:\Epam\EPAM.KnowledgeControlSystem\DependencyResolver\bin\Debug\System.Web.Helpers.dll
+D:\Epam\EPAM.KnowledgeControlSystem\DependencyResolver\bin\Debug\System.Web.WebPages.dll
+D:\Epam\EPAM.KnowledgeControlSystem\DependencyResolver\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Epam\EPAM.KnowledgeControlSystem\DependencyResolver\bin\Debug\System.Web.Razor.dll
+D:\Epam\EPAM.KnowledgeControlSystem\DependencyResolver\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Epam\EPAM.KnowledgeControlSystem\DependencyResolver\bin\Debug\System.Web.Helpers.xml
+D:\Epam\EPAM.KnowledgeControlSystem\DependencyResolver\bin\Debug\System.Web.WebPages.xml
+D:\Epam\EPAM.KnowledgeControlSystem\DependencyResolver\bin\Debug\System.Web.Razor.xml
+D:\Epam\EPAM.KnowledgeControlSystem\DependencyResolver\bin\Debug\System.Web.WebPages.Deployment.xml

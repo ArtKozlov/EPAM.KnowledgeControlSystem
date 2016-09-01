@@ -36,6 +36,7 @@ namespace WebUI.Controllers
         [HttpPost]
         public ActionResult Settings(UserViewModel viewModel)
         {
+
             _userService.UpdateUser(viewModel.ToBllUser());
 
             return RedirectToAction("Information");

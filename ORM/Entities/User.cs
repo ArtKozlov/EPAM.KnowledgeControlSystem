@@ -16,7 +16,6 @@ namespace ORM.Entities
         public string Password { get; set; }
 
         public int Age { get; set; }
-        public bool IsModerator { get; set; }
 
         public virtual ICollection<Role> Roles { get; set; }
         public int? TestResultId { get; set; }

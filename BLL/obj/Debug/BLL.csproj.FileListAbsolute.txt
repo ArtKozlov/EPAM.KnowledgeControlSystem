@@ -11,3 +11,14 @@ D:\Epam\EPAM.KnowledgeControlSystem\BLL\bin\Debug\EntityFramework.xml
 D:\Epam\EPAM.KnowledgeControlSystem\BLL\bin\Debug\ORM.pdb
 D:\Epam\EPAM.KnowledgeControlSystem\BLL\bin\Debug\AutoMapper.dll
 D:\Epam\EPAM.KnowledgeControlSystem\BLL\bin\Debug\AutoMapper.xml
+D:\Epam\EPAM.KnowledgeControlSystem\BLL\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Epam\EPAM.KnowledgeControlSystem\BLL\bin\Debug\System.Web.Helpers.dll
+D:\Epam\EPAM.KnowledgeControlSystem\BLL\bin\Debug\System.Web.Razor.dll
+D:\Epam\EPAM.KnowledgeControlSystem\BLL\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Epam\EPAM.KnowledgeControlSystem\BLL\bin\Debug\System.Web.WebPages.dll
+D:\Epam\EPAM.KnowledgeControlSystem\BLL\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Epam\EPAM.KnowledgeControlSystem\BLL\bin\Debug\System.Web.Helpers.xml
+D:\Epam\EPAM.KnowledgeControlSystem\BLL\bin\Debug\System.Web.Razor.xml
+D:\Epam\EPAM.KnowledgeControlSystem\BLL\bin\Debug\System.Web.WebPages.xml
+D:\Epam\EPAM.KnowledgeControlSystem\BLL\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\Epam\EPAM.KnowledgeControlSystem\BLL\bin\Debug\System.Web.WebPages.Razor.xml

@@ -1,20 +1,21 @@
-﻿@model IEnumerable<WebUI.ViewModels.TestViewModel>
+﻿@using WebUI.Helpers
+@model WebUI.ViewModels.HomeViewModel
 
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.TestsViewModel.GetEnumerator().Current.Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Creator)
+            @Html.DisplayNameFor(model => model.TestsViewModel.GetEnumerator().Current.Creator)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Time)
+            @Html.DisplayNameFor(model => model.TestsViewModel.GetEnumerator().Current.Time)
         </th>
         <th></th>
     </tr>
 
-    @foreach (var item in Model)
+    @foreach (var item in Model.TestsViewModel)
     {
         if(item.IsValid)
         {
@@ -33,3 +34,6 @@
     }
 
 </table>
+<div class="btn-group">
+    @Html.PageLinks(Model.PageInfoViewModel, x => Url.Action("Home", new { page = x }))
+</div>

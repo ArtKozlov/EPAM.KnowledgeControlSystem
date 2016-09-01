@@ -16,8 +16,10 @@ namespace WebUI.Infrastructure.Mappers
                 Email = userEntity.Email,
                 Age = userEntity.Age,
                 Roles = userEntity.Roles,
-                IsModerator = userEntity.IsModerator,
-                Password = userEntity.Password
+                Password = userEntity.Password,
+                OldPassword = userEntity.OldPassword,
+                NewPassword = userEntity.NewPassword,
+                ConfirmPassword = userEntity.ConfirmPassword
 
             };
         }
@@ -31,8 +33,10 @@ namespace WebUI.Infrastructure.Mappers
                 Email = userViewModel.Email,
                 Age = userViewModel.Age,
                 Roles = userViewModel.Roles,
-                IsModerator = userViewModel.IsModerator,
-                Password = userViewModel.Password
+                Password = userViewModel.Password,
+                OldPassword = userViewModel.OldPassword,
+                NewPassword = userViewModel.NewPassword,
+                ConfirmPassword = userViewModel.ConfirmPassword
             };
         }
         #endregion
@@ -67,46 +71,6 @@ namespace WebUI.Infrastructure.Mappers
                 Creator = testViewModel.Creator,
                 Questions = testViewModel.Questions,
                 Answers = testViewModel.Answers
-            };
-        }
-        #endregion
-        #region answer mapping
-        public static AnswerViewModel ToMvcAnswer(this AnswerDTO answerEntity)
-        {
-            return new AnswerViewModel()
-            {
-                Id = answerEntity.Id,
-                Value = answerEntity.Value
-
-            };
-        }
-
-        public static AnswerDTO ToBllAnswer(this AnswerViewModel answerViewModel)
-        {
-            return new AnswerDTO()
-            {
-                Id = answerViewModel.Id,
-                Value = answerViewModel.Value
-            };
-        }
-        #endregion
-        #region question mapping
-        public static QuestionViewModel ToMvcQuestion(this QuestionDTO questionEntity)
-        {
-            return new QuestionViewModel()
-            {
-                Id = questionEntity.Id,
-                Value = questionEntity.Value
-
-            };
-        }
-
-        public static QuestionDTO ToBllQuestion(this QuestionViewModel questionViewModel)
-        {
-            return new QuestionDTO()
-            {
-                Id = questionViewModel.Id,
-                Value = questionViewModel.Value
             };
         }
         #endregion

@@ -23,9 +23,12 @@ namespace WebUI.Controllers
         }
 
         // GET: Test
-        public ActionResult Home()
+        public ActionResult Home(int page = 1)
         {
-            var model = _testService.GetAllTests().Select(u => u.ToMvcTest());
+            var model = new HomeViewModel();
+            var allTests = _testService.GetAllTests().Select(u => u.ToMvcTest());
+            model.TestsViewModel = allTests.Skip((page - 1)*2).Take(2);
+            model.PageInfoViewModel = new PageInfoViewModel(page, 2, allTests.Count());
             return View(model);
         }
 
