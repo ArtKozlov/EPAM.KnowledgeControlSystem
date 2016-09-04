@@ -17,6 +17,8 @@ namespace WebUI.ViewModels
         public int GoodAnswers { get; set; }
         [Display(Name = "Bad answers")]
         public int BadAnswers { get; set; }
+        [Display(Name = "Complete date")]
+        public DateTime DateComleted { get; set; }
         public int? UserId { get; set; }
         public UserDTO User { get; set; }
     }

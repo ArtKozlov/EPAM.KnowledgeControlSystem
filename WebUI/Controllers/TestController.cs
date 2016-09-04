@@ -31,9 +31,9 @@ namespace WebUI.Controllers
         public ActionResult Home(int page = 1)
         {
             var model = new HomeViewModel();
-            var allTests = _testService.GetAllTests().Select(u => u.ToMvcTest());
-            model.Tests = allTests.Skip((page - 1)*2).Take(2);
-            model.PageInfo = new PageInfoViewModel(page, 2, allTests.Count());
+            var allTests = _testService.GetAllTests().Select(u => u.ToMvcTest()).Where(m => m.IsValid);
+            model.Tests = allTests.Skip((page - 1)*2).Take(1);
+            model.PageInfo = new PageInfoViewModel(page, 1, allTests.Count());
             return View(model);
         }
 
@@ -135,7 +135,11 @@ namespace WebUI.Controllers
             _userService.UpdateUser(user);
             return RedirectToAction("TestComplete", resultModel.ToMvcTestResult());
         }
-
+        public ActionResult Statistics()
+        {
+            var model = _testService.GetAllTests().Select(u => u.ToMVCStatistics()).Where(m =>m.BadAnswers != 0 || m.GoodAnswers != 0);
+            return View(model);
+        }
         public ActionResult TestComplete(TestResultViewModel testViewModel)
         {
             return View(testViewModel);

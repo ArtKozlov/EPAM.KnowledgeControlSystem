@@ -25,6 +25,7 @@
                 {
                     <li>@Html.ActionLink("Create test", "CreateTest", "Test")</li>
                 }
+                <li>@Html.ActionLink("Statistics", "Statistics", "Test")</li>
                 <li>@Html.ActionLink("About", "About", "Test")</li>
             </ul>
             <ul class='right'>@Html.Partial("_LoginPartial")</ul>
@@ -35,7 +36,7 @@
     @RenderBody()
     <hr/>
     <footer>
-        <p>&copy; @DateTime.Now.Year - Application for everybody!</p>
+        <p>&copy; @DateTime.Now.Year - Tests for everybody!</p>
     </footer>
 </div>
 

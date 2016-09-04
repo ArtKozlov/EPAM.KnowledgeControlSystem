@@ -163,6 +163,7 @@
     <Compile Include="ViewModels\PageInfoViewModel.cs" />
     <Compile Include="ViewModels\ProfileViewModel.cs" />
     <Compile Include="ViewModels\RegisterViewModel.cs" />
+    <Compile Include="ViewModels\StatisticsViewModel.cs" />
     <Compile Include="ViewModels\TestResultViewModel.cs" />
     <Compile Include="ViewModels\TestViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
@@ -221,6 +222,7 @@
     <Content Include="Views\Test\EditTest.cshtml" />
     <Content Include="Views\Test\Passing.cshtml" />
     <Content Include="Views\Test\TestComplete.cshtml" />
+    <Content Include="Views\Test\Statistics.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

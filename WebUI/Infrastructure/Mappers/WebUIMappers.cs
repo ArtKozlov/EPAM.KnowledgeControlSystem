@@ -75,6 +75,18 @@ namespace WebUI.Infrastructure.Mappers
                 Answers = testViewModel.Answers
             };
         }
+        public static StatisticsViewModel ToMVCStatistics(this TestDTO testModel)
+        {
+            return new StatisticsViewModel()
+            {
+                Name = testModel.Name,
+                BadAnswers = testModel.BadAnswers,
+                GoodAnswers = testModel.GoodAnswers,
+                Creator = testModel.Creator,
+                Answers = testModel.BadAnswers + testModel.GoodAnswers,
+                Percentage = ((double)testModel.GoodAnswers/((double)testModel.GoodAnswers + (double)testModel.BadAnswers)*100).ToString("##.###")
+            };
+        }
         #endregion
         #region testResult mapping
         public static TestResultViewModel ToMvcTestResult(this TestResultDTO testResultEntity)
@@ -85,6 +97,7 @@ namespace WebUI.Infrastructure.Mappers
                 Name = testResultEntity.Name,
                 GoodAnswers = testResultEntity.GoodAnswers,
                 BadAnswers = testResultEntity.BadAnswers,
+                DateComleted = testResultEntity.DateCompleted,
                 UserId = testResultEntity.UserId
 
             };
@@ -98,6 +111,7 @@ namespace WebUI.Infrastructure.Mappers
                 Name = testResultViewModel.Name,
                 GoodAnswers = testResultViewModel.GoodAnswers,
                 BadAnswers = testResultViewModel.BadAnswers,
+                DateCompleted = testResultViewModel.DateComleted,
                 UserId = testResultViewModel.UserId
             };
         }
