@@ -1,7 +1,5 @@
-﻿using System;
+﻿
 using System.ComponentModel.DataAnnotations;
-using System.Globalization;
-using Newtonsoft.Json.Serialization;
 
 namespace WebUI.ViewModels
 {
@@ -17,6 +15,7 @@ namespace WebUI.ViewModels
 
         
         [Display(Name = "Enter your age")]
+        [Range(0, 99, ErrorMessage = "Invalid field of age!")]
         public int Age { get; set; }
 
         [Display(Name = "Enter your login(e-mail)")]

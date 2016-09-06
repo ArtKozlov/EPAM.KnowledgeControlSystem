@@ -148,6 +148,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\ModeratorController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Global.asax.cs">
@@ -170,6 +171,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Images\androiddev101.jpg" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\medal.png" />
@@ -215,14 +217,14 @@
     <Content Include="Views\Test\CreateTest.cshtml" />
     <Content Include="Views\Profile\Settings.cshtml" />
     <Content Include="Views\Admin\EditUser.cshtml" />
-    <Content Include="Views\Admin\DeleteUser.cshtml" />
     <Content Include="Views\Test\Home.cshtml" />
-    <Content Include="Views\Test\TestsEditor.cshtml" />
-    <Content Include="Views\Test\DeleteTest.cshtml" />
-    <Content Include="Views\Test\EditTest.cshtml" />
+    <Content Include="Views\Moderator\TestsEditor.cshtml" />
+    <Content Include="Views\Moderator\DeleteTest.cshtml" />
+    <Content Include="Views\Moderator\EditTest.cshtml" />
     <Content Include="Views\Test\Passing.cshtml" />
     <Content Include="Views\Test\TestComplete.cshtml" />
     <Content Include="Views\Test\Statistics.cshtml" />
+    <Content Include="Views\Admin\DeleteUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

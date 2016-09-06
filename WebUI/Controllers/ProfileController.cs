@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Linq;
 using System.Web.Mvc;
 using BLL.Interfaces;
-using Ninject;
-using WebUI.Infrastructure;
 using WebUI.Infrastructure.Mappers;
 using WebUI.ViewModels;
 
@@ -39,9 +36,9 @@ namespace WebUI.Controllers
         [HttpPost]
         public ActionResult Settings(UserViewModel viewModel)
         {
-
+            var user = _userService.GetUser(viewModel.Id);
+            viewModel.TestResults = user.TestResults;
             _userService.UpdateUser(viewModel.ToBllUser());
-
             return RedirectToAction("Information");
         }
         public ActionResult DeleteTestResult(int? id)

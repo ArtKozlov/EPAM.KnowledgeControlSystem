@@ -82,12 +82,6 @@ namespace WebUI.Controllers
                 ModelState.AddModelError("", "User with this address already registered.");
                 return View(viewModel);
             }
-
-            if (viewModel.Age > 100 || viewModel.Age < 0)
-            {
-                ModelState.AddModelError("", "Invalid field of age.");
-                return View(viewModel);
-            }
             var provider = new CustomMembershipProvider();
             if (ModelState.IsValid)
             {

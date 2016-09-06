@@ -18,7 +18,7 @@
                     }
                     @if (User.IsInRole("Moderator"))
                     {
-                        <li>@Html.ActionLink("Moderator room", "TestsEditor", "Test")</li>
+                        <li>@Html.ActionLink("Moderator room", "TestsEditor", "Moderator")</li>
                     }
                     <li>
                         @Html.ActionLink("Settings", "Settings", "Profile")
@@ -26,21 +26,12 @@
                     <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
                 </ul>
             </li>
-            @*@if (User.IsInRole("Admin"))
-            {
-                <li>@Html.ActionLink("Users edit", "UsersEdit", "Admin")</li>
-            }
-            <li>
-                @Html.ActionLink("Your Profile", "ProfileInfo", "Profile", routeValues: null, htmlAttributes: new {title = "Manage"})
-            </li>*@
-            @*<li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>*@
         </ul>
     }
 }
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new {id = "loginLink"})</li>
-        <li>@Html.ActionLink("Register", "Register", "Account")</li>
+        <li>@Html.ActionLink(" Login", "Login", "Account", new {id = "loginLink"}, new { @class="glyphicon glyphicon-log-in" })</li>
     </ul>
 }
