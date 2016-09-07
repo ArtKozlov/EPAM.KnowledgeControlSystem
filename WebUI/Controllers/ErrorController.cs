@@ -12,5 +12,13 @@ namespace WebUI.Controllers
         {
             return View();
         }
+        public ActionResult Error()
+        {
+            return View();
+        }
+        public ActionResult ServerError()
+        {
+            return View();
+        }
     }
 }

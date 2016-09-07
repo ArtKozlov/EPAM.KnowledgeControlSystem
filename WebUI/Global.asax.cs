@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using WebUI.Controllers;
 
 namespace WebUI
 {
@@ -27,23 +25,17 @@ namespace WebUI
 
             if (httpException != null)
             {
-                //string action;
 
-                //switch (httpException.GetHttpCode())
-                //{
-                //    case 404:
-                //        // page not found
-                //        action = "HttpError";
-                //        break;
-                //    default:
-                //        action = "HttpError";
-                //        break;
-                //}
-                Session["error"] = exception.Message;
-                // clear error on server
+                string urlError = @"^4\d{2}$";
+                string serverError = @"^5\d{2}$";
+                if (Regex.IsMatch(httpException.GetHttpCode().ToString(), urlError, RegexOptions.IgnoreCase))
+                    Response.Redirect(String.Format("~/Error/NotFound/?message={0}", exception.Message));
+                if (Regex.IsMatch(httpException.GetHttpCode().ToString(), serverError, RegexOptions.IgnoreCase))
+                    Response.Redirect(String.Format("~/Error/ServerError/?message={0}", exception.Message));
+                else
+                    Response.Redirect(String.Format("~/Error/Error/?message={0}", exception.Message));
                 Server.ClearError();
-
-                Response.Redirect(String.Format("~/Error/NotFound/?message={0}", exception.Message));
+                
             }
         }
     }
