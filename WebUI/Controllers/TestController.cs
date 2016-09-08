@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -23,15 +24,46 @@ namespace WebUI.Controllers
         }
 
         // GET: Test
-        public ActionResult Home(int page = 1)
+       
+        public ActionResult Home(string name, int page = 1)
         {
+
             var model = new HomeViewModel();
-            var allTests = _testService.GetAllTests().Select(u => u.ToMvcTest()).Where(m => m.IsValid);
-            model.Tests = allTests.Skip((page - 1)*2).Take(1);
-            model.PageInfo = new PageInfoViewModel(page, 1, allTests.Count());
+            var tests = new List<TestViewModel>();
+            if (Request.IsAjaxRequest())
+            {
+                tests =
+                    _testService.GetAllTests().Select(u => u.ToMvcTest()).Where(a => a.Name.Contains(name)).ToList();
+                model.Tests = tests.Skip((page - 1) * 2).Take(3);
+                model.PageInfo = new PageInfoViewModel(page, 3, tests.Count());
+            }
+            else
+            {
+
+                tests = _testService.GetAllTests().Select(u => u.ToMvcTest()).Where(m => m.IsValid).ToList();
+                model.Tests = tests.Skip((page - 1) * 2).Take(1);
+                model.PageInfo = new PageInfoViewModel(page, 1, tests.Count());
+            }
             return View(model);
         }
+        //[HttpPost]
+        //public ActionResult Home()
+        //{
+        //    var model = new HomeViewModel();
+        //    var allTests = _testService.GetAllTests().Select(u => u.ToMvcTest()).Where(a => a.Name.Contains(name));
+        //    model.Tests = allTests;
+        // //   model.PageInfo = new PageInfoViewModel(page, 1, allTests.Count());
+        //    return View(model);
+        //}
+        //public ActionResult TestSearch(string name)
+        //{
 
+        //    var model = new HomeViewModel();
+        //    var searcheredTests = _testService.GetAllTests().Select(u => u.ToMvcTest()).Where(a => a.Name.Contains(name));
+        //    model.Tests = searcheredTests;
+        // //   model.PageInfo = new PageInfoViewModel(page, 1, searcheredTests.Count());
+        //    return PartialView(model);
+        //}
         [Authorize(Roles = "User")]
         [HttpPost]
         public ActionResult CreateTest(TestViewModel viewModel)

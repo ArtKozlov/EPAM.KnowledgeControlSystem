@@ -6,7 +6,7 @@
 }
 
 <h1>Moderator room</h1>
-<table class="table">
+<table class="table" id ="deletedTest">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Id)
@@ -40,14 +40,15 @@
             </td>
             <td>
                 @Html.ActionLink("Edit", "EditTest", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "DeleteTest", new { id = item.Id })
+                @Ajax.ActionLink("Delete", "DeleteTest", new { id = item.Id }, new AjaxOptions { Confirm = "Do you want delete '" + item.Name + "'?", UpdateTargetId = "deletedTest" })
             </td>
         </tr>
     }
 
 </table>
 
-
+@Scripts.Render("~/scripts/jquery-1.10.2.min.js")
+@Scripts.Render("~/scripts/jquery.unobtrusive-ajax.min.js")
 
 
 

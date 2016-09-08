@@ -72,7 +72,7 @@ namespace WebUI.Controllers
             {
                 ViewBag.Name = "is not";
             }
-            return View();
+            return PartialView();
         }
     }
 }

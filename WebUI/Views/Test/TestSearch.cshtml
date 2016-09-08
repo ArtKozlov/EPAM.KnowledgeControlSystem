@@ -1,0 +1,16 @@
+﻿@model WebUI.ViewModels.HomeViewModel
+@using (Ajax.BeginForm("Home", new AjaxOptions { UpdateTargetId = "results" }))
+{
+    <input type="text" name="name" />
+    <input type="submit" value="Поиск" />
+}
+<div id="results"></div>
+<div id="searchresults">
+        <h3>Все книги автора : @Html.DisplayNameFor(model => model.Tests.GetEnumerator().Current.Name)</h3>
+        <ul>
+            @foreach (var item in Model.Tests)
+            {
+                <li>@item.Name</li>
+            }
+        </ul>
+</div>
