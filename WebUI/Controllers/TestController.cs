@@ -29,41 +29,22 @@ namespace WebUI.Controllers
         {
 
             var model = new HomeViewModel();
-            var tests = new List<TestViewModel>();
+            List<TestViewModel> tests;
             if (Request.IsAjaxRequest())
             {
                 tests =
                     _testService.GetAllTests().Select(u => u.ToMvcTest()).Where(a => a.Name.Contains(name)).ToList();
-                model.Tests = tests.Skip((page - 1) * 2).Take(3);
+                model.Tests = tests.Skip((page - 1) * 3).Take(3);
                 model.PageInfo = new PageInfoViewModel(page, 3, tests.Count());
+                return PartialView(model);
             }
-            else
-            {
 
                 tests = _testService.GetAllTests().Select(u => u.ToMvcTest()).Where(m => m.IsValid).ToList();
-                model.Tests = tests.Skip((page - 1) * 2).Take(1);
-                model.PageInfo = new PageInfoViewModel(page, 1, tests.Count());
-            }
+                model.Tests = tests.Skip((page - 1) * 2).Take(2);
+                model.PageInfo = new PageInfoViewModel(page, 2, tests.Count());
             return View(model);
         }
-        //[HttpPost]
-        //public ActionResult Home()
-        //{
-        //    var model = new HomeViewModel();
-        //    var allTests = _testService.GetAllTests().Select(u => u.ToMvcTest()).Where(a => a.Name.Contains(name));
-        //    model.Tests = allTests;
-        // //   model.PageInfo = new PageInfoViewModel(page, 1, allTests.Count());
-        //    return View(model);
-        //}
-        //public ActionResult TestSearch(string name)
-        //{
 
-        //    var model = new HomeViewModel();
-        //    var searcheredTests = _testService.GetAllTests().Select(u => u.ToMvcTest()).Where(a => a.Name.Contains(name));
-        //    model.Tests = searcheredTests;
-        // //   model.PageInfo = new PageInfoViewModel(page, 1, searcheredTests.Count());
-        //    return PartialView(model);
-        //}
         [Authorize(Roles = "User")]
         [HttpPost]
         public ActionResult CreateTest(TestViewModel viewModel)

@@ -231,7 +231,6 @@
     <Content Include="Views\Admin\DeleteUser.cshtml" />
     <Content Include="Views\Error\ServerError.cshtml" />
     <Content Include="Views\Error\Error.cshtml" />
-    <Content Include="Views\Test\TestSearch.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

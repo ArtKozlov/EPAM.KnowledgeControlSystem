@@ -1,52 +1,60 @@
 ﻿
 @model IEnumerable<WebUI.ViewModels.TestViewModel>
 @{
-    ViewBag.Title = "TestEdit";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Moderator room";
 }
-
-<h1>Moderator room</h1>
-<table class="table" id ="deletedTest">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Creator)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsValid)
-        </th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+<div id="testsEditor">
+    <h1>Moderator room</h1>
+    <div>
+        <h3>Search:</h3>
+        @using (Ajax.BeginForm("TestsEditor", new { page = 1 }, new AjaxOptions { UpdateTargetId = "testsEditor" }))
+        {
+            <input type="text" name="name" />
+            <input type="submit" value="Поиск" />
+        }
+    </div>
+    <table class="table">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                    @Html.DisplayFor(modelItem => item.Creator)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsValid)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "EditTest", new { id = item.Id }) |
-                @Ajax.ActionLink("Delete", "DeleteTest", new { id = item.Id }, new AjaxOptions { Confirm = "Do you want delete '" + item.Name + "'?", UpdateTargetId = "deletedTest" })
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Creator)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsValid)
+            </th>
         </tr>
-    }
 
-</table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
 
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Creator)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsValid)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "EditTest", new { id = item.Id }) |
+                    @Ajax.ActionLink("Delete", "DeleteTest", new { id = item.Id },
+                   new AjaxOptions { Confirm = "Do you want delete '" + item.Name + "'?", UpdateTargetId = "testsEditor" })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
 @Scripts.Render("~/scripts/jquery-1.10.2.min.js")
 @Scripts.Render("~/scripts/jquery.unobtrusive-ajax.min.js")
 

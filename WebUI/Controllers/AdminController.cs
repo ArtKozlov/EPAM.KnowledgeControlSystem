@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using BLL.Interfaces;
@@ -20,9 +21,16 @@ namespace WebUI.Controllers
             _roleService = roleService;
         }
 
-        public ActionResult UsersEditor()
-        {
-            var model = _userService.GetAllUsers().Select(u => u.ToMvcUser());
+        public ActionResult UsersEditor(string name)
+        { 
+            List<UserViewModel> model;
+            if (Request.IsAjaxRequest())
+            {
+                model = _userService.GetAllUsers().Select(u => u.ToMvcUser()).Where(a => a.Name.Contains(name) || a.Email.Contains(name)).ToList();
+                return PartialView(model);
+            }
+
+            model = _userService.GetAllUsers().Select(u => u.ToMvcUser()).ToList();
 
             return View(model);
         }
@@ -57,7 +65,7 @@ namespace WebUI.Controllers
             {
                 ViewBag.Name = "is not";
             }
-            return View();
+            return PartialView();
         }
     }
 }

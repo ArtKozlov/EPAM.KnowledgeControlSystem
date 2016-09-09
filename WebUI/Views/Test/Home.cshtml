@@ -1,52 +1,55 @@
 ﻿@using WebUI.Helpers
 @model WebUI.ViewModels.HomeViewModel
-@using (Ajax.BeginForm("Home", new { page = 1}, new AjaxOptions { UpdateTargetId = "results" }))
-{
-    <input type="text" name="name" />
-    <input type="submit" value="Поиск" />
-}
-
-<table class="table" id="results">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Tests.GetEnumerator().Current.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Tests.GetEnumerator().Current.Creator)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Tests.GetEnumerator().Current.Time)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model.Tests)
-    {
-        if (item.IsValid)
+<div id="results">
+    <div>
+        <h3>Search:</h3>
+        @using (Ajax.BeginForm("Home", new {page = 1}, new AjaxOptions {UpdateTargetId = "results"}))
         {
-            <tr>
-                <td>
-                    @Html.ActionLink(item.Name, "Passing", new {id = item.Id})
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Creator)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Time)
-                </td>
-            </tr>
+            <input type="text" name="name"/>
+            <input type="submit" value="Поиск"/>
         }
-    }
+    </div>
+    <h3>List of tests</h3>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Tests.GetEnumerator().Current.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tests.GetEnumerator().Current.Creator)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tests.GetEnumerator().Current.Time)
+            </th>
+            <th></th>
+        </tr>
 
-</table>
+        @foreach (var item in Model.Tests)
+        {
+            if (item.IsValid)
+            {
+                <tr>
+                    <td>
+                        @Html.ActionLink(item.Name, "Passing", new {id = item.Id})
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Creator)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Time)
+                    </td>
+                </tr>
+            }
+        }
 
+    </table>
+    <div>
+        @Html.PageTopLink(Model.PageInfo, x => Url.Action("Home", new {page = x}))
 
-<div>
-    @Html.PageTopLink(Model.PageInfo, x => Url.Action("Home", new { page = x }))
-    <===
-    @Html.PageLinks(Model.PageInfo, x => Url.Action("Home", new {page = x}))
-    ===>
-    @Html.PageEndLink(Model.PageInfo, x => Url.Action("Home", new {page = x}))
+        @Html.PageLinks(Model.PageInfo, x => Url.Action("Home", new {page = x}))
+
+        @Html.PageEndLink(Model.PageInfo, x => Url.Action("Home", new {page = x}))
+    </div>
 </div>
 @Scripts.Render("~/scripts/jquery-1.10.2.min.js")
 @Scripts.Render("~/scripts/jquery.unobtrusive-ajax.min.js")

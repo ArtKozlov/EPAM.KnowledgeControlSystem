@@ -14,7 +14,7 @@ namespace WebUI.Helpers
                 PageInfoViewModel pageInfoViewModel, Func<int, string> pageUrl)
         {
             StringBuilder result = new StringBuilder();
-            if (pageInfoViewModel.TotalItems <= 4)
+            if (pageInfoViewModel.TotalPages <= 4)
             {
                 for (int i = 1; i <= pageInfoViewModel.TotalPages; i++)
                 {
@@ -70,8 +70,7 @@ namespace WebUI.Helpers
         private static void CreatePageLink(int i, ref Func<int, string> pageUrl, ref StringBuilder result, string buttonType)
         {
             TagBuilder tag = new TagBuilder("a");
-            tag.MergeAttribute("href", pageUrl(i));         
-
+            tag.MergeAttribute("href", pageUrl(i));
             if (buttonType == "default")
             {
                 tag.SetInnerText(i.ToString());
@@ -87,9 +86,9 @@ namespace WebUI.Helpers
             if (buttonType == "primary")
             {
                 if(i == 1)
-                    tag.InnerHtml = "top";
+                    tag.InnerHtml = "<<";
                 else
-                    tag.InnerHtml = "end";
+                    tag.InnerHtml = ">>";
                 tag.AddCssClass("btn btn-primary");
             }
             result.Append(tag);

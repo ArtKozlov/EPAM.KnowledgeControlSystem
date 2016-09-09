@@ -1,7 +1,21 @@
-﻿@model IEnumerable<WebUI.ViewModels.UserViewModel>
-<h1>Admin room</h1>
-<table class="table">
-<tr>
+﻿@using WebUI.Helpers
+@model IEnumerable<WebUI.ViewModels.UserViewModel>
+@{
+    ViewBag.Title = "Admin room";
+}
+<div id="usersEditor">
+    <h1>Admin room</h1>
+    <div>
+        <h3>Search:</h3>
+        @using (Ajax.BeginForm("UsersEditor", new { page = 1 }, new AjaxOptions { UpdateTargetId = "usersEditor" }))
+        {
+            <input type="text" name="name" />
+            <input type="submit" value="Поиск" />
+        }
+    </div>
+
+    <table class="table" id="deletedUser">
+        <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Id)
             </th>
@@ -43,10 +57,14 @@
                     }
                 </td>
                 <td>
-                        @Html.ActionLink("Edit", "EditUser", new {  email=item.Email }) |
-                        @Html.ActionLink("Delete", "DeleteUser", new { id=item.Id  })
-                    </td>
+                    @Html.ActionLink("Edit", "EditUser", new { email = item.Email }) |
+                    @Ajax.ActionLink("Delete", "DeleteUser", new { id = item.Id },
+                    new AjaxOptions { Confirm = "Do you want delete '" + item.Name + "'?", UpdateTargetId = "usersEditor" })
+                </td>
             </tr>
         }
 
-</table>
+    </table>
+</div>
+@Scripts.Render("~/scripts/jquery-1.10.2.min.js")
+@Scripts.Render("~/scripts/jquery.unobtrusive-ajax.min.js")

@@ -1,92 +1,93 @@
 ﻿
 @model WebUI.ViewModels.UserViewModel
 @{
-    ViewBag.Title = "ProfileInfo";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Profile";
 }
-
-<h2>Profile Information</h2>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <td>
-            @Html.DisplayFor(modelItem => Model.Email)
-        </td>
-    </tr>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <td>
-            @Html.DisplayFor(modelItem => Model.Name)
-        </td>
-    </tr>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Age)
-        </th>
-        <td>
-            @Html.DisplayFor(modelItem => Model.Age)
-        </td>
-    </tr>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Roles)
-        </th>
-        <td>
-            @foreach (var elem in Model.Roles)
-            {
-                @Html.DisplayFor(modelItem => elem.Name)
-                <br/>
-            }
-        </td>
-
-    </tr>
-</table>
-
-<h2>Your completed tests</h2>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.TestResults.GetEnumerator().Current.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TestResults.GetEnumerator().Current.GoodAnswers)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TestResults.GetEnumerator().Current.BadAnswers)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TestResults.GetEnumerator().Current.DateCompleted)
-        </th>
-    </tr>
-
-    @foreach (var item in Model.TestResults)
-    {
+<div id="testsEditor">
+    <h2>Profile Information</h2>
+    <table class="table">
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GoodAnswers)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BadAnswers)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateCompleted)
-            </td>
-            <td>
-                @Html.ActionLink("Delete", "DeleteTestResult", new { id = item.Id }) 
+                @Html.DisplayFor(modelItem => Model.Email)
             </td>
         </tr>
-    }
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Name)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Age)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Age)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Roles)
+            </th>
+            <td>
+                @foreach (var elem in Model.Roles)
+            {
+                    @Html.DisplayFor(modelItem => elem.Name)
+                    <br />
+                }
+            </td>
 
-</table>
+        </tr>
+    </table>
 
+    <h2>Your completed tests</h2>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TestResults.GetEnumerator().Current.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TestResults.GetEnumerator().Current.GoodAnswers)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TestResults.GetEnumerator().Current.BadAnswers)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TestResults.GetEnumerator().Current.DateCompleted)
+            </th>
+        </tr>
 
+        @foreach (var item in Model.TestResults)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GoodAnswers)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BadAnswers)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateCompleted)
+                </td>
+                <td>
+                    @Ajax.ActionLink("Delete", "DeleteTestResult", new { id = item.Id },
+                   new AjaxOptions { Confirm = "Do you want delete '" + item.Name + "'?", UpdateTargetId = "testsEditor" })
+                </td>
+            </tr>
+        }
 
+    </table>
+</div>
+
+@Scripts.Render("~/scripts/jquery-1.10.2.min.js")
+@Scripts.Render("~/scripts/jquery.unobtrusive-ajax.min.js")
 
 

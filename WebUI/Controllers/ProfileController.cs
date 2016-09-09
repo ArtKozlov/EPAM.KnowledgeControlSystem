@@ -21,8 +21,6 @@ namespace WebUI.Controllers
         public ActionResult Information()
         {
             var model = _userService.GetUserByEmail(User.Identity.Name).ToMvcUser();
-            //var testResult = _testResultService.GetAllTestResults().Where(m => m.ToMvcTestResult().UserId == user.Id);
-            //var model = new ProfileViewModel(testResult, user);
             return View(model);
         }
         [HttpGet]

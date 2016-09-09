@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using BLL.Interfaces;
@@ -24,9 +25,16 @@ namespace WebUI.Controllers
 
         }
         
-        public ActionResult TestsEditor()
+        public ActionResult TestsEditor(string name)
         {
-            var model = _testService.GetAllTests().Select(u => u.ToMvcTest());
+            List<TestViewModel> model;
+            if (Request.IsAjaxRequest())
+            {
+                model = _testService.GetAllTests().Select(u => u.ToMvcTest()).Where(a => a.Name.Contains(name) || a.Creator.Contains(name)).ToList();
+                return PartialView(model);
+            }
+
+            model = _testService.GetAllTests().Select(u => u.ToMvcTest()).ToList();
 
             return View(model);
         }
