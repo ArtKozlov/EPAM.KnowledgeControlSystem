@@ -20,16 +20,19 @@ namespace BLL.Services
         public void CreateTestResult(TestResultDTO test)
         {
             _uow.TestResults.Create(test.ToTestResultEntity());
+            _uow.Save();
         }
 
         public void DeleteTestResult(int id)
         {
             _uow.TestResults.Delete(id);
+            _uow.Save();
         }
 
         public void DeleteTestResult(TestResultDTO test)
         {
             _uow.TestResults.Delete(test.ToTestResultEntity());
+            _uow.Save();
         }
 
         public IEnumerable<TestResultDTO> GetAllTestResults()

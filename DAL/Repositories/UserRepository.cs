@@ -51,8 +51,6 @@ namespace DAL.Repositories
             entity.Age = user.Age;
             entity.Roles.Clear();
             entity.Roles = user.Roles;
-            entity.TestResults.Clear();
-            entity.TestResults = user.TestResults;
             _context.Entry(entity).State = EntityState.Modified;
         }
         public void UpdatePassword(User user)

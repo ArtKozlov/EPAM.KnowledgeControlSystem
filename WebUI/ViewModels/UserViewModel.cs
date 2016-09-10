@@ -54,7 +54,6 @@ namespace WebUI.ViewModels
 
         [Display(Name = "Make admin")]
         public bool IsAdmin { get; set; }
-
         [Display(Name = "Roles")]
         public ICollection<RoleDTO> Roles { get; set; }
         [Display(Name = "Results of Tests")]

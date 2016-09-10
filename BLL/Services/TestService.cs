@@ -64,8 +64,13 @@ namespace BLL.Services
                     rhs.Add(answer.Value);
                 else
                 {
-                    rhs.Add("");
+                    rhs.Add(String.Empty);
                 }
+            }
+            foreach (var answer in entityModel.Answers)
+            {
+                if (ReferenceEquals(answer.Value, null))
+                    answer.Value = String.Empty;
             }
             int goodAnswers = 0;
             for (int i = 0; i < test.Answers.Count; i++)

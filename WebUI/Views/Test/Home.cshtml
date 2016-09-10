@@ -1,9 +1,14 @@
 ﻿@using WebUI.Helpers
 @model WebUI.ViewModels.HomeViewModel
+@{
+    ViewBag.Title = "Home";
+}
+
+
 <div id="results">
     <div>
         <h3>Search:</h3>
-        @using (Ajax.BeginForm("Home", new {page = 1}, new AjaxOptions {UpdateTargetId = "results"}))
+        @using (Ajax.BeginForm("BookSearch", new {page = 1}, new AjaxOptions {UpdateTargetId = "results"}))
         {
             <input type="text" name="name"/>
             <input type="submit" value="Поиск"/>

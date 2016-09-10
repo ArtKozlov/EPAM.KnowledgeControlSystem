@@ -27,14 +27,13 @@ namespace WebUI.Controllers
         
         public ActionResult TestsEditor(string name)
         {
-            List<TestViewModel> model;
             if (Request.IsAjaxRequest())
             {
-                model = _testService.GetAllTests().Select(u => u.ToMvcTest()).Where(a => a.Name.Contains(name) || a.Creator.Contains(name)).ToList();
-                return PartialView(model);
+                var ajaxModel = _testService.GetAllTests().Select(u => u.ToMvcTest()).Where(a => a.Name.Contains(name) || a.Creator.Contains(name));
+                return PartialView(ajaxModel);
             }
 
-            model = _testService.GetAllTests().Select(u => u.ToMvcTest()).ToList();
+            var model = _testService.GetAllTests().Select(u => u.ToMvcTest());
 
             return View(model);
         }
@@ -44,13 +43,7 @@ namespace WebUI.Controllers
         {
             var model = new TestViewModel();
             if (!ReferenceEquals(id, null))
-            {
                 model = _testService.GetTest(Convert.ToInt32(id)).ToMvcTest();
-            }
-            else
-            {
-                model = null;
-            }
             return View(model);
         }
         
@@ -66,21 +59,25 @@ namespace WebUI.Controllers
                 _answerService.UpdateAnswer(answer);
             }
             _testService.UpdateTest(viewModel.ToBllTest());
-            return Redirect(Url.Action("TestsEditor", "Moderator"));
+            return Redirect(Url.Action("TestsEditor"));
         }
 
-        public ActionResult DeleteTest(int? id)
+        public ActionResult DeleteTest(int? id, string name)
         {
             if (!ReferenceEquals(id, null))
             {
                 _testService.DeleteTest(Convert.ToInt32(id));
-                ViewBag.Name = "is";
             }
-            else
+            name = String.Empty;
+            if (Request.IsAjaxRequest())
             {
-                ViewBag.Name = "is not";
+                var ajaxModel = _testService.GetAllTests().Select(u => u.ToMvcTest()).Where(a => a.Name.Contains(name) || a.Creator.Contains(name));
+                return PartialView("TestsEditor", ajaxModel);
             }
-            return PartialView();
+
+            var model = _testService.GetAllTests().Select(u => u.ToMvcTest());
+
+            return View("TestsEditor",model);
         }
     }
 }

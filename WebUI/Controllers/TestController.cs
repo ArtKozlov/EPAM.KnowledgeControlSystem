@@ -32,10 +32,9 @@ namespace WebUI.Controllers
             List<TestViewModel> tests;
             if (Request.IsAjaxRequest())
             {
-                tests =
-                    _testService.GetAllTests().Select(u => u.ToMvcTest()).Where(a => a.Name.Contains(name)).ToList();
-                model.Tests = tests.Skip((page - 1) * 3).Take(3);
-                model.PageInfo = new PageInfoViewModel(page, 3, tests.Count());
+                tests = _testService.GetAllTests().Select(u => u.ToMvcTest()).Where(m => m.IsValid).ToList();
+                model.Tests = tests.Skip((page - 1) * 2).Take(2);
+                model.PageInfo = new PageInfoViewModel(page, 2, tests.Count());
                 return PartialView(model);
             }
 
@@ -44,7 +43,25 @@ namespace WebUI.Controllers
                 model.PageInfo = new PageInfoViewModel(page, 2, tests.Count());
             return View(model);
         }
+        public ActionResult BookSearch(string name, int page = 1)
+        {
 
+            var model = new HomeViewModel();
+            List<TestViewModel> tests;
+            if (Request.IsAjaxRequest())
+            {
+                tests =
+                    _testService.GetAllTests().Select(u => u.ToMvcTest()).Where(a => a.Name.Contains(name)).ToList();
+                model.Tests = tests.Skip((page - 1) * 3).Take(3);
+                model.PageInfo = new PageInfoViewModel(page, 3, tests.Count());
+                return PartialView("Home",model);
+            }
+
+            tests =  _testService.GetAllTests().Select(u => u.ToMvcTest()).Where(a => a.Name.Contains(name)).ToList();
+            model.Tests = tests.Skip((page - 1) * 3).Take(3);
+            model.PageInfo = new PageInfoViewModel(page, 3, tests.Count());
+            return View("Home", model);
+        }
         [Authorize(Roles = "User")]
         [HttpPost]
         public ActionResult CreateTest(TestViewModel viewModel)
@@ -85,14 +102,18 @@ namespace WebUI.Controllers
             resultModel.UserId = _userService.GetUserByEmail(User.Identity.Name).Id;
             resultModel.DateCompleted = DateTime.Now;
             _testResultService.CreateTestResult(resultModel);
-            var user = _userService.GetUserByEmail(User.Identity.Name);
-            user.TestResults.Add(resultModel);
-            _userService.UpdateUser(user);
             return RedirectToAction("TestComplete", resultModel.ToMvcTestResult());
         }
-        public ActionResult Statistics()
+        public ActionResult Statistics(string name)
         {
-            var model = _testService.GetAllTests().Select(u => u.ToMVCStatistics()).Where(m =>m.BadAnswers != 0 || m.GoodAnswers != 0);
+            List<StatisticsViewModel> model;
+            if (Request.IsAjaxRequest())
+            {
+                model = _testService.GetAllTests().Select(u => u.ToMVCStatistics()).Where(a => a.Name.Contains(name)&& (a.BadAnswers != 0 || a.GoodAnswers != 0)).ToList();
+                return PartialView(model);
+            }
+
+            model = _testService.GetAllTests().Select(u => u.ToMVCStatistics()).Where(m =>m.BadAnswers != 0 || m.GoodAnswers != 0).ToList();
             return View(model);
         }
         public ActionResult TestComplete(TestResultViewModel testViewModel)

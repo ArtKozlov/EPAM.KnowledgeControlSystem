@@ -44,7 +44,7 @@ namespace BLL.Mapping
                 Password = userDto.Password,
                 Age = userDto.Age,
                 Roles = userDto.Roles.ToRoleCollection().ToList(),
-                TestResults = userDto.TestResults.ToTestResultCollection().ToList()
+                //TestResults = userDto.TestResults.ToTestResultCollection().ToList()
 
             };
         }
@@ -62,6 +62,7 @@ namespace BLL.Mapping
                 Id = roleEntity.Id,
                 Name = roleEntity.Name,
                 Description = roleEntity.Description
+                
             };
         }
 
@@ -241,6 +242,7 @@ namespace BLL.Mapping
         }
         #endregion
         #region private methods
+
         private static IEnumerable<Role> ToRoleCollection(this ICollection<RoleDTO> collectionRoleDto)
         {
             foreach (var roleDTO in collectionRoleDto)

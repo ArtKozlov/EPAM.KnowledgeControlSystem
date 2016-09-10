@@ -29,7 +29,6 @@ namespace WebUI.Controllers
                 model = _userService.GetAllUsers().Select(u => u.ToMvcUser()).Where(a => a.Name.Contains(name) || a.Email.Contains(name)).ToList();
                 return PartialView(model);
             }
-
             model = _userService.GetAllUsers().Select(u => u.ToMvcUser()).ToList();
 
             return View(model);
@@ -46,26 +45,34 @@ namespace WebUI.Controllers
         public ActionResult EditUser(UserViewModel viewModel)
         {
             if (viewModel.IsAdmin)
-                viewModel.Roles.Add(_roleService.GetRole(1));
+            {
+                viewModel.Roles.Add(_roleService.GetRoleByName("Admin"));
+            }
             if (viewModel.IsModerator)
-                viewModel.Roles.Add(_roleService.GetRole(2));
-
-                viewModel.Roles.Add(_roleService.GetRole(3));
+            {
+                viewModel.Roles.Add(_roleService.GetRoleByName("Moderator"));
+            }
+            viewModel.Roles.Add(_roleService.GetRoleByName("User"));
             _userService.UpdateUser(viewModel.ToBllUser());
             return Redirect(Url.Action("UsersEditor", "Admin"));
         }
-        public ActionResult DeleteUser(int? id)
+        public ActionResult DeleteUser(int? id, string name)
         {
             if (!ReferenceEquals(id, null))
             {
                 _userService.DeleteUser(Convert.ToInt32(id));
-                ViewBag.Name = "is";
             }
-            else
+            List<UserViewModel> model;
+            name = String.Empty;
+            if (Request.IsAjaxRequest())
             {
-                ViewBag.Name = "is not";
+                model = _userService.GetAllUsers().Select(u => u.ToMvcUser()).Where(a => a.Name.Contains(name) || a.Email.Contains(name)).ToList();
+                return PartialView("UsersEditor",model);
             }
-            return PartialView();
+
+            model = _userService.GetAllUsers().Select(u => u.ToMvcUser()).ToList();
+
+            return View("UsersEditor",model);
         }
     }
 }

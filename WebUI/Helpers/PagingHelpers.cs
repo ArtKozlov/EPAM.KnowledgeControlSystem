@@ -70,7 +70,10 @@ namespace WebUI.Helpers
         private static void CreatePageLink(int i, ref Func<int, string> pageUrl, ref StringBuilder result, string buttonType)
         {
             TagBuilder tag = new TagBuilder("a");
+            tag.MergeAttribute("data-ajax", "true");
             tag.MergeAttribute("href", pageUrl(i));
+            tag.MergeAttribute("data-ajax-mode", "replace");
+            tag.MergeAttribute("data-ajax-update", "#results");
             if (buttonType == "default")
             {
                 tag.SetInnerText(i.ToString());

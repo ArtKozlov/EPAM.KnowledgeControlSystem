@@ -1,10 +1,10 @@
 ﻿
 @model WebUI.ViewModels.TestViewModel
 @{
-    ViewBag.Title = "EditTest";
+    ViewBag.Title = "Edit test";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@using (Html.BeginForm("EditTest", "Test", FormMethod.Post,
+@using (Html.BeginForm("EditTest", "Moderator", FormMethod.Post,
                                                     new { @class = "form-horizontal", role = "form" }))
 {
     <div class="form-group">

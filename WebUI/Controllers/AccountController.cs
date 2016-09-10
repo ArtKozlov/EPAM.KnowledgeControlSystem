@@ -60,15 +60,10 @@ namespace WebUI.Controllers
         {
             if (User.Identity.IsAuthenticated)
                 return Redirect(Url.Action("Information", "Profile"));
-            return View();
-        }
 
-        [HttpGet]
-        [AllowAnonymous]
-        public ActionResult RegisterComplited()
-        {
             return View();
         }
+        
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -90,7 +85,7 @@ namespace WebUI.Controllers
                 if (membershipUserCreated == true)
                 {
                     FormsAuthentication.SetAuthCookie(viewModel.Email, false);
-                    return RedirectToAction("RegisterComplited", "Account");
+                    return RedirectToAction("Home", "Test");
                 }
                 else
                 {
