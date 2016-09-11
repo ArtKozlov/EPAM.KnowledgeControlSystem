@@ -3,6 +3,7 @@
     ViewBag.Title = "Create test";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@section Search{}
 <h1>Create test</h1>
 @using (Html.BeginForm("CreateTest", "Test", FormMethod.Post,
                                         new { @class = "form-horizontal", role = "form", align = "center"}))

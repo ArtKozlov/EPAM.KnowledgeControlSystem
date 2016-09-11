@@ -164,19 +164,22 @@
     <Compile Include="ViewModels\PageInfoViewModel.cs" />
     <Compile Include="ViewModels\ProfileViewModel.cs" />
     <Compile Include="ViewModels\RegisterViewModel.cs" />
+    <Compile Include="ViewModels\Statistics.cs" />
     <Compile Include="ViewModels\StatisticsViewModel.cs" />
+    <Compile Include="ViewModels\TestEditorViewModel.cs" />
     <Compile Include="ViewModels\TestResultViewModel.cs" />
     <Compile Include="ViewModels\TestViewModel.cs" />
+    <Compile Include="ViewModels\UserEditorVIewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Images\androiddev101.jpg" />
+    <Content Include="Content\Images\httpErrors\pageNotFound.jpg" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\Images\error.png" />
-    <Content Include="Content\Images\internal-server-error.jpg" />
-    <Content Include="Content\Images\medal.png" />
+    <Content Include="Content\Images\httpErrors\error.png" />
+    <Content Include="Content\Images\httpErrors\serverError.jpg" />
+    <Content Include="Content\Images\shortcutIcon.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

@@ -1,43 +1,44 @@
 ﻿
-@model IEnumerable<WebUI.ViewModels.StatisticsViewModel>
+@using WebUI.Helpers
+@model WebUI.ViewModels.StatisticsViewModel
 @{
     ViewBag.Title = "Statistics";
 }
-
+@section Search{}
 <div id="results">
     <div>
         <h3>Search:</h3>
-        @using (Ajax.BeginForm("Statistics", new {page = 1}, new AjaxOptions {UpdateTargetId = "results"}))
+        @using (Ajax.BeginForm("TestStatisticsSearch", new {page = 1}, new AjaxOptions {UpdateTargetId = "results"}))
         {
             <input type="text" name="name"/>
-            <input type="submit" value="Поиск"/>
+            <input type="submit" value="Search"/>
         }
     </div>
     <h2>Statistics</h2>
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayNameFor(model => model.StatisticsOfTests.GetEnumerator().Current.Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Creator)
+                @Html.DisplayNameFor(model => model.StatisticsOfTests.GetEnumerator().Current.Creator)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.GoodAnswers)
+                @Html.DisplayNameFor(model => model.StatisticsOfTests.GetEnumerator().Current.GoodAnswers)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BadAnswers)
+                @Html.DisplayNameFor(model => model.StatisticsOfTests.GetEnumerator().Current.BadAnswers)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Answers)
+                @Html.DisplayNameFor(model => model.StatisticsOfTests.GetEnumerator().Current.Answers)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Percentage)
+                @Html.DisplayNameFor(model => model.StatisticsOfTests.GetEnumerator().Current.Percentage)
             </th>
             <th></th>
         </tr>
 
-        @foreach (var item in Model)
+        @foreach (var item in Model.StatisticsOfTests)
         {
             <tr>
                 <td>
@@ -62,6 +63,21 @@
         }
 
     </table>
+    <div>
+        @if (Model.PageInfo.TotalPages <= 4)
+        {
+            @Html.FewPageLinks(Model.PageInfo, x => Url.Action("Statistics", new { page = x }))
+        }
+        else
+        {
+            @Html.PageTopLink(Model.PageInfo, x => Url.Action("Statistics", new { page = x }))
+
+            @Html.PageLinks(Model.PageInfo, x => Url.Action("Statistics", new { page = x }))
+
+            @Html.PageEndLink(Model.PageInfo, x => Url.Action("Statistics", new { page = x }))
+        }
+
+    </div>
 </div>
 @Scripts.Render("~/scripts/jquery-1.10.2.min.js")
 @Scripts.Render("~/scripts/jquery.unobtrusive-ajax.min.js")

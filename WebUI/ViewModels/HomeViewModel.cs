@@ -9,5 +9,6 @@ namespace WebUI.ViewModels
     {
         public IEnumerable<TestViewModel> Tests { get; set; }
         public PageInfoViewModel PageInfo { get; set; }
+        public IEnumerable<TestViewModel> SearchedTests { get; set; }
     }
 }

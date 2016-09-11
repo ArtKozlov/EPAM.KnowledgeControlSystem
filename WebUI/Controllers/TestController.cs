@@ -25,41 +25,39 @@ namespace WebUI.Controllers
 
         // GET: Test
        
-        public ActionResult Home(string name, int page = 1)
+        public ActionResult Home( int page = 1)
         {
-
-            var model = new HomeViewModel();
             List<TestViewModel> tests;
+            var model = new HomeViewModel();
+
+            tests =
+                _testService.GetAllTests()
+                    .Select(u => u.ToMvcTest())
+                    .Where(m => m.IsValid)
+                    .ToList();
+            model.Tests = tests.Skip((page - 1)*2).Take(2);
+            model.PageInfo = new PageInfoViewModel(page, 2, tests.Count);
             if (Request.IsAjaxRequest())
             {
-                tests = _testService.GetAllTests().Select(u => u.ToMvcTest()).Where(m => m.IsValid).ToList();
-                model.Tests = tests.Skip((page - 1) * 2).Take(2);
-                model.PageInfo = new PageInfoViewModel(page, 2, tests.Count());
                 return PartialView(model);
             }
-
-                tests = _testService.GetAllTests().Select(u => u.ToMvcTest()).Where(m => m.IsValid).ToList();
-                model.Tests = tests.Skip((page - 1) * 2).Take(2);
-                model.PageInfo = new PageInfoViewModel(page, 2, tests.Count());
             return View(model);
         }
-        public ActionResult BookSearch(string name, int page = 1)
+        public ActionResult TestSearch(string searchItem, int page = 1)
         {
-
-            var model = new HomeViewModel();
             List<TestViewModel> tests;
+            var model = new HomeViewModel();
+            tests =
+                _testService.GetAllTests()
+                    .Select(u => u.ToMvcTest())
+                    .Where(m => m.IsValid && m.Name.Contains(searchItem))
+                    .ToList();
+            model.Tests = tests.Skip((page - 1) * 2).Take(2);
+            model.PageInfo = new PageInfoViewModel(page, 2, tests.Count);
             if (Request.IsAjaxRequest())
             {
-                tests =
-                    _testService.GetAllTests().Select(u => u.ToMvcTest()).Where(a => a.Name.Contains(name)).ToList();
-                model.Tests = tests.Skip((page - 1) * 3).Take(3);
-                model.PageInfo = new PageInfoViewModel(page, 3, tests.Count());
-                return PartialView("Home",model);
+                return PartialView("Home", model);
             }
-
-            tests =  _testService.GetAllTests().Select(u => u.ToMvcTest()).Where(a => a.Name.Contains(name)).ToList();
-            model.Tests = tests.Skip((page - 1) * 3).Take(3);
-            model.PageInfo = new PageInfoViewModel(page, 3, tests.Count());
             return View("Home", model);
         }
         [Authorize(Roles = "User")]
@@ -104,17 +102,44 @@ namespace WebUI.Controllers
             _testResultService.CreateTestResult(resultModel);
             return RedirectToAction("TestComplete", resultModel.ToMvcTestResult());
         }
-        public ActionResult Statistics(string name)
+
+        public ActionResult TestStatisticsSearch(string name, int page = 1)
         {
-            List<StatisticsViewModel> model;
+
+            var model = new StatisticsViewModel();
+            List<Statistics> tests;
             if (Request.IsAjaxRequest())
             {
-                model = _testService.GetAllTests().Select(u => u.ToMVCStatistics()).Where(a => a.Name.Contains(name)&& (a.BadAnswers != 0 || a.GoodAnswers != 0)).ToList();
+                tests = _testService.GetAllTests().Select(u => u.ToMVCStatistics()).Where(a => a.Name.Contains(name) 
+                    && (a.BadAnswers != 0 || a.GoodAnswers != 0)).ToList();
+                model.StatisticsOfTests = tests.Skip((page - 1) * 3).Take(3);
+                model.PageInfo = new PageInfoViewModel(page, 3, tests.Count());
+                return PartialView("Statistics", model);
+            }
+
+            tests = _testService.GetAllTests().Select(u => u.ToMVCStatistics()).Where(m => m.BadAnswers != 0 || m.GoodAnswers != 0).ToList();
+            model.StatisticsOfTests = tests.Skip((page - 1) * 3).Take(3);
+            model.PageInfo = new PageInfoViewModel(page, 3, tests.Count());
+            return View("Statistics", model);
+        }
+        public ActionResult Statistics(string name, int page = 1)
+        {
+            var model = new StatisticsViewModel();
+            List<Statistics> tests;
+            if (Request.IsAjaxRequest())
+            {
+                tests = _testService.GetAllTests().Select(u => u.ToMVCStatistics()).Where(a => a.Name.Contains(name) 
+                && (a.BadAnswers != 0 || a.GoodAnswers != 0)).ToList();
+                model.StatisticsOfTests = tests.Skip((page - 1) * 2).Take(2);
+                model.PageInfo = new PageInfoViewModel(page, 2, tests.Count());
                 return PartialView(model);
             }
 
-            model = _testService.GetAllTests().Select(u => u.ToMVCStatistics()).Where(m =>m.BadAnswers != 0 || m.GoodAnswers != 0).ToList();
+                tests = _testService.GetAllTests().Select(u => u.ToMVCStatistics()).Where(m => m.BadAnswers != 0 || m.GoodAnswers != 0).ToList();
+            model.StatisticsOfTests = tests.Skip((page - 1) * 2).Take(2);
+                model.PageInfo = new PageInfoViewModel(page, 2, tests.Count());
             return View(model);
+
         }
         public ActionResult TestComplete(TestResultViewModel testViewModel)
         {

@@ -25,19 +25,35 @@ namespace WebUI.Controllers
 
         }
         
-        public ActionResult TestsEditor(string name)
+        public ActionResult TestsEditor(string name, int page = 1)
         {
+            var model = new TestEditorViewModel();
+            List<TestViewModel> tests;
+            tests = _testService.GetAllTests().Select(u => u.ToMvcTest()).ToList();
+            model.Tests = tests.Skip((page - 1) * 2).Take(2);
+            model.PageInfo = new PageInfoViewModel(page, 2, tests.Count);
             if (Request.IsAjaxRequest())
             {
-                var ajaxModel = _testService.GetAllTests().Select(u => u.ToMvcTest()).Where(a => a.Name.Contains(name) || a.Creator.Contains(name));
-                return PartialView(ajaxModel);
+                return PartialView(model);
             }
-
-            var model = _testService.GetAllTests().Select(u => u.ToMvcTest());
-
+            
             return View(model);
         }
-        
+        public ActionResult TestSearch(string name, int page = 1)
+        {
+
+            var model = new TestEditorViewModel();
+            List<TestViewModel> tests;
+            tests = _testService.GetAllTests().Select(u => u.ToMvcTest()).Where(a => a.Name.Contains(name) || a.Creator.Contains(name)).ToList();
+            model.Tests = tests.Skip((page - 1) * 3).Take(3);
+            model.PageInfo = new PageInfoViewModel(page, 3, tests.Count);
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView("TestsEditor", model);
+            }
+
+            return View("TestsEditor", model);
+        }
         [HttpGet]
         public ActionResult EditTest(int? id)
         {

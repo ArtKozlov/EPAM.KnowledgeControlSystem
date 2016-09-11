@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace WebUI.ViewModels
 {
-    public class StatisticsViewModel
+    public class UserEditorVIewModel
     {
-        public IEnumerable<Statistics> StatisticsOfTests { get; set; }
+        public IEnumerable<UserViewModel> Users { get; set; }
         public PageInfoViewModel PageInfo { get; set; }
     }
 }

@@ -75,9 +75,9 @@ namespace WebUI.Infrastructure.Mappers
                 Answers = testViewModel.Answers
             };
         }
-        public static StatisticsViewModel ToMVCStatistics(this TestDTO testModel)
+        public static Statistics ToMVCStatistics(this TestDTO testModel)
         {
-            return new StatisticsViewModel()
+            return new Statistics()
             {
                 Name = testModel.Name,
                 BadAnswers = testModel.BadAnswers,

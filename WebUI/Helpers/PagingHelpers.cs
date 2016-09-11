@@ -10,22 +10,25 @@ namespace WebUI.Helpers
 {
     public static class PagingHelpers
     {
+        public static MvcHtmlString FewPageLinks(this HtmlHelper html,
+        PageInfoViewModel pageInfoViewModel, Func<int, string> pageUrl)
+        {
+            StringBuilder result = new StringBuilder();
+
+           for (int i = 1; i <= pageInfoViewModel.TotalPages; i++)
+           {
+               if (i == pageInfoViewModel.PageNumber)
+                   CreatePageLink(i, ref pageUrl, ref result, "info");
+               else
+                   CreatePageLink(i, ref pageUrl, ref result, "default");
+           }
+
+            return MvcHtmlString.Create(result.ToString());
+        }
         public static MvcHtmlString PageLinks(this HtmlHelper html,
                 PageInfoViewModel pageInfoViewModel, Func<int, string> pageUrl)
         {
             StringBuilder result = new StringBuilder();
-            if (pageInfoViewModel.TotalPages <= 4)
-            {
-                for (int i = 1; i <= pageInfoViewModel.TotalPages; i++)
-                {
-                    if (i == pageInfoViewModel.PageNumber)
-                        CreatePageLink(i, ref pageUrl, ref result, "info");
-                    else
-                        CreatePageLink(i, ref pageUrl, ref result, "default");
-                }
-            }
-            else
-            {
                 if (pageInfoViewModel.PageNumber > 2)
                 {
                     CreatePageLink(pageInfoViewModel.PageNumber - 2, ref pageUrl, ref result, "default");
@@ -45,7 +48,6 @@ namespace WebUI.Helpers
                 {
                     CreatePageLink(pageInfoViewModel.PageNumber + 2, ref pageUrl, ref result, "default");
                 }
-            }
 
             return MvcHtmlString.Create(result.ToString());
         }

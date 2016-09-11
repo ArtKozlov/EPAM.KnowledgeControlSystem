@@ -7,12 +7,7 @@ namespace WebUI.ViewModels
 {
     public class ProfileViewModel
     {
-        public ProfileViewModel(IEnumerable<TestResultViewModel> testResult, UserViewModel user)
-        {
-            TestResults = testResult;
-            User = user;
-        }
-        public IEnumerable<TestResultViewModel> TestResults { get; set; }
         public UserViewModel User { get; set; }
+        public PageInfoViewModel PageInfo { get; set; }
     }
 }

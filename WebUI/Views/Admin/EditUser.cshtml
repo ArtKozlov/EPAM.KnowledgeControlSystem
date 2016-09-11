@@ -5,6 +5,7 @@
     ViewBag.Title = "Edit user";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@section Search{}
 @using (Html.BeginForm("EditUser", "Admin", FormMethod.Post,
     new {@class = "form-horizontal", role = "form"}))
 {

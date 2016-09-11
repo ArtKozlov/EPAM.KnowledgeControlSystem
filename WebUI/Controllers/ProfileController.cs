@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using BLL.DTO;
 using BLL.Interfaces;
 using WebUI.Infrastructure.Mappers;
 using WebUI.ViewModels;
@@ -21,11 +23,22 @@ namespace WebUI.Controllers
             _testResultService = testResult;
             _roleService = roleService;
         }
-        public ActionResult Information()
+        public ActionResult Information(int page = 1)
         {
-            var model = _userService.GetUserByEmail(User.Identity.Name).ToMvcUser();
-            model.TestResults = model.TestResults.Reverse().ToList();
+            var model = new ProfileViewModel();
+            model.User = _userService.GetUserByEmail(User.Identity.Name).ToMvcUser();
+            List<TestResultDTO> tests;
+            tests = model.User.TestResults.Reverse().ToList();
+            model.User.TestResults = model.User.TestResults.Reverse().Skip((page - 1) * 2).Take(2).ToList();
+            model.PageInfo = new PageInfoViewModel(page, 2, tests.Count);
+            if (Request.IsAjaxRequest())
+            {
+
+                return PartialView(model);
+            }
+
             return View(model);
+            
         }
         [HttpGet]
         public ActionResult Settings()
@@ -42,16 +55,21 @@ namespace WebUI.Controllers
             _userService.UpdateUser(viewModel.ToBllUser());
             return RedirectToAction("Information");
         }
-        public ActionResult DeleteTestResult(int? id)
+        public ActionResult DeleteTestResult(int? id, int page = 1)
         {
             if (!ReferenceEquals(id, null))
             {
                 _testResultService.DeleteTestResult(Convert.ToInt32(id));
             }
+            var model = new ProfileViewModel();
+            model.User = _userService.GetUserByEmail(User.Identity.Name).ToMvcUser();
+            List<TestResultDTO> tests;
+            tests = model.User.TestResults.Reverse().ToList();
+            model.User.TestResults = model.User.TestResults.Reverse().Skip((page - 1) * 2).Take(2).ToList();
+            model.PageInfo = new PageInfoViewModel(page, 2, tests.Count);
             if (Request.IsAjaxRequest())
             {
-                var model = _userService.GetUserByEmail(User.Identity.Name).ToMvcUser();
-                return PartialView("Information", model);
+                return PartialView("Information",model);
             }
             return RedirectToAction("Information");
 
