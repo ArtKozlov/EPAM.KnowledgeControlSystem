@@ -4,16 +4,21 @@
 @{
     ViewBag.Title = "Statistics";
 }
-@section Search{}
-<div id="results">
-    <div>
-        <h3>Search:</h3>
-        @using (Ajax.BeginForm("TestStatisticsSearch", new {page = 1}, new AjaxOptions {UpdateTargetId = "results"}))
+@section Search
+        {@using (Ajax.BeginForm("Statistics", new { page = 1 }, new AjaxOptions { UpdateTargetId = "results" }))
         {
-            <input type="text" name="name"/>
-            <input type="submit" value="Search"/>
-        }
-    </div>
+            <div class="col-sm-3 col-md-3" style="margin-top: 7px">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="searchItem" placeholder="Search...">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" type="submit" value="Search">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        }}
+<div id="results">
     <h2>Statistics</h2>
     <table class="table">
         <tr>
@@ -63,18 +68,18 @@
         }
 
     </table>
-    <div>
+    <div class="text-center">
         @if (Model.PageInfo.TotalPages <= 4)
         {
-            @Html.FewPageLinks(Model.PageInfo, x => Url.Action("Statistics", new { page = x }))
+            @Html.FewPageLinks(Model.PageInfo, (x, y) => Url.Action("Statistics", new {page = x, searchItem = y}))
         }
         else
         {
-            @Html.PageTopLink(Model.PageInfo, x => Url.Action("Statistics", new { page = x }))
+            @Html.PageTopLink(Model.PageInfo, (x, y) => Url.Action("Statistics", new {page = x, searchItem = y}))
 
-            @Html.PageLinks(Model.PageInfo, x => Url.Action("Statistics", new { page = x }))
+            @Html.PageLinks(Model.PageInfo, (x, y) => Url.Action("Statistics", new {page = x, searchItem = y}))
 
-            @Html.PageEndLink(Model.PageInfo, x => Url.Action("Statistics", new { page = x }))
+            @Html.PageEndLink(Model.PageInfo, (x, y) => Url.Action("Statistics", new {page = x, searchItem = y}))
         }
 
     </div>

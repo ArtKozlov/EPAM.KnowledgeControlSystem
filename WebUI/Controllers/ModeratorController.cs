@@ -25,35 +25,51 @@ namespace WebUI.Controllers
 
         }
         
-        public ActionResult TestsEditor(string name, int page = 1)
+        public ActionResult TestsEditor(string searchItem, bool showValid = false, int page = 1)
         {
             var model = new TestEditorViewModel();
             List<TestViewModel> tests;
-            tests = _testService.GetAllTests().Select(u => u.ToMvcTest()).ToList();
+            if (ReferenceEquals(searchItem, null))
+            {
+                if (showValid)
+                    tests =
+                        _testService.GetAllTests()
+                        .Select(u => u.ToMvcTest())
+                        .Where(m => m.IsValid)
+                        .ToList();
+                else
+                    tests =
+                        _testService.GetAllTests()
+                        .Select(u => u.ToMvcTest())
+                        .ToList();
+                model.PageInfo = new PageInfoViewModel(page, 2, tests.Count, null);
+            }
+            else
+            {
+                if (showValid)
+                    tests =
+                        _testService.GetAllTests()
+                            .Select(u => u.ToMvcTest())
+                            .Where(m => m.IsValid && (m.Name.Contains(searchItem) || m.Creator.Contains(searchItem)))
+                            .ToList();
+                else
+                    tests =
+                        _testService.GetAllTests()
+                            .Select(u => u.ToMvcTest())
+                            .Where(m => m.Name.Contains(searchItem) || m.Creator.Contains(searchItem))
+                            .ToList();
+
+                model.PageInfo = new PageInfoViewModel(page, 2, tests.Count, searchItem);
+            }
+            model.ShowValid = showValid;
             model.Tests = tests.Skip((page - 1) * 2).Take(2);
-            model.PageInfo = new PageInfoViewModel(page, 2, tests.Count);
             if (Request.IsAjaxRequest())
             {
                 return PartialView(model);
             }
-            
             return View(model);
         }
-        public ActionResult TestSearch(string name, int page = 1)
-        {
 
-            var model = new TestEditorViewModel();
-            List<TestViewModel> tests;
-            tests = _testService.GetAllTests().Select(u => u.ToMvcTest()).Where(a => a.Name.Contains(name) || a.Creator.Contains(name)).ToList();
-            model.Tests = tests.Skip((page - 1) * 3).Take(3);
-            model.PageInfo = new PageInfoViewModel(page, 3, tests.Count);
-            if (Request.IsAjaxRequest())
-            {
-                return PartialView("TestsEditor", model);
-            }
-
-            return View("TestsEditor", model);
-        }
         [HttpGet]
         public ActionResult EditTest(int? id)
         {
@@ -78,22 +94,34 @@ namespace WebUI.Controllers
             return Redirect(Url.Action("TestsEditor"));
         }
 
-        public ActionResult DeleteTest(int? id, string name)
+        public ActionResult DeleteTest(int? id, string name, int page)
         {
+            var model = new TestEditorViewModel();
             if (!ReferenceEquals(id, null))
             {
                 _testService.DeleteTest(Convert.ToInt32(id));
             }
-            name = String.Empty;
+            
+            
+            List<TestViewModel> tests;
+            if (ReferenceEquals(name, null))
+            {
+                tests = _testService.GetAllTests().Select(u => u.ToMvcTest()).ToList();
+                model.Tests = tests;
+                model.PageInfo = new PageInfoViewModel(page, 2, tests.Count, null);
+            }
+            else
+            {
+                tests = _testService.GetAllTests().Select(u => u.ToMvcTest()).Where(a => a.Name.Contains(name) || a.Creator.Contains(name)).ToList();
+                model.Tests = tests;
+                model.PageInfo = new PageInfoViewModel(page, 2, tests.Count, name);
+            }
             if (Request.IsAjaxRequest())
             {
-                var ajaxModel = _testService.GetAllTests().Select(u => u.ToMvcTest()).Where(a => a.Name.Contains(name) || a.Creator.Contains(name));
-                return PartialView("TestsEditor", ajaxModel);
+                return PartialView("TestsEditor", model);
             }
 
-            var model = _testService.GetAllTests().Select(u => u.ToMvcTest());
-
-            return View("TestsEditor",model);
+            return View("TestsEditor", model);
         }
     }
 }

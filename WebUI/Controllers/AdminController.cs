@@ -21,34 +21,35 @@ namespace WebUI.Controllers
             _roleService = roleService;
         }
 
-        public ActionResult UsersEditor(string name, int page = 1)
+        public ActionResult UsersEditor(string searchItem, int page = 1)
         {
             var model = new UserEditorVIewModel();
             List<UserViewModel> tests;
-            tests = _userService.GetAllUsers().Select(u => u.ToMvcUser()).Where(a => a.Name.Contains(name) || a.Email.Contains(name)).ToList();
-            model.Users = tests.Skip((page - 1) * 3).Take(3);
-            model.PageInfo = new PageInfoViewModel(page, 3, tests.Count);
+            if (ReferenceEquals(searchItem, null))
+            {
+                tests =
+                    _userService.GetAllUsers()
+                    .Select(u => u.ToMvcUser())
+                    .ToList();
+                model.PageInfo = new PageInfoViewModel(page, 2, tests.Count, null);
+            }
+            else
+            {
+                tests =
+                    _userService.GetAllUsers()
+                    .Select(u => u.ToMvcUser())
+                    .Where(a => a.Name.Contains(searchItem) || a.Email.Contains(searchItem))
+                    .ToList();
+                model.PageInfo = new PageInfoViewModel(page, 2, tests.Count, searchItem);
+            }
+            model.Users = tests.Skip((page - 1) * 2).Take(2);
             if (Request.IsAjaxRequest())
             {
                 return PartialView(model);
             }
-
             return View(model);
         }
-        public ActionResult UserSearch(string name, int page = 1)
-        {
 
-            var model = new UserEditorVIewModel();
-            List<UserViewModel> tests;
-            tests = _userService.GetAllUsers().Select(u => u.ToMvcUser()).Where(a => a.Name.Contains(name) || a.Email.Contains(name)).ToList();
-            model.Users = tests.Skip((page - 1) * 3).Take(3);
-            model.PageInfo = new PageInfoViewModel(page, 3, tests.Count);
-            if (Request.IsAjaxRequest())
-            {
-                return PartialView("UsersEditor", model);
-            }
-            return View("UsersEditor", model);
-        }
         [HttpGet]
         public ActionResult EditUser(string email)
         {
@@ -72,21 +73,31 @@ namespace WebUI.Controllers
             _userService.UpdateUser(viewModel.ToBllUser());
             return Redirect(Url.Action("UsersEditor", "Admin"));
         }
-        public ActionResult DeleteUser(int? id, string name)
+        public ActionResult DeleteUser(int? id, string name, int page)
         {
+            var model = new UserEditorVIewModel();
             if (!ReferenceEquals(id, null))
             {
                 _userService.DeleteUser(Convert.ToInt32(id));
             }
-            List<UserViewModel> model;
-            name = String.Empty;
+            List<UserViewModel> users;
+            if (ReferenceEquals(name, null))
+            {
+                users = _userService.GetAllUsers().Select(u => u.ToMvcUser()).ToList();
+                model.Users = users;
+                model.PageInfo = new PageInfoViewModel(page, 2, users.Count, null);
+            }
+            else
+            {
+                users = _userService.GetAllUsers().Select(u => u.ToMvcUser()).Where(a => a.Name.Contains(name) || a.Email.Contains(name)).ToList();
+                model.Users = users;
+                model.PageInfo = new PageInfoViewModel(page, 2, users.Count, name);
+            }
             if (Request.IsAjaxRequest())
             {
-                model = _userService.GetAllUsers().Select(u => u.ToMvcUser()).Where(a => a.Name.Contains(name) || a.Email.Contains(name)).ToList();
                 return PartialView("UsersEditor",model);
             }
 
-            model = _userService.GetAllUsers().Select(u => u.ToMvcUser()).ToList();
 
             return View("UsersEditor",model);
         }

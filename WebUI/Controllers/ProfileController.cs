@@ -30,7 +30,7 @@ namespace WebUI.Controllers
             List<TestResultDTO> tests;
             tests = model.User.TestResults.Reverse().ToList();
             model.User.TestResults = model.User.TestResults.Reverse().Skip((page - 1) * 2).Take(2).ToList();
-            model.PageInfo = new PageInfoViewModel(page, 2, tests.Count);
+            model.PageInfo = new PageInfoViewModel(page, 2, tests.Count,null);
             if (Request.IsAjaxRequest())
             {
 
@@ -66,7 +66,7 @@ namespace WebUI.Controllers
             List<TestResultDTO> tests;
             tests = model.User.TestResults.Reverse().ToList();
             model.User.TestResults = model.User.TestResults.Reverse().Skip((page - 1) * 2).Take(2).ToList();
-            model.PageInfo = new PageInfoViewModel(page, 2, tests.Count);
+            model.PageInfo = new PageInfoViewModel(page, 2, tests.Count, null);
             if (Request.IsAjaxRequest())
             {
                 return PartialView("Information",model);

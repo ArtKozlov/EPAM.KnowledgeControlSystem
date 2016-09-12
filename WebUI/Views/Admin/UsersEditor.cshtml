@@ -3,17 +3,22 @@
 @{
     ViewBag.Title = "Admin room";
 }
-@section Search{}
+@section Search
+        {@using (Ajax.BeginForm("UsersEditor", new { page = 1 }, new AjaxOptions { UpdateTargetId = "results" }))
+        {
+            <div class="col-sm-3 col-md-3" style="margin-top: 7px">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="searchItem" placeholder="Search...">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" type="submit" value="Search">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        }}
 <div id="results">
     <h1>Admin room</h1>
-    <div>
-        <h3>Search:</h3>
-        @using (Ajax.BeginForm("UsersEditor", new { page = 1 }, new AjaxOptions { UpdateTargetId = "results" }))
-        {
-            <input type="text" name="name" />
-            <input type="submit" value="Search" />
-        }
-    </div>
 
     <table class="table" id="deletedUser">
         <tr>
@@ -59,28 +64,29 @@
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "EditUser", new {email = item.Email}) |
-                    @Ajax.ActionLink("Delete", "DeleteUser", new {id = item.Id},
+                    @Ajax.ActionLink("Delete", "DeleteUser", new {id = item.Id, name = Model.PageInfo.SearchItem, page = Model.PageInfo.PageNumber },
                         new AjaxOptions {Confirm = "Do you want delete '" + item.Name + "'?", UpdateTargetId = "results"})
                 </td>
             </tr>
         }
 
     </table>
-    <div>
+    <div class="text-center">
         @if (Model.PageInfo.TotalPages <= 4)
         {
-            @Html.FewPageLinks(Model.PageInfo, x => Url.Action("UsersEditor", new { page = x }))
+            @Html.FewPageLinks(Model.PageInfo, (x, y) => Url.Action("UsersEditor", new { page = x, searchItem = y }))
         }
         else
         {
-            @Html.PageTopLink(Model.PageInfo, x => Url.Action("UsersEditor", new { page = x }))
+            @Html.PageTopLink(Model.PageInfo, (x, y) => Url.Action("UsersEditor", new { page = x, searchItem = y }))
 
-            @Html.PageLinks(Model.PageInfo, x => Url.Action("UsersEditor", new { page = x }))
+            @Html.PageLinks(Model.PageInfo, (x, y) => Url.Action("UsersEditor", new { page = x, searchItem = y }))
 
-            @Html.PageEndLink(Model.PageInfo, x => Url.Action("UsersEditor", new { page = x }))
+            @Html.PageEndLink(Model.PageInfo, (x, y) => Url.Action("UsersEditor", new { page = x, searchItem = y }))
         }
 
     </div>
+
 </div>
 @Scripts.Render("~/scripts/jquery-1.10.2.min.js")
 @Scripts.Render("~/scripts/jquery.unobtrusive-ajax.min.js")

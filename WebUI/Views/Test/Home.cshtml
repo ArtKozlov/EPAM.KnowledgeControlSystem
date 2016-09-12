@@ -8,7 +8,7 @@
 <div id="results">
     <div class="container-fluid text-center">
         @section Search
-        {@using (Ajax.BeginForm("TestSearch", new { page = 1 }, new AjaxOptions { UpdateTargetId = "results" }))
+        {@using (Ajax.BeginForm("Home", new { page = 1 }, new AjaxOptions { UpdateTargetId = "results" }))
         {
             <div class="col-sm-3 col-md-3" style="margin-top: 7px">
                     <div class="input-group">
@@ -57,15 +57,15 @@
                 <div class="text-center">
                     @if (Model.PageInfo.TotalPages <= 4)
                     {
-                        @Html.FewPageLinks(Model.PageInfo, x => Url.Action("Home", new {page = x}))
+                        @Html.FewPageLinks(Model.PageInfo, (x,y) => Url.Action("Home", new {page = x, searchItem = y }))
                     }
                     else
                     {
-                        @Html.PageTopLink(Model.PageInfo, x => Url.Action("Home", new {page = x}))
+                        @Html.PageTopLink(Model.PageInfo, (x, y) => Url.Action("Home", new { page = x, searchItem = y }))
 
-                        @Html.PageLinks(Model.PageInfo, x => Url.Action("Home", new {page = x}))
+                        @Html.PageLinks(Model.PageInfo, (x, y) => Url.Action("Home", new { page = x, searchItem = y }))
 
-                        @Html.PageEndLink(Model.PageInfo, x => Url.Action("Home", new {page = x}))
+                        @Html.PageEndLink(Model.PageInfo, (x, y) => Url.Action("Home", new { page = x, searchItem = y }))
                     }
 
                 </div>

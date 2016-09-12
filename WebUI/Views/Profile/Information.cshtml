@@ -79,25 +79,25 @@
                     @Html.DisplayFor(modelItem => item.DateCompleted)
                 </td>
                 <td>
-                    @Ajax.ActionLink("Delete", "DeleteTestResult", new {id = item.Id},
+                    @Ajax.ActionLink("Delete", "DeleteTestResult", new {id = item.Id, page = Model.PageInfo.SearchItem},
                         new AjaxOptions {Confirm = "Do you want delete '" + item.Name + "'?", UpdateTargetId = "results"})
                 </td>
             </tr>
         }
 
     </table>
-    <div>
+    <div class="text-center">
         @if (Model.PageInfo.TotalPages <= 4)
         {
-            @Html.FewPageLinks(Model.PageInfo, x => Url.Action("Information", new { page = x }))
+            @Html.FewPageLinks(Model.PageInfo, (x, y) => Url.Action("Information", new { page = x, searchItem = y }))
         }
         else
         {
-            @Html.PageTopLink(Model.PageInfo, x => Url.Action("Information", new { page = x }))
+            @Html.PageTopLink(Model.PageInfo, (x, y) => Url.Action("Information", new { page = x, searchItem = y }))
 
-            @Html.PageLinks(Model.PageInfo, x => Url.Action("Information", new { page = x }))
+            @Html.PageLinks(Model.PageInfo, (x, y) => Url.Action("Information", new { page = x, searchItem = y }))
 
-            @Html.PageEndLink(Model.PageInfo, x => Url.Action("Information", new { page = x }))
+            @Html.PageEndLink(Model.PageInfo, (x, y) => Url.Action("Information", new { page = x, searchItem = y }))
         }
 
     </div>

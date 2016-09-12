@@ -1,19 +1,32 @@
 ﻿
+@using Microsoft.Ajax.Utilities
 @using WebUI.Helpers
 @model WebUI.ViewModels.TestEditorViewModel
 @{
     ViewBag.Title = "Moderator room";
 }
-@section Search{}
+@section Search
+        {@using (Ajax.BeginForm("TestsEditor", new { page = 1 }, new AjaxOptions { UpdateTargetId = "results" }))
+        {
+            <div class="col-sm-3 col-md-3" style="margin-top: 7px">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="searchItem" placeholder="Search...">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" type="submit" value="Search">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        }}
 <div id="results">
     <h1>Moderator room</h1>
-    <div>
-        <h3>Search:</h3>
-        @using (Ajax.BeginForm("TestsEditor", new { page = 1 }, new AjaxOptions { UpdateTargetId = "results" }))
-        {
-            <input type="text" name="name" />
-            <input type="submit" value="Search" />
-        }
+    <div class="form-group">
+        @Html.LabelFor(m => m.ShowValid, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            Yes: @Html.RadioButtonFor(m => m.ShowValid, true, new { @class = "radio-inline", form="form0", name="showValid"})
+            No:  @Html.RadioButtonFor(m => m.ShowValid, false, new { @class = "radio-inline", form = "form0", name = "showValid" })
+        </div>
     </div>
     <table class="table">
         <tr>
@@ -49,28 +62,29 @@
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "EditTest", new {id = item.Id}) |
-                    @Ajax.ActionLink("Delete", "DeleteTest", new {id = item.Id},
+                    @Ajax.ActionLink("Delete", "DeleteTest", new {id = item.Id, name = Model.PageInfo.SearchItem, page = Model.PageInfo.PageNumber },
                         new AjaxOptions {Confirm = "Do you want delete '" + item.Name + "'?", UpdateTargetId = "results"})
                 </td>
             </tr>
         }
 
     </table>
-    <div>
+    <div class="text-center">
         @if (Model.PageInfo.TotalPages <= 4)
         {
-            @Html.FewPageLinks(Model.PageInfo, x => Url.Action("TestsEditor", new { page = x }))
+            @Html.FewPageLinks(Model.PageInfo, (x, y) => Url.Action("TestsEditor", new { page = x, searchItem = y, showValid = Model.ShowValid }))
         }
         else
         {
-            @Html.PageTopLink(Model.PageInfo, x => Url.Action("TestsEditor", new { page = x }))
+            @Html.PageTopLink(Model.PageInfo, (x, y) => Url.Action("TestsEditor", new { page = x, searchItem = y }))
 
-            @Html.PageLinks(Model.PageInfo, x => Url.Action("TestsEditor", new { page = x }))
+            @Html.PageLinks(Model.PageInfo, (x, y) => Url.Action("TestsEditor", new { page = x, searchItem = y, showValid = Model.ShowValid }))
 
-            @Html.PageEndLink(Model.PageInfo, x => Url.Action("TestsEditor", new { page = x }))
+            @Html.PageEndLink(Model.PageInfo, (x, y) => Url.Action("TestsEditor", new { page = x, searchItem = y }))
         }
 
     </div>
+
 </div>
 @Scripts.Render("~/scripts/jquery-1.10.2.min.js")
 @Scripts.Render("~/scripts/jquery.unobtrusive-ajax.min.js")

@@ -11,69 +11,69 @@ namespace WebUI.Helpers
     public static class PagingHelpers
     {
         public static MvcHtmlString FewPageLinks(this HtmlHelper html,
-        PageInfoViewModel pageInfoViewModel, Func<int, string> pageUrl)
+        PageInfoViewModel pageInfoViewModel, Func<int,string, string> pageUrl)
         {
             StringBuilder result = new StringBuilder();
 
-           for (int i = 1; i <= pageInfoViewModel.TotalPages; i++)
-           {
-               if (i == pageInfoViewModel.PageNumber)
-                   CreatePageLink(i, ref pageUrl, ref result, "info");
-               else
-                   CreatePageLink(i, ref pageUrl, ref result, "default");
-           }
+            for (int i = 1; i <= pageInfoViewModel.TotalPages; i++)
+            {
+                if (i == pageInfoViewModel.PageNumber)
+                    CreatePageLink(i, pageInfoViewModel, ref pageUrl, ref result, "info");
+                else
+                    CreatePageLink(i, pageInfoViewModel, ref pageUrl, ref result, "default");
+            }
 
             return MvcHtmlString.Create(result.ToString());
         }
         public static MvcHtmlString PageLinks(this HtmlHelper html,
-                PageInfoViewModel pageInfoViewModel, Func<int, string> pageUrl)
+                PageInfoViewModel pageInfoViewModel, Func<int, string, string> pageUrl)
         {
             StringBuilder result = new StringBuilder();
-                if (pageInfoViewModel.PageNumber > 2)
-                {
-                    CreatePageLink(pageInfoViewModel.PageNumber - 2, ref pageUrl, ref result, "default");
-                }
-                if (pageInfoViewModel.PageNumber != 1)
-                {
-                    CreatePageLink(pageInfoViewModel.PageNumber - 1, ref pageUrl, ref result, "default");
-                }
+            if (pageInfoViewModel.PageNumber > 2)
+            {
+                CreatePageLink(pageInfoViewModel.PageNumber - 2, pageInfoViewModel, ref pageUrl, ref result, "default");
+            }
+            if (pageInfoViewModel.PageNumber != 1)
+            {
+                CreatePageLink(pageInfoViewModel.PageNumber - 1, pageInfoViewModel, ref pageUrl, ref result, "default");
+            }
 
-                CreatePageLink(pageInfoViewModel.PageNumber, ref pageUrl, ref result, "info");
+            CreatePageLink(pageInfoViewModel.PageNumber, pageInfoViewModel, ref pageUrl, ref result, "info");
 
-                if (pageInfoViewModel.PageNumber != pageInfoViewModel.TotalPages)
-                {
-                    CreatePageLink(pageInfoViewModel.PageNumber + 1, ref pageUrl, ref result, "default");
-                }
-                if (pageInfoViewModel.PageNumber < pageInfoViewModel.TotalPages - 1)
-                {
-                    CreatePageLink(pageInfoViewModel.PageNumber + 2, ref pageUrl, ref result, "default");
-                }
+            if (pageInfoViewModel.PageNumber != pageInfoViewModel.TotalPages)
+            {
+                CreatePageLink(pageInfoViewModel.PageNumber + 1, pageInfoViewModel, ref pageUrl, ref result, "default");
+            }
+            if (pageInfoViewModel.PageNumber < pageInfoViewModel.TotalPages - 1)
+            {
+                CreatePageLink(pageInfoViewModel.PageNumber + 2, pageInfoViewModel, ref pageUrl, ref result, "default");
+            }
 
             return MvcHtmlString.Create(result.ToString());
         }
         public static MvcHtmlString PageTopLink(this HtmlHelper html,
-                PageInfoViewModel pageInfoViewModel, Func<int, string> pageUrl)
+                PageInfoViewModel pageInfoViewModel, Func<int, string, string> pageUrl)
         {
             StringBuilder result = new StringBuilder();
-            CreatePageLink(1, ref pageUrl, ref result, "primary");
+            CreatePageLink(1, pageInfoViewModel, ref pageUrl, ref result, "primary");
 
             return MvcHtmlString.Create(result.ToString());
         }
 
         public static MvcHtmlString PageEndLink(this HtmlHelper html,
-                PageInfoViewModel pageInfoViewModel, Func<int, string> pageUrl)
+                PageInfoViewModel pageInfoViewModel, Func<int, string, string> pageUrl)
         {
             StringBuilder result = new StringBuilder();
-            CreatePageLink(pageInfoViewModel.TotalPages, ref pageUrl, ref result, "primary");
+            CreatePageLink(pageInfoViewModel.TotalPages, pageInfoViewModel, ref pageUrl, ref result, "primary");
 
             return MvcHtmlString.Create(result.ToString());
         }
 
-        private static void CreatePageLink(int i, ref Func<int, string> pageUrl, ref StringBuilder result, string buttonType)
+        private static void CreatePageLink(int i, PageInfoViewModel pageInfoViewModel, ref Func<int, string, string> pageUrl, ref StringBuilder result, string buttonType)
         {
             TagBuilder tag = new TagBuilder("a");
             tag.MergeAttribute("data-ajax", "true");
-            tag.MergeAttribute("href", pageUrl(i));
+            tag.MergeAttribute("href", pageUrl(i, pageInfoViewModel.SearchItem));
             tag.MergeAttribute("data-ajax-mode", "replace");
             tag.MergeAttribute("data-ajax-update", "#results");
             if (buttonType == "default")
@@ -90,7 +90,7 @@ namespace WebUI.Helpers
             }
             if (buttonType == "primary")
             {
-                if(i == 1)
+                if (i == 1)
                     tag.InnerHtml = "<<";
                 else
                     tag.InnerHtml = ">>";
