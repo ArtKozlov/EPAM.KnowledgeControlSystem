@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using BLL.DTO;
 using WebUI.ViewModels;
 
@@ -75,7 +76,19 @@ namespace WebUI.Infrastructure.Mappers
                 Answers = testViewModel.Answers
             };
         }
-        public static Statistics ToMVCStatistics(this TestDTO testModel)
+        public static TestDTO ToBllTest(this CreateTestViewModel createTestViewModel)
+        {
+            return new TestDTO()
+            {
+                Name = createTestViewModel.Name,
+               // Discription = createTestViewModel.Discription,
+                Time = createTestViewModel.Time,
+                Creator = createTestViewModel.Creator,
+                Questions = createTestViewModel.Questions.ToQuestionDtoCollection().ToList(),
+                Answers = createTestViewModel.Answers.ToAnswerDtoCollection().ToList()
+            };
+        }
+        public static Statistics ToMvcStatistics(this TestDTO testModel)
         {
             return new Statistics()
             {
@@ -85,6 +98,27 @@ namespace WebUI.Infrastructure.Mappers
                 Creator = testModel.Creator,
                 Answers = testModel.BadAnswers + testModel.GoodAnswers,
                 Percentage = ((double)testModel.GoodAnswers/((double)testModel.GoodAnswers + (double)testModel.BadAnswers)*100).ToString("##.###")
+            };
+        }
+        public static PassingViewModel ToMvcPassing(this TestDTO testModel)
+        {
+            return new PassingViewModel()
+            {
+                Id = testModel.Id,
+                Name = testModel.Name,
+                Time = testModel.Time,
+                Questions = testModel.Questions.ToQuestionCollection().ToList(),
+                Answers = testModel.Answers.ToAnswerCollection().ToList()
+            };
+        }
+        public static TestDTO ToBllTestFromPassingModel(this PassingViewModel passingModel)
+        {
+            return new TestDTO()
+            {
+                Id = passingModel.Id,
+                Name = passingModel.Name,
+                Time = passingModel.Time,
+                Answers = passingModel.Answers.ToAnswerDtoCollection().ToList()
             };
         }
         #endregion
@@ -116,5 +150,39 @@ namespace WebUI.Infrastructure.Mappers
             };
         }
         #endregion
+        private static IEnumerable<QuestionDTO> ToQuestionDtoCollection(this ICollection<string> collectionQuestions)
+        {
+            foreach (var question in collectionQuestions)
+            {
+                yield return new QuestionDTO
+                {
+                    Value = question
+                };
+            }
+        }
+        private static IEnumerable<AnswerDTO> ToAnswerDtoCollection(this ICollection<string> collectionAnswers)
+        {
+            foreach (var answer in collectionAnswers)
+            {
+                yield return new AnswerDTO
+                {
+                    Value = answer
+                };
+            }
+        }
+        private static IEnumerable<string> ToQuestionCollection(this ICollection<QuestionDTO> collectionQuestionsDto)
+        {
+            foreach (var question in collectionQuestionsDto)
+            {
+                yield return question.Value;
+            }
+        }
+        private static IEnumerable<string> ToAnswerCollection(this ICollection<AnswerDTO> collectionAnswersDto)
+        {
+            foreach (var answer in collectionAnswersDto)
+            {
+                yield return answer.Value;
+            }
+        }
     }
 }

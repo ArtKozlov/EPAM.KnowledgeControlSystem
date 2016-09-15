@@ -159,9 +159,11 @@
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
     <Compile Include="Providers\CustomMembershipProvider.cs" />
     <Compile Include="Providers\CustomRoleProvider.cs" />
+    <Compile Include="ViewModels\CreateTestViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\LogOnViewModel.cs" />
     <Compile Include="ViewModels\PageInfoViewModel.cs" />
+    <Compile Include="ViewModels\PassingViewModel.cs" />
     <Compile Include="ViewModels\ProfileViewModel.cs" />
     <Compile Include="ViewModels\RegisterViewModel.cs" />
     <Compile Include="ViewModels\Statistics.cs" />
@@ -174,6 +176,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\animate.css" />
     <Content Include="Content\Images\httpErrors\pageNotFound.jpg" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -187,6 +190,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\customScript.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -226,11 +230,13 @@
     <Content Include="Views\Test\Home.cshtml" />
     <Content Include="Views\Moderator\TestsEditor.cshtml" />
     <Content Include="Views\Moderator\EditTest.cshtml" />
-    <Content Include="Views\Test\Passing.cshtml" />
     <Content Include="Views\Test\TestComplete.cshtml" />
     <Content Include="Views\Test\Statistics.cshtml" />
     <Content Include="Views\Error\ServerError.cshtml" />
     <Content Include="Views\Error\Error.cshtml" />
+    <Content Include="Views\Test\QuestionPartial.cshtml" />
+    <Content Include="Views\Test\Passing.cshtml" />
+    <Content Include="Views\Error\NotCompleteTest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

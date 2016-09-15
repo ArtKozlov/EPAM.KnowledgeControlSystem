@@ -1,53 +1,120 @@
-﻿@model WebUI.ViewModels.TestViewModel
+﻿@model WebUI.ViewModels.CreateTestViewModel
 @{
     ViewBag.Title = "Create test";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section Search{}
-<h1>Create test</h1>
-@using (Html.BeginForm("CreateTest", "Test", FormMethod.Post,
-                                        new { @class = "form-horizontal", role = "form", align = "center"}))
-{
-    <div class="form-group">
-        @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
-        <div class="form-group">
-            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Name, null, new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Time, new {@class = "col-md-2 control-label"})
-        <div class="form-group">
-            @Html.TextBoxFor(m => m.Time, new {@class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Time, null, new {@class = "text-danger"})
-        </div>
-    </div>
-    for (int i = 0; i < 10; i++)
-    {
-        <div class="form-group">
-            <div class="form-group">
-                @Html.LabelFor(m => m.Questions, "Enter question #" + i + ":", new {@class = "col-md-2 control-label"})
-                <div class="form-group">
-                    @Html.TextAreaFor(m => m.Questions[i].Value, new {@class = "form-control", rows="5"})
-                    @Html.ValidationMessageFor(m => m.Questions[i], null, new {@class = "text-danger"})
+<div id="page">
+    <div class="container-fluid text-center">
+
+        <div class="row content">
+            <div class="col-sm-3">
+                <h2>Discription</h2>
+                <p class="text-center">Here you can create your own test. 
+                All tests are moderated after creation. Be careful when filling in the fields.</p>
+            </div>
+            <div class="col-sm-6 text-center">
+                <h1>Create test</h1>
+                <div class="container">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Test name</label>
+                        <input class="form-control" name="Name" type="text" maxlength="30" form="finishForm" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Test time</label>
+                        <input class="form-control" name="Time" type="number" min="1" max="60" form="finishForm" required/>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Discription</label>
+                        <textarea class="form-control" maxlength="200" name="Discription" form="finishForm" rows="5" required></textarea>
+                    </div>
+                </div>
+                <h3>Questions and Answers</h3>
+                @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+                <div id="results">
+                </div>
+                <div class="animated slideInRight">
+                    <div class="form-group" name="Questions">
+                        <label class="col-md-3 control-label" name="Questions">Question:</label>
+                        <textarea class="form-control" type="text" maxlength="400" name="Questions" rows="5" form="finishForm" required></textarea>
+                    </div>
+                    <div class="form-group" name="Answers">
+                        <label class="col-md-3 control-label" name="Answers">Answer:</label>
+                        <input type="text" class="form-control" maxlength="20" name="Answers" form="finishForm" required>
+                    </div>
+                </div>
+                <div class="animated slideInRight">
+                    <div class="form-group" name="Questions">
+                        <label class="col-md-3 control-label" name="Questions">Question:</label>
+                        <textarea class="form-control" type="text" maxlength="400" name="Questions" rows="5" form="finishForm" required></textarea>
+                    </div>
+                    <div class="form-group" name="Answers">
+                        <label class="col-md-3 control-label" name="Answers">Answer:</label>
+                        <input type="text" class="form-control" maxlength="20" name="Answers" form="finishForm" required>
+                    </div>
+                </div>
+                <div class="animated slideInRight">
+                    <div class="form-group" name="Questions">
+                        <label class="col-md-3 control-label" name="Questions">Question:</label>
+                        <textarea class="form-control" type="text" maxlength="400" name="Questions" rows="5" form="finishForm" required></textarea>
+                    </div>
+                    <div class="form-group" name="Answers">
+                        <label class="col-md-3 control-label" name="Answers">Answer:</label>
+                        <input type="text" class="form-control" maxlength="20" name="Answers" form="finishForm" required>
+                    </div>
+                </div>
+                <div class="animated slideInRight">
+                    <div class="form-group" name="Questions">
+                        <label class="col-md-3 control-label" name="Questions">Question:</label>
+                        <textarea class="form-control" type="text" maxlength="400" name="Questions" rows="5" form="finishForm" required></textarea>
+                    </div>
+                    <div class="form-group" name="Answers">
+                        <label class="col-md-3 control-label" name="Answers">Answer:</label>
+                        <input type="text" class="form-control" maxlength="20" name="Answers" form="finishForm" required>
+                    </div>
+                </div>
+                <div class="animated slideInRight">
+                    <div class="form-group" name="Questions">
+                        <label class="col-md-3 control-label" name="Questions">Question:</label>
+                        <textarea class="form-control" type="text" maxlength="400" name="Questions" rows="5" form="finishForm" required></textarea>
+                    </div>
+                    <div class="form-group" name="Answers">
+                        <label class="col-md-3 control-label" name="Answers">Answer:</label>
+                        <input type="text" class="form-control" maxlength="20" name="Answers" form="finishForm" required>
+                    </div>
                 </div>
             </div>
+            <div class="col-sm-3 text-center">
+                <div class="container" style="position: fixed">
+                    <h2>Options</h2>
+                    <p>
+                        Below are the control buttons. Use the "Add a question" you can add a question to your test.
+                        Name, Description and time are required for entry. When finished, click "Finish" button.
+                    </p>
+                    <div class="form-group">
+                        <form action="/Test/AddQuestion" class="col-sm-6" data-ajax="true" data-ajax-mode="before" data-ajax-update="#results" id="addQuestionForm" method="get">
+                            <button class="btn btn-info" type="submit">Add question</button>
+                        </form>
+                        <form action="/Test/CreateTest" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#page" id="finishForm" method="post" role="form">
+                            <button class="btn btn-success" type="submit">Finish</button>
+                        </form>
 
-            <div class="form-group">
-                @Html.LabelFor(m => m.Answers, "Enter answer #" + i + ":", new { @class = "col-md-2 control-label" })
-                <div class="form-group">
-                    @Html.TextBoxFor(m => m.Answers[i].Value, new {@class = "form-control"})
-                    @Html.ValidationMessageFor(m => m.Answers[i], null, new {@class = "text-danger"})
-                </div>
+                    </div>
+                    <p>
+                        "Delete" button deletes the last question.
+                    </p>
+                        <div class="form-group">
+                            <div class="col-sm-6">
+                                <button class="btn btn-danger" onclick="deleteQuestion()">Delete</button>
+                            </div>
+                        </div>
                 </div>
             </div>
-    }
-    <div class="form-group">
-            <input type="submit" class="btn btn-default" value="Create test" />
+        </div>
     </div>
-}
-
+</div>
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/scripts/jquery-1.10.2.min.js")
+    @Scripts.Render("~/scripts/jquery.unobtrusive-ajax.min.js")
+    @Scripts.Render("~/scripts/customScript.js")
 }
 

@@ -14,7 +14,7 @@ namespace WebUI.ViewModels
         public string Name { get; set; }
 
         [Display(Name = "Test time")]
-        [Range(5, 40, ErrorMessage = "Invalid field of Time! Enter range from 5 to 40 minutes.")]
+        [Range(1, 40, ErrorMessage = "Invalid field of Time! Enter range from 5 to 40 minutes.")]
         public int Time { get; set; }
 
         [Display(Name = "Good answers")]

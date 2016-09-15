@@ -57,12 +57,18 @@ namespace WebUI.Controllers
 
         [Authorize(Roles = "User")]
         [HttpPost]
-        public ActionResult CreateTest(TestViewModel viewModel)
+        public ActionResult CreateTest(CreateTestViewModel model)
         {
-            var test = viewModel.ToBllTest();
+            if (!ModelState.IsValid) return PartialView("CreateTest");
+            var test = model.ToBllTest();
             test.Creator = User.Identity.Name;
             _testService.CreateTest(test);
             return Redirect(Url.Action("Home", "Test"));
+
+            //if(!ModelState.IsValidField(model.Name))
+            //    ModelState.AddModelError("", "Incorrect Name. The name must contain at least 6 characters");
+            //if (!ModelState.IsValidField(model.Discription))
+            //    ModelState.AddModelError("", "Incorrect Discription. The name must contain at least 60 characters");
         }
  
         [Authorize(Roles = "User")]
@@ -71,23 +77,34 @@ namespace WebUI.Controllers
         {
             return View();
         }
-
+        public ActionResult AddQuestion()
+        {
+            return PartialView("QuestionPartial");
+        }
         [HttpGet]
         public ActionResult Passing(int id)
         {
-            var model = _testService.GetTest(id).ToMvcTest();
-            foreach (var answer in model.Answers)
-            {
-                answer.Value = "";
-            }
+            if(User.Identity.IsAuthenticated)
+            { 
+            var model = _testService.GetTest(id).ToMvcPassing();
+                model.StartPassingTest = DateTime.Now;
             return View(model);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
         }
 
         [HttpPost]
-        public ActionResult Passing(TestViewModel testViewModel)
+        public ActionResult Passing(PassingViewModel model)
         {
-            var resultModel = _testService.CheckAnswers(testViewModel.ToBllTest());
-            var entityTest = _testService.GetTest(testViewModel.Id);
+            int checkeTestTime = (DateTime.Now - model.StartPassingTest).Minutes*60 +
+                                 (DateTime.Now - model.StartPassingTest).Seconds - 10;
+            if (checkeTestTime > model.Time*60)
+                return RedirectToAction("NotFound", "Error");
+            var resultModel = _testService.CheckAnswers(model.ToBllTestFromPassingModel());
+            var entityTest = _testService.GetTest(model.Id);
             entityTest.GoodAnswers += resultModel.GoodAnswers;
             entityTest.BadAnswers += resultModel.BadAnswers;
             _testService.UpdateTest(entityTest);
@@ -107,7 +124,7 @@ namespace WebUI.Controllers
             {
                 tests =
                         _testService.GetAllTests()
-                        .Select(u => u.ToMVCStatistics())
+                        .Select(u => u.ToMvcStatistics())
                         .ToList();
                 model.PageInfo = new PageInfoViewModel(page, 2, tests.Count, null);
             }
@@ -115,7 +132,7 @@ namespace WebUI.Controllers
             {
                 tests =
                         _testService.GetAllTests()
-                        .Select(u => u.ToMVCStatistics())
+                        .Select(u => u.ToMvcStatistics())
                         .Where(a => a.Name.Contains(searchItem)&& (a.BadAnswers != 0 || a.GoodAnswers != 0))
                         .ToList();
                 model.PageInfo = new PageInfoViewModel(page, 2, tests.Count, searchItem);
