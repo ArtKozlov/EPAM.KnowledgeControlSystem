@@ -20,5 +20,9 @@ namespace WebUI.Controllers
         {
             return View();
         }
+        public ActionResult NotCompleteTest()
+        {
+            return View();
+        }
     }
 }

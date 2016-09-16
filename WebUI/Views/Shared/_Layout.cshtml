@@ -9,7 +9,7 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
-<body>
+<body style="padding-bottom: 0">
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -37,12 +37,22 @@
 </div>
 <div class="container body-content">
     @RenderBody()
-    <hr/>
-    <footer class="container-fluid text-center">
-        <p>&copy; @DateTime.Now.Year - Tests for everybody!</p>
-    </footer>
-</div>
 
+</div>
+    <hr />
+    <footer>
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="nav nav-pills nav-justified">
+                        <li><a class="text-muted" href="http://www.w3schools.com/bootstrap/">© @DateTime.Now.Year Knowledge control system.</a></li>
+                        <li><a class="text-muted" href="http://www.w3schools.com/bootstrap/">Learn more</a></li>
+                        <li><a class="text-muted" href="http://www.w3schools.com/bootstrap/">By Artyom Kozlov</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/bootstrap")
 @RenderSection("scripts", required: false)

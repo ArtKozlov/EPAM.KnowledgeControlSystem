@@ -36,7 +36,7 @@ namespace WebUI.Controllers
                         .Select(u => u.ToMvcTest())
                         .Where(m => m.IsValid)
                         .ToList();
-                model.PageInfo = new PageInfoViewModel(page, 2, tests.Count, null);
+                model.PageInfo = new PageInfoViewModel(page, 5, tests.Count, null);
             }
             else
             {
@@ -45,9 +45,9 @@ namespace WebUI.Controllers
                         .Select(u => u.ToMvcTest())
                         .Where(m => m.IsValid && m.Name.Contains(searchItem))
                         .ToList();
-                model.PageInfo = new PageInfoViewModel(page, 2, tests.Count, searchItem);
+                model.PageInfo = new PageInfoViewModel(page, 5, tests.Count, searchItem);
             }
-            model.Tests = tests.Skip((page - 1) * 2).Take(2);
+            model.Tests = tests.Skip((page - 1) * 5).Take(5);
             if (Request.IsAjaxRequest())
             {
                 return PartialView(model);
@@ -102,7 +102,7 @@ namespace WebUI.Controllers
             int checkeTestTime = (DateTime.Now - model.StartPassingTest).Minutes*60 +
                                  (DateTime.Now - model.StartPassingTest).Seconds - 10;
             if (checkeTestTime > model.Time*60)
-                return RedirectToAction("NotFound", "Error");
+                return Redirect(Url.Action("NotCompleteTest", "Error"));
             var resultModel = _testService.CheckAnswers(model.ToBllTestFromPassingModel());
             var entityTest = _testService.GetTest(model.Id);
             entityTest.GoodAnswers += resultModel.GoodAnswers;
@@ -125,19 +125,20 @@ namespace WebUI.Controllers
                 tests =
                         _testService.GetAllTests()
                         .Select(u => u.ToMvcStatistics())
+                        .Where(a => a.Answers != 0)
                         .ToList();
-                model.PageInfo = new PageInfoViewModel(page, 2, tests.Count, null);
+                model.PageInfo = new PageInfoViewModel(page, 8, tests.Count, null);
             }
             else
             {
                 tests =
                         _testService.GetAllTests()
                         .Select(u => u.ToMvcStatistics())
-                        .Where(a => a.Name.Contains(searchItem)&& (a.BadAnswers != 0 || a.GoodAnswers != 0))
+                        .Where(a => a.Name.Contains(searchItem)&& a.Answers != 0)
                         .ToList();
-                model.PageInfo = new PageInfoViewModel(page, 2, tests.Count, searchItem);
+                model.PageInfo = new PageInfoViewModel(page, 8, tests.Count, searchItem);
             }
-            model.StatisticsOfTests = tests.Skip((page - 1) * 2).Take(2);
+            model.StatisticsOfTests = tests.Skip((page - 1) * 8).Take(8);
             if (Request.IsAjaxRequest())
             {
                 return PartialView(model);
@@ -152,9 +153,6 @@ namespace WebUI.Controllers
 
         public ActionResult About()
         {
-            var cookie = new HttpCookie("cookies");
-            cookie.Value = DateTime.Now.ToString("T");
-            Response.SetCookie(cookie);
             return View();
         }
     }

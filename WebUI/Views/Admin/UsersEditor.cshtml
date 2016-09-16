@@ -65,7 +65,7 @@
                 <td>
                     @Html.ActionLink("Edit", "EditUser", new {email = item.Email}) |
                     @Ajax.ActionLink("Delete", "DeleteUser", new {id = item.Id, name = Model.PageInfo.SearchItem, page = Model.PageInfo.PageNumber },
-                        new AjaxOptions {Confirm = "Do you want delete '" + item.Name + "'?", UpdateTargetId = "results"})
+                        new AjaxOptions {Confirm = "Do you want delete '" + item.Name + "'?", UpdateTargetId = "results"}, new { @class = "text-danger" })
                 </td>
             </tr>
         }
@@ -79,9 +79,9 @@
         else
         {
             @Html.PageTopLink(Model.PageInfo, (x, y) => Url.Action("UsersEditor", new { page = x, searchItem = y }))
-
+        
             @Html.PageLinks(Model.PageInfo, (x, y) => Url.Action("UsersEditor", new { page = x, searchItem = y }))
-
+        
             @Html.PageEndLink(Model.PageInfo, (x, y) => Url.Action("UsersEditor", new { page = x, searchItem = y }))
         }
 

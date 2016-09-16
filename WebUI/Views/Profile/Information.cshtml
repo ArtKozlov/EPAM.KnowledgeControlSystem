@@ -80,7 +80,7 @@
                 </td>
                 <td>
                     @Ajax.ActionLink("Delete", "DeleteTestResult", new {id = item.Id, page = Model.PageInfo.SearchItem},
-                        new AjaxOptions {Confirm = "Do you want delete '" + item.Name + "'?", UpdateTargetId = "results"})
+                        new AjaxOptions {Confirm = "Do you want delete '" + item.Name + "'?", UpdateTargetId = "results"}, new { @class = "text-danger" })
                 </td>
             </tr>
         }

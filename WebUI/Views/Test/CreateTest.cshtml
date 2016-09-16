@@ -9,8 +9,12 @@
         <div class="row content">
             <div class="col-sm-3">
                 <h2>Discription</h2>
-                <p class="text-center">Here you can create your own test. 
-                All tests are moderated after creation. Be careful when filling in the fields.</p>
+                <p class="text-center">Here you can create your own test.
+                    All tests are moderated after creation. All fields of the form and the test can have a minimum of 5 questions to be filled.
+                    Below is a counter question.
+                    Be careful when filling in the fields.</p>
+                <h3 class="text-center">Number of questions:</h3>
+                <h2 class="text-center" id="countQuestion">5</h2>
             </div>
             <div class="col-sm-6 text-center">
                 <h1>Create test</h1>
@@ -92,7 +96,7 @@
                     </p>
                     <div class="form-group">
                         <form action="/Test/AddQuestion" class="col-sm-6" data-ajax="true" data-ajax-mode="before" data-ajax-update="#results" id="addQuestionForm" method="get">
-                            <button class="btn btn-info" type="submit">Add question</button>
+                            <button class="btn btn-info" type="submit" onclick="increaseCountQuestion()">Add question</button>
                         </form>
                         <form action="/Test/CreateTest" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#page" id="finishForm" method="post" role="form">
                             <button class="btn btn-success" type="submit">Finish</button>

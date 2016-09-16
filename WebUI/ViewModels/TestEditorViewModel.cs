@@ -8,7 +8,7 @@ namespace WebUI.ViewModels
     {
         public IEnumerable<TestViewModel> Tests { get; set; }
         public PageInfoViewModel PageInfo { get; set; }
-        [Display(Name = "Show valid tests:")]
-        public bool ShowValid { get; set; }
+        [Display(Name = "Show is not valid tests:")]
+        public bool ShowNotValid { get; set; }
     }
 }

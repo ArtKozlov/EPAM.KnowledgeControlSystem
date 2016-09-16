@@ -25,32 +25,32 @@ namespace WebUI.Controllers
 
         }
         
-        public ActionResult TestsEditor(string searchItem, bool showValid = false, int page = 1)
+        public ActionResult TestsEditor(string searchItem, bool showNotValid = false, int page = 1)
         {
             var model = new TestEditorViewModel();
             List<TestViewModel> tests;
             if (ReferenceEquals(searchItem, null))
             {
-                if (showValid)
+                if (showNotValid)
                     tests =
                         _testService.GetAllTests()
                         .Select(u => u.ToMvcTest())
-                        .Where(m => m.IsValid)
+                        .Where(m => m.IsValid == false)
                         .ToList();
                 else
                     tests =
                         _testService.GetAllTests()
                         .Select(u => u.ToMvcTest())
                         .ToList();
-                model.PageInfo = new PageInfoViewModel(page, 2, tests.Count, null);
+                model.PageInfo = new PageInfoViewModel(page, 10, tests.Count, null);
             }
             else
             {
-                if (showValid)
+                if (showNotValid)
                     tests =
                         _testService.GetAllTests()
                             .Select(u => u.ToMvcTest())
-                            .Where(m => m.IsValid && (m.Name.Contains(searchItem) || m.Creator.Contains(searchItem)))
+                            .Where(m => m.IsValid == false && (m.Name.Contains(searchItem) || m.Creator.Contains(searchItem)))
                             .ToList();
                 else
                     tests =
@@ -59,10 +59,10 @@ namespace WebUI.Controllers
                             .Where(m => m.Name.Contains(searchItem) || m.Creator.Contains(searchItem))
                             .ToList();
 
-                model.PageInfo = new PageInfoViewModel(page, 2, tests.Count, searchItem);
+                model.PageInfo = new PageInfoViewModel(page, 10, tests.Count, searchItem);
             }
-            model.ShowValid = showValid;
-            model.Tests = tests.Skip((page - 1) * 2).Take(2);
+            model.ShowNotValid = showNotValid;
+            model.Tests = tests.Skip((page - 1) * 10).Take(10);
             if (Request.IsAjaxRequest())
             {
                 return PartialView(model);
@@ -108,13 +108,13 @@ namespace WebUI.Controllers
             {
                 tests = _testService.GetAllTests().Select(u => u.ToMvcTest()).ToList();
                 model.Tests = tests;
-                model.PageInfo = new PageInfoViewModel(page, 2, tests.Count, null);
+                model.PageInfo = new PageInfoViewModel(page, 10, tests.Count, null);
             }
             else
             {
                 tests = _testService.GetAllTests().Select(u => u.ToMvcTest()).Where(a => a.Name.Contains(name) || a.Creator.Contains(name)).ToList();
                 model.Tests = tests;
-                model.PageInfo = new PageInfoViewModel(page, 2, tests.Count, name);
+                model.PageInfo = new PageInfoViewModel(page, 10, tests.Count, name);
             }
             if (Request.IsAjaxRequest())
             {

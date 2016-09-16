@@ -31,7 +31,7 @@ namespace WebUI.Controllers
                     _userService.GetAllUsers()
                     .Select(u => u.ToMvcUser())
                     .ToList();
-                model.PageInfo = new PageInfoViewModel(page, 2, tests.Count, null);
+                model.PageInfo = new PageInfoViewModel(page, 10, tests.Count, null);
             }
             else
             {
@@ -40,9 +40,9 @@ namespace WebUI.Controllers
                     .Select(u => u.ToMvcUser())
                     .Where(a => a.Name.Contains(searchItem) || a.Email.Contains(searchItem))
                     .ToList();
-                model.PageInfo = new PageInfoViewModel(page, 2, tests.Count, searchItem);
+                model.PageInfo = new PageInfoViewModel(page, 10, tests.Count, searchItem);
             }
-            model.Users = tests.Skip((page - 1) * 2).Take(2);
+            model.Users = tests.Skip((page - 1) * 10).Take(10);
             if (Request.IsAjaxRequest())
             {
                 return PartialView(model);
@@ -85,13 +85,13 @@ namespace WebUI.Controllers
             {
                 users = _userService.GetAllUsers().Select(u => u.ToMvcUser()).ToList();
                 model.Users = users;
-                model.PageInfo = new PageInfoViewModel(page, 2, users.Count, null);
+                model.PageInfo = new PageInfoViewModel(page, 10, users.Count, null);
             }
             else
             {
                 users = _userService.GetAllUsers().Select(u => u.ToMvcUser()).Where(a => a.Name.Contains(name) || a.Email.Contains(name)).ToList();
                 model.Users = users;
-                model.PageInfo = new PageInfoViewModel(page, 2, users.Count, name);
+                model.PageInfo = new PageInfoViewModel(page, 10, users.Count, name);
             }
             if (Request.IsAjaxRequest())
             {

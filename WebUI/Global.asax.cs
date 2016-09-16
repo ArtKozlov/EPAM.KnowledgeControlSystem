@@ -25,10 +25,9 @@ namespace WebUI
 
             if (httpException != null)
             {
-
-                string urlError = @"^4\d{2}$";
+                
                 string serverError = @"^5\d{2}$";
-                if (Regex.IsMatch(httpException.GetHttpCode().ToString(), urlError, RegexOptions.IgnoreCase))
+                if(httpException.GetHttpCode().ToString() == "404")
                     Response.Redirect(String.Format("~/Error/NotFound/?message={0}", exception.Message));
                 if (Regex.IsMatch(httpException.GetHttpCode().ToString(), serverError, RegexOptions.IgnoreCase))
                     Response.Redirect(String.Format("~/Error/ServerError/?message={0}", exception.Message));

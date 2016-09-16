@@ -22,10 +22,10 @@
 <div id="results">
     <h1>Moderator room</h1>
     <div class="form-group">
-        @Html.LabelFor(m => m.ShowValid, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            Yes: @Html.RadioButtonFor(m => m.ShowValid, true, new { @class = "radio-inline", form="form0", name="showValid"})
-            No:  @Html.RadioButtonFor(m => m.ShowValid, false, new { @class = "radio-inline", form = "form0", name = "showValid" })
+        @Html.LabelFor(m => m.ShowNotValid, new { @class = "col-md-3 control-label" })
+        <div class="col-md-5">
+            Yes: @Html.RadioButtonFor(m => m.ShowNotValid, true, new { @class = "radio-inline", form="form0", name="showNotValid", onclick="getNotValidTests()"})
+            No:  @Html.RadioButtonFor(m => m.ShowNotValid, false, new { @class = "radio-inline", form = "form0", name = "showNotValid", onclick = "getNotValidTests()" })
         </div>
     </div>
     <table class="table">
@@ -63,7 +63,7 @@
                 <td>
                     @Html.ActionLink("Edit", "EditTest", new {id = item.Id}) |
                     @Ajax.ActionLink("Delete", "DeleteTest", new {id = item.Id, name = Model.PageInfo.SearchItem, page = Model.PageInfo.PageNumber },
-                        new AjaxOptions {Confirm = "Do you want delete '" + item.Name + "'?", UpdateTargetId = "results"})
+                        new AjaxOptions {Confirm = "Do you want delete '" + item.Name + "'?", UpdateTargetId = "results"}, new {@class="text-danger"})
                 </td>
             </tr>
         }
@@ -72,13 +72,13 @@
     <div class="text-center">
         @if (Model.PageInfo.TotalPages <= 4)
         {
-            @Html.FewPageLinks(Model.PageInfo, (x, y) => Url.Action("TestsEditor", new { page = x, searchItem = y, showValid = Model.ShowValid }))
+            @Html.FewPageLinks(Model.PageInfo, (x, y) => Url.Action("TestsEditor", new { page = x, searchItem = y, showNotValid = Model.ShowNotValid }))
         }
         else
         {
             @Html.PageTopLink(Model.PageInfo, (x, y) => Url.Action("TestsEditor", new { page = x, searchItem = y }))
 
-            @Html.PageLinks(Model.PageInfo, (x, y) => Url.Action("TestsEditor", new { page = x, searchItem = y, showValid = Model.ShowValid }))
+            @Html.PageLinks(Model.PageInfo, (x, y) => Url.Action("TestsEditor", new { page = x, searchItem = y, showNotValid = Model.ShowNotValid }))
 
             @Html.PageEndLink(Model.PageInfo, (x, y) => Url.Action("TestsEditor", new { page = x, searchItem = y }))
         }
@@ -88,7 +88,7 @@
 </div>
 @Scripts.Render("~/scripts/jquery-1.10.2.min.js")
 @Scripts.Render("~/scripts/jquery.unobtrusive-ajax.min.js")
-
+@Scripts.Render("~/scripts/customScript.js")
 
 
 

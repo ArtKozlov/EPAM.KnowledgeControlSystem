@@ -4,48 +4,49 @@
 }
 @section Search{}
     <div class="container-fluid text-center">
+        <div class="row content">
+            <div class="col-sm-8 text-left ">
+                <h1 class="text-primary">@Model.Name</h1>
+                <div class="container">
+                    <div class="list-group">
+                        @for (int i = 0; i < Model.Questions.Count; i++)
+                        {
+                            <div class="list-group-item">
+                                <div class="container text-left">
+                                    <div class="col-sm">
+                                        <label class="col-sm control-label ">@Model.Questions[i]</label>
+                                    </div>
+                                    <div class="col-sm">
+                                        <h4 class="text-muted">Answer:</h4>
+                                        <input class="col-sm control-label" form="finishForm" type="text" name="Answers">
+                                    </div>
 
-    <div class="col-sm-8 text-left ">
-        <h1 class="text-primary">@Model.Name</h1>
-        <div class="container">
-            <div class="list-group">
-                @for (int i = 0; i < Model.Questions.Count; i++)
-                {
-                    <div class="list-group-item">
-                        <div class="container text-left">
-                            <div class="col-sm">
-                                <label class="col-sm control-label ">@Model.Questions[i]</label>
+                                </div>
                             </div>
-                            <div class="col-sm">
-                                <h4 class="text-muted">Answer:</h4>
-                                <input class="col-sm control-label" form="finishForm" type="text" name="Answers">
-                            </div>
-
-                        </div>
+                        }
                     </div>
-                }
+                </div>
+            </div>
+            <div class="col-sm-4 text-center">
+                <div class="container affix">
+                    <h3 class="text-info">Time left until completion of the test:</h3>
+                    <p class="text-center">
+                        <h3 class="text-warning" id="countdown"></h3>
+                    </p>
+                    <input hidden="hidden" name="Id" form="finishForm" value="@Model.Id">
+                    <input hidden="hidden" name="Time" form="finishForm" value="@Model.Time">
+                    <input hidden="hidden" name="StartPassingTest" form="finishForm" value="@Model.StartPassingTest">
+                    <div hidden="hidden" id="time">@Model.Time</div>
+                    <p>
+                        When you answer all the questions and want to end the test, click on the button "Finish". Good luck!
+                    </p>
+                    <form action="/Test/Passing" id="finishForm" method="post" role="form">
+                        <button class="btn btn-info" type="submit">Finish</button>
+                    </form>
+                </div>
+            </div>
             </div>
         </div>
-        </div>
-        <div class="col-sm-4 text-center">
-            <div class="container affix">
-                <h3 class="text-info">Time left until completion of the test:</h3>
-                <p class="text-center">
-                    <h3 class="text-warning" id="countdown"></h3>
-                </p>
-                <input hidden="hidden" name="Id" form="finishForm" value="@Model.Id">
-                <input hidden="hidden" name="Time" form="finishForm" value="@Model.Time">
-                <input hidden="hidden" name="StartPassingTest" form="finishForm" value="@Model.StartPassingTest">
-                <div hidden="hidden" id="time">@Model.Time</div>
-                <p>
-                    When you answer all the questions and want to end the test, click on the button "Finish". Good luck!
-                </p>
-                <form action="/Test/Passing" id="finishForm" method="post" role="form">
-                    <button class="btn btn-info" type="submit">Finish</button>
-                </form>
-            </div>
-        </div>
-    </div>
 @section Scripts {
     @Scripts.Render("~/scripts/jquery-1.10.2.min.js")
     @Scripts.Render("~/scripts/jquery.unobtrusive-ajax.min.js")

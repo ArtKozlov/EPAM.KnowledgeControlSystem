@@ -1,7 +1,27 @@
 ﻿function deleteQuestion() {
+    $(document)
+       .ready(function () {
+           var count = $("#countQuestion").html();
+           if (count > 5) {
+               count--;
+               $("#countQuestion").html(count);
+           }
+       });
     $("#results>div:nth-child(1)").detach();
 }
 
+function getNotValidTests() {
+    document.forms["form0"].submit();
+}
+
+function increaseCountQuestion() {
+    $(document)
+        .ready(function() {
+            var count = $("#countQuestion").html();
+            count++;
+            $("#countQuestion").html(count);
+        });
+}
 
 function startTime(time) {
     if (time === 0)
