@@ -15,13 +15,11 @@ namespace WebUI.Controllers
 
         private readonly IUserService _userService;
         private readonly ITestResultService _testResultService;
-        private readonly IRoleService _roleService;
 
-        public ProfileController(IUserService service, ITestResultService testResult, IRoleService roleService)
+        public ProfileController(IUserService service, ITestResultService testResult)
         {
             _userService = service;
             _testResultService = testResult;
-            _roleService = roleService;
         }
         public ActionResult Information(int page = 1)
         {
@@ -29,8 +27,8 @@ namespace WebUI.Controllers
             model.User = _userService.GetUserByEmail(User.Identity.Name).ToMvcUser();
             List<TestResultDTO> tests;
             tests = model.User.TestResults.Reverse().ToList();
-            model.User.TestResults = model.User.TestResults.Reverse().Skip((page - 1) * 2).Take(2).ToList();
-            model.PageInfo = new PageInfoViewModel(page, 2, tests.Count,null);
+            model.User.TestResults = model.User.TestResults.Reverse().Skip((page - 1) * 5).Take(5).ToList();
+            model.PageInfo = new PageInfoViewModel(page, 5, tests.Count,null);
             if (Request.IsAjaxRequest())
             {
 

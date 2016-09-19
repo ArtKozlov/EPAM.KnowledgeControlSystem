@@ -21,7 +21,7 @@ namespace WebUI.Controllers
         public ActionResult Login(string returnUrl)
         {
             if(User.Identity.IsAuthenticated)
-                return Redirect(returnUrl ?? Url.Action("Information", "Profile"));
+                return Redirect(Url.Action("Information", "Profile"));
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }

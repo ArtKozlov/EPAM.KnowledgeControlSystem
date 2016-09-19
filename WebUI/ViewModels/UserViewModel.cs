@@ -15,17 +15,17 @@ namespace WebUI.ViewModels
         
         public int Id { get; set; }
 
-        [Display(Name = "User name")]
+        [Display(Name = "Name")]
         [Required(ErrorMessage = "Enter your name")]
         [StringLength(40, ErrorMessage = "The name must contain at least {2} characters", MinimumLength = 6)]
         public string Name { get; set; }
 
-        [Display(Name = "User Email")]
+        [Display(Name = "Email")]
         [Required(ErrorMessage = "The field can not be empty!")]
         [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}", ErrorMessage = "Uncurrect email")]
         public string Email { get; set; }
 
-        [Display(Name = "User Age")]
+        [Display(Name = "Age")]
         [Range(0, 99, ErrorMessage = "Invalid field of age!")]
         public int Age { get; set; }
 

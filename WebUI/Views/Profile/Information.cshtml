@@ -4,105 +4,120 @@
 @{
     ViewBag.Title = "Profile";
 }
-@section Search{}
 <div id="results">
-        <h2>Profile Information</h2>
-        <table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.User.Email)
-                </th>
-                <td>
-                    @Html.DisplayFor(modelItem => Model.User.Email)
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.User.Name)
-                </th>
-                <td>
-                    @Html.DisplayFor(modelItem => Model.User.Name)
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.User.Age)
-                </th>
-                <td>
-                    @Html.DisplayFor(modelItem => Model.User.Age)
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.User.Roles)
-                </th>
-                <td>
-                    @foreach (var elem in Model.User.Roles)
-            {
-                        @Html.DisplayFor(modelItem => elem.Name)
-                        <br />
-                    }
-                </td>
+    <h2>Profile Information</h2>
+    <div class="row content">
+        <div class="col-sm-3 text-left">
+            <div class="container">
+                <strong>
+                    @Html.DisplayNameFor(model => model.User.Email):
+                </strong>
+            </div>
+        </div>
+        <div class="col-sm-9 text-left">
+            <div class="container">
+                @Html.DisplayFor(modelItem => Model.User.Email)
+            </div>
+        </div>
+        <div class="col-sm-3 text-left">
+            <div class="container">
+                <strong>
+                    @Html.DisplayNameFor(model => model.User.Name):
+                </strong>
+</div>
+        </div>
+        <div class="col-sm-9 text-left">
+            <div class="container">
+                @Html.DisplayFor(modelItem => Model.User.Name)
+            </div>
+        </div>
+        <div class="col-sm-3 text-left">
+            <div class="container">
+                <strong>
+                    @Html.DisplayNameFor(model => model.User.Age):
+                </strong>
+</div>
+        </div>
+        <div class="col-sm-9 text-left">
+            <div class="container">
+                @Html.DisplayFor(modelItem => Model.User.Age)
+            </div>
+        </div>
+        <div class="col-sm-3 text-left">
+            <div class="container">
+                <strong>
+                    @Html.DisplayNameFor(model => model.User.Roles):
+                </strong>
+</div>
+        </div>
+        <div class="col-sm-9 text-left">
+            <div class="container">
+                @foreach (var elem in Model.User.Roles)
+                {
+                    <span> @Html.DisplayFor(modelItem => elem.Name);</span>
 
-            </tr>
-        </table>
-        <h2>Your completed tests</h2>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.User.TestResults.GetEnumerator().Current.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.User.TestResults.GetEnumerator().Current.GoodAnswers)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.User.TestResults.GetEnumerator().Current.BadAnswers)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.User.TestResults.GetEnumerator().Current.DateCompleted)
-            </th>
-        </tr>
-
-        @foreach (var item in Model.User.TestResults)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.GoodAnswers)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.BadAnswers)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DateCompleted)
-                </td>
-                <td>
-                    @Ajax.ActionLink("Delete", "DeleteTestResult", new {id = item.Id, page = Model.PageInfo.SearchItem},
-                        new AjaxOptions {Confirm = "Do you want delete '" + item.Name + "'?", UpdateTargetId = "results"}, new { @class = "text-danger" })
-                </td>
-            </tr>
-        }
-
-    </table>
-    <div class="text-center">
-        @if (Model.PageInfo.TotalPages <= 4)
-        {
-            @Html.FewPageLinks(Model.PageInfo, (x, y) => Url.Action("Information", new { page = x, searchItem = y }))
-        }
-        else
-        {
-            @Html.PageTopLink(Model.PageInfo, (x, y) => Url.Action("Information", new { page = x, searchItem = y }))
-
-            @Html.PageLinks(Model.PageInfo, (x, y) => Url.Action("Information", new { page = x, searchItem = y }))
-
-            @Html.PageEndLink(Model.PageInfo, (x, y) => Url.Action("Information", new { page = x, searchItem = y }))
-        }
-
+                }
+            </div>
+        </div>
     </div>
-    </div>
-    @Scripts.Render("~/scripts/jquery-1.10.2.min.js")
-    @Scripts.Render("~/scripts/jquery.unobtrusive-ajax.min.js")
+
+            <h2>Your completed tests</h2>
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.User.TestResults.GetEnumerator().Current.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.User.TestResults.GetEnumerator().Current.GoodAnswers)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.User.TestResults.GetEnumerator().Current.BadAnswers)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.User.TestResults.GetEnumerator().Current.DateCompleted)
+                    </th>
+                </tr>
+
+                @foreach (var item in Model.User.TestResults)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.GoodAnswers)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.BadAnswers)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateCompleted)
+                        </td>
+                        <td>
+                            @Ajax.ActionLink("Delete", "DeleteTestResult", new {id = item.Id, page = Model.PageInfo.SearchItem},
+                                new AjaxOptions {Confirm = "Do you want delete '" + item.Name + "'?", UpdateTargetId = "results"}, new {@class = "text-danger"})
+                        </td>
+                    </tr>
+                }
+
+            </table>
+            <div class="text-center">
+                @if (Model.PageInfo.TotalPages <= 4)
+                {
+                    @Html.FewPageLinks(Model.PageInfo, (x, y) => Url.Action("Information", new {page = x, searchItem = y}))
+                }
+                else
+                {
+                    @Html.PageTopLink(Model.PageInfo, (x, y) => Url.Action("Information", new {page = x, searchItem = y}))
+
+                    @Html.PageLinks(Model.PageInfo, (x, y) => Url.Action("Information", new {page = x, searchItem = y}))
+
+                    @Html.PageEndLink(Model.PageInfo, (x, y) => Url.Action("Information", new {page = x, searchItem = y}))
+                }
+
+            </div>
+        </div>
+            @Scripts.Render("~/scripts/jquery-1.10.2.min.js")
+            @Scripts.Render("~/scripts/jquery.unobtrusive-ajax.min.js")
 
 

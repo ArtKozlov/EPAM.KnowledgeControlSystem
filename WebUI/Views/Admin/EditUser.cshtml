@@ -5,11 +5,10 @@
     ViewBag.Title = "Edit user";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@section Search{}
 @using (Html.BeginForm("EditUser", "Admin", FormMethod.Post,
     new {@class = "form-horizontal", role = "form"}))
 {
-    <h3></h3>
+    <h2>Edit room</h2>
     @Html.Hidden(Html.TextBoxFor(m => m.Id, new { @class = "form-control" }).ToString())
     <div class="form-group">
         @Html.LabelFor(m => m.Name, new {@class = "col-md-2 control-label"})
@@ -31,12 +30,13 @@
         </div>
     </div>
     <div class="form-group">
-        @Html.Label("Roles this user:");
+
+        @Html.Label("Roles this user", new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
+
             @foreach (var item in Model.Roles)
             {
-                <br/>
-                @item.Name
+                <span> @item.Name</span>
             }
         </div>
     </div>

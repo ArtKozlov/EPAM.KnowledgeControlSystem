@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using BLL.DTO;
 using WebUI.ViewModels;
@@ -53,6 +54,7 @@ namespace WebUI.Infrastructure.Mappers
                 BadAnswers = testEntity.BadAnswers,
                 GoodAnswers = testEntity.GoodAnswers,
                 Time = testEntity.Time,
+                Discription = testEntity.Discription,
                 IsValid = testEntity.IsValid,
                 Creator = testEntity.Creator,
                 Questions = (List<QuestionDTO>)testEntity.Questions,
@@ -70,6 +72,7 @@ namespace WebUI.Infrastructure.Mappers
                 BadAnswers = testViewModel.BadAnswers,
                 GoodAnswers = testViewModel.GoodAnswers,
                 Time = testViewModel.Time,
+                Discription = testViewModel.Discription,
                 IsValid = testViewModel.IsValid,
                 Creator = testViewModel.Creator,
                 Questions = testViewModel.Questions,
@@ -81,9 +84,9 @@ namespace WebUI.Infrastructure.Mappers
             return new TestDTO()
             {
                 Name = createTestViewModel.Name,
-               // Discription = createTestViewModel.Discription,
                 Time = createTestViewModel.Time,
                 Creator = createTestViewModel.Creator,
+                Discription = createTestViewModel.Discription,
                 Questions = createTestViewModel.Questions.ToQuestionDtoCollection().ToList(),
                 Answers = createTestViewModel.Answers.ToAnswerDtoCollection().ToList()
             };
@@ -111,7 +114,7 @@ namespace WebUI.Infrastructure.Mappers
                 Answers = testModel.Answers.ToAnswerCollection().ToList()
             };
         }
-        public static TestDTO ToBllTestFromPassingModel(this PassingViewModel passingModel)
+        public static TestDTO ToBllTest(this PassingViewModel passingModel)
         {
             return new TestDTO()
             {
@@ -147,6 +150,71 @@ namespace WebUI.Infrastructure.Mappers
                 BadAnswers = testResultViewModel.BadAnswers,
                 DateCompleted = testResultViewModel.DateComleted,
                 UserId = testResultViewModel.UserId
+            };
+        }
+        public static TestCompleteViewModel ToMvcTestComplete(this TestResultDTO testResult)
+        {
+            string discription = String.Empty;
+            string result = String.Empty;
+            double questions = testResult.BadAnswers + testResult.GoodAnswers;
+            string points = (testResult.GoodAnswers/questions).ToString("####.#");
+            switch (points)
+            {
+                case "":
+                    discription = "It's very bad. Try your hand again, maybe you just got lucky. Or you were tested at random.";
+                    result = "Test is not completed.";
+                    break;
+                case ",1":
+                    discription = "It's very bad. Try your hand again, maybe you just got lucky. Or you were tested at random.";
+                    result = "Test is not completed.";
+                    break;
+                case ",2":
+                    discription = "Not bad, but it could have been worse.";
+                    result = "Test is not completed.";
+                    break;
+                case ",3":
+                    discription = "The important thing is not to win but to take part.";
+                    result = "Test is not completed.";
+                    break;
+                case ",4":
+                    discription = "The important thing is not to win but to take part.";
+                    result = "Test is not completed.";
+                    break;
+                case ",5":
+                    discription = "The important thing is not to win but to take part.";
+                    result = "Test is not completed.";
+                    break;
+                case ",6":
+                    discription = "You do not have quite a bit.";
+                    result = "Test is not completed.";
+                    break;
+                case ",7":
+                    discription = "Congratulations!";
+                    result = "Test is completed.";
+                    break;
+                case ",8":
+                    discription = "Congratulations!";
+                    result = "Test is cmpleted.";
+                    break;
+                case ",9":
+                    discription = "Congratulations! ";
+                    result = "Test is completed.";
+                    break;
+                case "1":
+                    discription = "Congratulations! You have very good data in this area. If you have the desire and time, you can build your test!";
+                    result = "Test is completed.";
+                    break;
+                default:
+                    discription = "Sorry, but while checking something went wrong test. Try to go through again.";
+                    result = "Error.";
+                    break;
+            }
+            return new TestCompleteViewModel()
+            {
+                GoodAnswers = testResult.GoodAnswers,
+                Questions = testResult.BadAnswers + testResult.GoodAnswers,
+                Discription = discription,
+                Result = result
             };
         }
         #endregion

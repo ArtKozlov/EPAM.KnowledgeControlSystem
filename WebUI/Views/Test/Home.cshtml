@@ -35,11 +35,12 @@
 
                                     <div class="container">
                                         <div class="row">
-                                            <div class="col-sm text-success">Test name: @item.Name</div>
-                                            <div class="col-sm">The creator the test: @item.Creator</div>
-                                            <div class="col-sm">The count of questions the test: @item.Questions.Count</div>
-                                            <div class="col-sm">The time for passing the test: @item.Time</div>
-                                            <div class="col-sm">Discription</div>
+                                            <div class="col-sm"><strong>Test name: <span class="text-warning">@item.Name</span></strong> </div>
+                                            <div class="col-sm"><strong>The creator the test:</strong> @item.Creator</div>
+                                            <div class="col-sm"><strong>The count of questions the test:</strong> @item.Questions.Count</div>
+                                            <div class="col-sm"><strong>The time for passing the test:</strong> @item.Time</div>
+                                            <div class="col-sm"><i><strong>Discription:</strong></i></div>
+                                            <div class="col-sm">@item.Discription</div>
                                             <div class="col-sm">
                                                 @Html.ActionLink("Start test", "Passing", new {id = item.Id}, new {@class = "btn btn-success"})
                                             </div>

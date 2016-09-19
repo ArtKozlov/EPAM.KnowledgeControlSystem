@@ -3,7 +3,6 @@
 @{
     ViewBag.Title = "Login";
 }
-@section Search{}
 @using (Html.BeginForm("Login", "Account", new { returnUrl = ViewBag.returnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()

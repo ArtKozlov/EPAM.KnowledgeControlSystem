@@ -62,13 +62,10 @@ namespace WebUI.Controllers
         public ActionResult EditUser(UserViewModel viewModel)
         {
             if (viewModel.IsAdmin)
-            {
                 viewModel.Roles.Add(_roleService.GetRoleByName("Admin"));
-            }
             if (viewModel.IsModerator)
-            {
                 viewModel.Roles.Add(_roleService.GetRoleByName("Moderator"));
-            }
+
             viewModel.Roles.Add(_roleService.GetRoleByName("User"));
             _userService.UpdateUser(viewModel.ToBllUser());
             return Redirect(Url.Action("UsersEditor", "Admin"));

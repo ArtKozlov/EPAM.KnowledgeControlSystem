@@ -9,7 +9,7 @@ namespace WebUI.ViewModels
 {
     public class CreateTestViewModel
     {
-        [StringLength(30)]
+        [StringLength(50)]
         public string Name { get; set; }    
         [Range(1, 60)]
         public int Time { get; set; }    

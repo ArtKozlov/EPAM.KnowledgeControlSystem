@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using BLL.Interfaces;
 using WebUI.Infrastructure.Mappers;
@@ -22,8 +21,6 @@ namespace WebUI.Controllers
             _userService = userService;
 
         }
-
-        // GET: Test
        
         public ActionResult Home(string searchItem, int page = 1)
         {
@@ -64,23 +61,14 @@ namespace WebUI.Controllers
             test.Creator = User.Identity.Name;
             _testService.CreateTest(test);
             return Redirect(Url.Action("Home", "Test"));
-
-            //if(!ModelState.IsValidField(model.Name))
-            //    ModelState.AddModelError("", "Incorrect Name. The name must contain at least 6 characters");
-            //if (!ModelState.IsValidField(model.Discription))
-            //    ModelState.AddModelError("", "Incorrect Discription. The name must contain at least 60 characters");
         }
  
         [Authorize(Roles = "User")]
         [HttpGet]
-        public ActionResult CreateTest()
-        {
-            return View();
-        }
-        public ActionResult AddQuestion()
-        {
-            return PartialView("QuestionPartial");
-        }
+        public ActionResult CreateTest() => View();
+
+        public ActionResult AddQuestion() => PartialView("QuestionPartial");
+
         [HttpGet]
         public ActionResult Passing(int id)
         {
@@ -103,7 +91,7 @@ namespace WebUI.Controllers
                                  (DateTime.Now - model.StartPassingTest).Seconds - 10;
             if (checkeTestTime > model.Time*60)
                 return Redirect(Url.Action("NotCompleteTest", "Error"));
-            var resultModel = _testService.CheckAnswers(model.ToBllTestFromPassingModel());
+            var resultModel = _testService.CheckAnswers(model.ToBllTest());
             var entityTest = _testService.GetTest(model.Id);
             entityTest.GoodAnswers += resultModel.GoodAnswers;
             entityTest.BadAnswers += resultModel.BadAnswers;
@@ -112,7 +100,7 @@ namespace WebUI.Controllers
             resultModel.UserId = _userService.GetUserByEmail(User.Identity.Name).Id;
             resultModel.DateCompleted = DateTime.Now;
             _testResultService.CreateTestResult(resultModel);
-            return RedirectToAction("TestComplete", resultModel.ToMvcTestResult());
+            return RedirectToAction("TestComplete", resultModel.ToMvcTestComplete());
         }
 
         public ActionResult Statistics(string searchItem, int page = 1)
@@ -146,14 +134,9 @@ namespace WebUI.Controllers
             return View(model);
 
         }
-        public ActionResult TestComplete(TestResultViewModel testViewModel)
-        {
-            return View(testViewModel);
-        }
+        public ActionResult TestComplete(TestCompleteViewModel testViewModel) => View(testViewModel);
 
-        public ActionResult About()
-        {
-            return View();
-        }
+        public ActionResult About() => View();
+
     }
 }

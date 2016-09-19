@@ -168,6 +168,7 @@
     <Compile Include="ViewModels\RegisterViewModel.cs" />
     <Compile Include="ViewModels\Statistics.cs" />
     <Compile Include="ViewModels\StatisticsViewModel.cs" />
+    <Compile Include="ViewModels\TestCompleteViewModel.cs" />
     <Compile Include="ViewModels\TestEditorViewModel.cs" />
     <Compile Include="ViewModels\TestResultViewModel.cs" />
     <Compile Include="ViewModels\TestViewModel.cs" />

@@ -15,6 +15,7 @@ namespace ORM.Entities
         public string Name { get; set; }
 
         public int Time { get; set; }
+        public string Discription { get; set; }
         public int GoodAnswers { get; set; }
 
         public int BadAnswers { get; set; }

@@ -10,6 +10,10 @@
     $("#results>div:nth-child(1)").detach();
 }
 
+function updateTest() {
+    alert("Test updated.");
+}
+
 function getNotValidTests() {
     document.forms["form0"].submit();
 }
@@ -42,8 +46,11 @@ function checkTime(i) {
     return i;
 }
 
-var time = document.getElementById("time").innerHTML;
+var time = $("#time").html();
 if (time != undefined) {
     time = time * 60;
     window.onload = startTime(time);
 }
+if ($(document).height() <= $(window).height())
+    $("footer.modal-footer").addClass("navbar-fixed-bottom");
+

@@ -56,7 +56,7 @@ namespace ORM
             {
                 db.Roles.Add(new Role { Name = "Admin", Description = "This role have all feutures" });
                 db.Roles.Add(new Role { Name = "Moderator", Description = "This role have much feutures" });
-                db.Roles.Add(new Role { Name = "User", Description = "This role have nothing" });
+                db.Roles.Add(new Role { Name = "User", Description = "This role have little feutures" });
                 db.SaveChanges();
             }
         }
