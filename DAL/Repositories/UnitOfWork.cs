@@ -1,25 +1,20 @@
-﻿using System;
-using DAL.Interfaces;
-using DAL.Repositories;
-using ORM;
-using ORM.Entities;
+﻿using DAL.Interfaces;
+using DAL.Entities;
+using DAL.NHibernate;
+using NHibernate;
 
-namespace DAL
+namespace DAL.Repositories
 {
     public class UnitOfWork: IUnitOfWork
     {
-        private readonly TestingSystemContext _context;
-        private UserRepository _userRepository;
-        private RoleRepository _roleRepository;
-        private TestRepository _testRepository;
-        private TestResultRepository _testResultRepository;
-        private QuestionRepository _questionRepository;
-        private AnswerRepository _answerRepository;
+        private readonly ISession _session = NHibernateHelper.OpenSession();
 
-        public UnitOfWork(TestingSystemContext context)
-        {
-            _context = context;
-        }
+        private IUserRepository _userRepository;
+        private IRoleRepository _roleRepository;
+        private ITestRepository _testRepository;
+        private ITestResultRepository _testResultRepository;
+        private IQuestionRepository _questionRepository;
+        private IAnswerRepository _answerRepository;
 
 #region binding with repositories
         public IUserRepository Users
@@ -27,7 +22,7 @@ namespace DAL
             get
             {
                 if (ReferenceEquals(_userRepository,null))
-                    _userRepository = new UserRepository(_context);
+                    _userRepository = new UserRepository(_session);
                 return _userRepository;
             }
         }
@@ -37,7 +32,7 @@ namespace DAL
             get
             {
                 if (ReferenceEquals(_roleRepository, null))
-                    _roleRepository = new RoleRepository(_context);
+                    _roleRepository = new RoleRepository(_session);
                 return _roleRepository;
             }
         }
@@ -47,7 +42,7 @@ namespace DAL
             get
             {
                 if (ReferenceEquals(_testRepository, null))
-                    _testRepository = new TestRepository(_context);
+                    _testRepository = new TestRepository(_session);
                 return _testRepository;
             }
         }
@@ -57,7 +52,7 @@ namespace DAL
             get
             {
                 if (ReferenceEquals(_testResultRepository, null))
-                    _testResultRepository = new TestResultRepository(_context);
+                    _testResultRepository = new TestResultRepository(_session);
                 return _testResultRepository;
             }
         }
@@ -67,7 +62,7 @@ namespace DAL
             get
             {
                 if (ReferenceEquals(_questionRepository, null))
-                    _questionRepository = new QuestionRepository(_context);
+                    _questionRepository = new QuestionRepository(_session);
                 return _questionRepository;
             }
         }
@@ -77,26 +72,26 @@ namespace DAL
             get
             {
                 if (ReferenceEquals(_answerRepository, null))
-                    _answerRepository = new AnswerRepository(_context);
+                    _answerRepository = new AnswerRepository(_session);
                 return _answerRepository;
             }
         }
 #endregion 
 
-        public void Save()
-        {
-            if (!ReferenceEquals(_context,null))
-            {
-                _context.SaveChanges();
-            }
-        }
+        //public void Save()
+        //{
+        //    if (!ReferenceEquals(_session, null))
+        //    {
+        //        _session.SaveChanges();
+        //    }
+        //}
 
-        public void Dispose()
-        {
-            if (!ReferenceEquals(_context, null))
-            {
-                _context.Dispose();
-            }
-        }
+        //public void Dispose()
+        //{
+        //    if (!ReferenceEquals(_session, null))
+        //    {
+        //        _session.Dispose();
+        //    }
+        //}
     }
 }

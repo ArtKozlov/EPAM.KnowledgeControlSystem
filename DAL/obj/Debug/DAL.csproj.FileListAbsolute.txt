@@ -10,3 +10,16 @@ D:\Epam\EPAM.KnowledgeControlSystem\DAL\obj\Debug\DAL.pdb
 D:\Epam\EPAM.KnowledgeControlSystem\DAL\bin\Debug\DAL.dll.config
 D:\Epam\EPAM.KnowledgeControlSystem\DAL\bin\Debug\EntityFramework.SqlServer.dll
 D:\Epam\EPAM.KnowledgeControlSystem\DAL\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\artsiom_kazlou1\Source\Repos\EPAM.KnowledgeControlSystem\DAL\bin\Debug\DAL.dll.config
+C:\Users\artsiom_kazlou1\Source\Repos\EPAM.KnowledgeControlSystem\DAL\bin\Debug\DAL.dll
+C:\Users\artsiom_kazlou1\Source\Repos\EPAM.KnowledgeControlSystem\DAL\bin\Debug\DAL.pdb
+C:\Users\artsiom_kazlou1\Source\Repos\EPAM.KnowledgeControlSystem\DAL\obj\Debug\DAL.csprojResolveAssemblyReference.cache
+C:\Users\artsiom_kazlou1\Source\Repos\EPAM.KnowledgeControlSystem\DAL\obj\Debug\DAL.dll
+C:\Users\artsiom_kazlou1\Source\Repos\EPAM.KnowledgeControlSystem\DAL\obj\Debug\DAL.pdb
+C:\Users\artsiom_kazlou1\Source\Repos\EPAM.KnowledgeControlSystem\DAL\bin\Debug\FluentNHibernate.dll
+C:\Users\artsiom_kazlou1\Source\Repos\EPAM.KnowledgeControlSystem\DAL\bin\Debug\Iesi.Collections.dll
+C:\Users\artsiom_kazlou1\Source\Repos\EPAM.KnowledgeControlSystem\DAL\bin\Debug\NHibernate.dll
+C:\Users\artsiom_kazlou1\Source\Repos\EPAM.KnowledgeControlSystem\DAL\bin\Debug\FluentNHibernate.pdb
+C:\Users\artsiom_kazlou1\Source\Repos\EPAM.KnowledgeControlSystem\DAL\bin\Debug\FluentNHibernate.xml
+C:\Users\artsiom_kazlou1\Source\Repos\EPAM.KnowledgeControlSystem\DAL\bin\Debug\Iesi.Collections.xml
+C:\Users\artsiom_kazlou1\Source\Repos\EPAM.KnowledgeControlSystem\DAL\bin\Debug\NHibernate.xml

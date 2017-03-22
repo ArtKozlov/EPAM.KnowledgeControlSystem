@@ -1,56 +1,106 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using DAL.Interfaces;
-using ORM;
-using ORM.Entities;
+using DAL.Entities;
+using NHibernate;
+using NHibernate.Linq;
 
 namespace DAL.Repositories
 {
     public class RoleRepository : IRoleRepository
     {
-        private readonly TestingSystemContext _context;
-        public RoleRepository(TestingSystemContext uow)
+        private readonly ISession _session;
+        public RoleRepository(ISession session)
         {
-            _context = uow;
+            _session = session;
         }
         public IEnumerable<Role> GetAll()
         {
-              return _context.Roles;
+            using (_session)
+            {
+                IEnumerable<Role> result = _session.Query<Role>().ToList();
+                return result;
+            }
         }
         public Role GetById(int key)
         {
-            return _context.Roles.Find(key);
+            using (_session)
+            {
+                Role role = _session.Query<Role>().FirstOrDefault(i => i.Id == key);
+                return role;
+            }
         }
 
         public void Create(Role role)
         {
-            _context.Roles.Add(role);
+            if (ReferenceEquals(role, null))
+                throw new ArgumentNullException();
+
+            using (_session)
+            {
+                using (ITransaction transaction = _session.BeginTransaction())
+                {
+                    _session.Save(role);
+                    transaction.Commit();
+                }
+            }
         }
 
         public void Delete(Role role)
         {
-            var expectedRole = _context.Roles.Single(u => u.Id == role.Id);
-            if (!ReferenceEquals(expectedRole, null))
-                _context.Roles.Remove(expectedRole);
+            using (_session)
+            {
+                using (ITransaction transaction = _session.BeginTransaction())
+                {
+                    Role expectedRole = _session.Query<Role>().FirstOrDefault(i => i.Id == role.Id);
+                    if (!ReferenceEquals(expectedRole, null))
+                    {
+                        _session.Delete(expectedRole);
+                        transaction.Commit();
+                    }
+                }
+            }
         }
 
         public void Update(Role role)
         {
-            _context.Entry(role).State = EntityState.Modified;
+            using (_session)
+            {
+                using (ITransaction transaction = _session.BeginTransaction())
+                {
+                    Role entity = _session.Query<Role>().FirstOrDefault(i => i.Id == role.Id);
+                    if (!ReferenceEquals(entity, null))
+                    {
+                        _session.SaveOrUpdate(entity);
+                        transaction.Commit();
+                    }
+                }
+            }
         }
 
         public void Delete(int key)
         {
-            var expectedRole = _context.Roles.Find(key);
-            if (!ReferenceEquals(expectedRole, null))
-                _context.Roles.Remove(expectedRole);
+            using (_session)
+            {
+                using (ITransaction transaction = _session.BeginTransaction())
+                {
+                    Role role = _session.Query<Role>().FirstOrDefault(i => i.Id == key);
+                    if (!ReferenceEquals(role, null))
+                    {
+                        _session.Delete(role);
+                        transaction.Commit();
+                    }
+                }
+            }
         }
 
         public Role GetByName(string name)
         {
-            return _context.Roles.FirstOrDefault(role => role.Name == name);
+            using (_session)
+            {
+                return _session.Query<Role>().FirstOrDefault(role => role.Name.ToLower() == name.ToLower());
+            }
         }
     }
 }

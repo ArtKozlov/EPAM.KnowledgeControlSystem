@@ -43,33 +43,28 @@ namespace BLL.Services
         public void CreateUser(UserDTO user)
         {
             _uow.Users.Create(user.ToUserEntity());
-            _uow.Save();
         }
 
         public void DeleteUser(UserDTO user)
         {
             _uow.Users.Delete(user.ToUserEntity());
-            _uow.Save();
         }
 
         public void UpdateUser(UserDTO user)
         {
             _uow.Users.Update(user.ToUserEntity());
-            _uow.Save();
             var entityUser = _uow.Users.GetById(user.Id);
             if (!ReferenceEquals(user.OldPassword, null) && !ReferenceEquals(user.NewPassword, null)
                 && user.NewPassword == user.ConfirmPassword && Crypto.VerifyHashedPassword(entityUser.Password, user.OldPassword))
             {
                 user.Password = Crypto.HashPassword(user.NewPassword);
                 _uow.Users.UpdatePassword(user.ToUserEntity());
-                _uow.Save();
             }
         }
 
         public void DeleteUser(int id)
         {
             _uow.Users.Delete(id);
-            _uow.Save();
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using BLL.Interfaces;
 using BLL.Services;
-using DAL;
 using DAL.Interfaces;
+using DAL.Repositories;
 using Ninject;
 
 namespace DependencyResolver

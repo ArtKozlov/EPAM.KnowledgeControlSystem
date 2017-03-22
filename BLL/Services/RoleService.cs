@@ -29,19 +29,16 @@ namespace BLL.Services
         public void CreateRole(RoleDTO role)
         {
             _uow.Roles.Create(role.ToRoleEntity());
-            _uow.Save();
         }
 
         public void DeleteRole(RoleDTO role)
         {
             _uow.Roles.Delete(role.ToRoleEntity());
-            _uow.Save();
         }
 
         public void UpdateRole(RoleDTO role)
         {
             _uow.Roles.Update(role.ToRoleEntity());
-            _uow.Save();
         }
 
         public RoleDTO GetRoleByName(string name)

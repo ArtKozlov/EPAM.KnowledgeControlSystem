@@ -1,55 +1,100 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using DAL.Interfaces;
-using ORM;
-using ORM.Entities;
+using DAL.Entities;
+using NHibernate;
+using NHibernate.Linq;
 
 namespace DAL.Repositories
 {
-    public class AnswerRepository : IRepository<Answer>
+    public class AnswerRepository : IAnswerRepository
     {
-        private readonly TestingSystemContext _context;
+        private readonly ISession _session;
 
-        public AnswerRepository(TestingSystemContext uow)
+        public AnswerRepository(ISession session)
         {
-            _context = uow;
+            _session = session;
         }
         public IEnumerable<Answer> GetAll()
         {
-            return _context.Answers;
+            using (_session)
+            {
+                IEnumerable<Answer> result = _session.Query<Answer>().ToList();
+                return result;
+            }
         }
 
         public Answer GetById(int key)
         {
-            return _context.Answers.Find(key);
+            using (_session)
+            {
+                Answer answer = _session.Query<Answer>().FirstOrDefault(i => i.Id == key);
+                return answer;
+            }
         }
 
         public void Create(Answer answer)
         {
-            _context.Answers.Add(answer);
+            if (ReferenceEquals(answer, null))
+                throw new ArgumentNullException();
+
+            using (_session)
+            {
+                using (ITransaction transaction = _session.BeginTransaction())
+                {
+                    _session.Save(answer);
+                    transaction.Commit();
+                }
+            }
         }
 
         public void Delete(Answer answer)
         {
-            var expectedAnswer = _context.Answers.Single(u => u.Id == answer.Id);
-            if (!ReferenceEquals(expectedAnswer, null))
-                _context.Answers.Remove(expectedAnswer);
+            using (_session)
+            {
+                using (ITransaction transaction = _session.BeginTransaction())
+                {
+                    Answer expectedAnswer = _session.Query<Answer>().FirstOrDefault(i => i.Id == answer.Id);
+                    if (!ReferenceEquals(expectedAnswer, null))
+                    {
+                        _session.Delete(expectedAnswer);
+                        transaction.Commit();
+                    }
+                }
+            }
         }
 
         public void Update(Answer answer)
         {
-            var entity = _context.Answers.Find(answer.Id);
-            entity.Value = answer.Value;
-            _context.Entry(entity).State = EntityState.Modified;
+            using (_session)
+            {
+                using (ITransaction transaction = _session.BeginTransaction())
+                {
+                    Answer entity = _session.Query<Answer>().FirstOrDefault(i => i.Id == answer.Id);
+                    if (!ReferenceEquals(entity, null))
+                    {
+                        _session.SaveOrUpdate(entity);
+                        transaction.Commit();
+                    }
+                }
+            }
         }
 
         public void Delete(int key)
         {
-            var expectedAnswer = _context.Answers.Find(key);
-            if (!ReferenceEquals(expectedAnswer, null))
-                _context.Answers.Remove(expectedAnswer);
+            using (_session)
+            {
+                using (ITransaction transaction = _session.BeginTransaction())
+                {
+                    Answer answer = _session.Query<Answer>().FirstOrDefault(i => i.Id == key);
+                    if (!ReferenceEquals(answer, null))
+                    {
+                        _session.Delete(answer);
+                        transaction.Commit();
+                    }
+                }
+            }
         }
     }
 }

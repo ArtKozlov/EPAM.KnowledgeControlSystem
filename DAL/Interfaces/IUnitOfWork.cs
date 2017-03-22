@@ -1,9 +1,8 @@
-﻿using System;
-using ORM.Entities;
+﻿using DAL.Entities;
 
 namespace DAL.Interfaces
 {
-    public interface IUnitOfWork : IDisposable
+    public interface IUnitOfWork //: IDisposable
     {
         IUserRepository Users { get; }
 
@@ -16,6 +15,6 @@ namespace DAL.Interfaces
         IRepository<Question> Questions { get; }
 
         IRepository<Answer> Answers { get; }
-        void Save();
+        //void Save();
     }
 }

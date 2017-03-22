@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using BLL.DTO;
-using ORM.Entities;
+using DAL.Entities;
 
 namespace BLL.Mapping
 {
@@ -100,7 +100,7 @@ namespace BLL.Mapping
                 GoodAnswers = testEntity.GoodAnswers,
                 BadAnswers = testEntity.BadAnswers,
                 Time = testEntity.Time,
-                Discription = testEntity.Discription,
+                Description = testEntity.Description,
                 IsValid = testEntity.IsValid,
                 Creator = testEntity.Creator,
                 Answers = testEntity.Answers.ToAnswerDtoCollection().ToList(),
@@ -122,7 +122,7 @@ namespace BLL.Mapping
                 GoodAnswers = testDto.GoodAnswers,
                 BadAnswers = testDto.BadAnswers,
                 Time = testDto.Time,
-                Discription = testDto.Discription,
+                Description = testDto.Description,
                 IsValid = testDto.IsValid,
                 Creator = testDto.Creator,
                 Answers = testDto.Answers.ToAnswerCollection().ToList(),

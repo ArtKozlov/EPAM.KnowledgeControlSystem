@@ -1,6 +1,3 @@
-using BLL.Interfaces;
-using BLL.Services;
-
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(WebUI.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(WebUI.App_Start.NinjectWebCommon), "Stop")]
 
@@ -8,9 +5,9 @@ namespace WebUI.App_Start
 {
     using System;
     using System.Web;
-    using System.Web.Mvc;
+
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
-    using Infrastructure;
+
     using Ninject;
     using Ninject.Web.Common;
 
@@ -47,6 +44,7 @@ namespace WebUI.App_Start
             {
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
+
                 RegisterServices(kernel);
                 return kernel;
             }
@@ -63,7 +61,6 @@ namespace WebUI.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
         }        
     }
 }

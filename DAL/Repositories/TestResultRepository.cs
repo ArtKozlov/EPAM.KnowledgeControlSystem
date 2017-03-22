@@ -1,53 +1,101 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using DAL.Interfaces;
-using ORM;
-using ORM.Entities;
+using DAL.Entities;
+using NHibernate;
+using NHibernate.Linq;
 
 namespace DAL.Repositories
 {
-    public class TestResultRepository : IRepository<TestResult>
+    public class TestResultRepository : ITestResultRepository
     {
-        private readonly TestingSystemContext _context;
+        private readonly ISession _session;
 
-        public TestResultRepository(TestingSystemContext uow)
+        public TestResultRepository(ISession session)
         {
-            _context = uow;
+            _session = session;
         }
+
         public IEnumerable<TestResult> GetAll()
         {
-            return _context.TestResults;
+            using (_session)
+            {
+                IEnumerable<TestResult> result = _session.Query<TestResult>().ToList();
+                return result;
+            }
         }
 
         public TestResult GetById(int key)
         {
-            return _context.TestResults.Find(key);
+            using (_session)
+            {
+                TestResult testResult = _session.Query<TestResult>().FirstOrDefault(i => i.Id == key);
+                return testResult;
+            }
         }
 
         public void Create(TestResult testResult)
         {
-            _context.TestResults.Add(testResult);
+            if (ReferenceEquals(testResult, null))
+                throw new ArgumentNullException();
+
+            using (_session)
+            {
+                using (ITransaction transaction = _session.BeginTransaction())
+                {
+                    _session.Save(testResult);
+                    transaction.Commit();
+                }
+            }
         }
 
         public void Delete(TestResult testResult)
         {
-            var expectedTestResult = _context.TestResults.Single(u => u.Id == testResult.Id);
-            if (!ReferenceEquals(expectedTestResult, null))
-                _context.TestResults.Remove(expectedTestResult);
+            using (_session)
+            {
+                using (ITransaction transaction = _session.BeginTransaction())
+                {
+                    TestResult expectedTestResult = _session.Query<TestResult>().FirstOrDefault(i => i.Id == testResult.Id);
+                    if (!ReferenceEquals(expectedTestResult, null))
+                    {
+                        _session.Delete(expectedTestResult);
+                        transaction.Commit();
+                    }
+                }
+            }
         }
 
         public void Update(TestResult testResult)
         {
-            _context.Entry(testResult).State = EntityState.Modified;
+            using (_session)
+            {
+                using (ITransaction transaction = _session.BeginTransaction())
+                {
+                    TestResult entity = _session.Query<TestResult>().FirstOrDefault(i => i.Id == testResult.Id);
+                    if (!ReferenceEquals(entity, null))
+                    {
+                        _session.SaveOrUpdate(entity);
+                        transaction.Commit();
+                    }
+                }
+            }
         }
 
         public void Delete(int key)
         {
-            var expectedTestResult = _context.TestResults.Find(key);
-            if (!ReferenceEquals(expectedTestResult, null))
-                _context.TestResults.Remove(expectedTestResult);
+            using (_session)
+            {
+                using (ITransaction transaction = _session.BeginTransaction())
+                {
+                    TestResult testResult = _session.Query<TestResult>().FirstOrDefault(i => i.Id == key);
+                    if (!ReferenceEquals(testResult, null))
+                    {
+                        _session.Delete(testResult);
+                        transaction.Commit();
+                    }
+                }
+            }
         }
     }
 }

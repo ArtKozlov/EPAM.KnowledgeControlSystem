@@ -54,7 +54,7 @@ namespace WebUI.Infrastructure.Mappers
                 BadAnswers = testEntity.BadAnswers,
                 GoodAnswers = testEntity.GoodAnswers,
                 Time = testEntity.Time,
-                Discription = testEntity.Discription,
+                Discription = testEntity.Description,
                 IsValid = testEntity.IsValid,
                 Creator = testEntity.Creator,
                 Questions = (List<QuestionDTO>)testEntity.Questions,
@@ -72,7 +72,7 @@ namespace WebUI.Infrastructure.Mappers
                 BadAnswers = testViewModel.BadAnswers,
                 GoodAnswers = testViewModel.GoodAnswers,
                 Time = testViewModel.Time,
-                Discription = testViewModel.Discription,
+                Description = testViewModel.Discription,
                 IsValid = testViewModel.IsValid,
                 Creator = testViewModel.Creator,
                 Questions = testViewModel.Questions,
@@ -86,7 +86,7 @@ namespace WebUI.Infrastructure.Mappers
                 Name = createTestViewModel.Name,
                 Time = createTestViewModel.Time,
                 Creator = createTestViewModel.Creator,
-                Discription = createTestViewModel.Discription,
+                Description = createTestViewModel.Discription,
                 Questions = createTestViewModel.Questions.ToQuestionDtoCollection().ToList(),
                 Answers = createTestViewModel.Answers.ToAnswerDtoCollection().ToList()
             };

@@ -19,19 +19,16 @@ namespace BLL.Services
         public void CreateTest(TestDTO test)
         {
             _uow.Tests.Create(test.ToTestEntity());
-            _uow.Save();
         }
 
         public void DeleteTest(int id)
         {
             _uow.Tests.Delete(id);
-            _uow.Save();
         }
 
         public void DeleteTest(TestDTO test)
         {
             _uow.Tests.Delete(test.ToTestEntity());
-            _uow.Save();
         }
 
         public IEnumerable<TestDTO> GetAllTests()
@@ -50,7 +47,6 @@ namespace BLL.Services
         public void UpdateTest(TestDTO test)
         {
             _uow.Tests.Update(test.ToTestEntity());
-            _uow.Save();
         }
 
         public TestResultDTO CheckAnswers(TestDTO test)

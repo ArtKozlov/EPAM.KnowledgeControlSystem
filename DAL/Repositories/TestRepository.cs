@@ -1,60 +1,101 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using DAL.Interfaces;
-using ORM;
-using ORM.Entities;
+using DAL.Entities;
+using NHibernate;
+using NHibernate.Event.Default;
+using NHibernate.Linq;
 
 namespace DAL.Repositories
 {
-    public class TestRepository: IRepository<Test>
+    public class TestRepository: ITestRepository
     {
-        private readonly TestingSystemContext _context;
+        private readonly ISession _session;
 
-        public TestRepository(TestingSystemContext uow)
+        public TestRepository(ISession session)
         {
-            _context = uow;
+            _session = session;
         }
         public IEnumerable<Test> GetAll()
         {
-            return _context.Tests;
+            using (_session)
+            {
+                IEnumerable<Test> result = _session.Query<Test>().ToList();
+                return result;
+            }
         }
 
         public Test GetById(int key)
         {
-            return _context.Tests.Find(key);
+            using (_session)
+            {
+                Test test = _session.Query<Test>().FirstOrDefault(i => i.Id == key);
+                return test;
+            }
         }
 
         public void Create(Test test)
         {
-            _context.Tests.Add(test);
+            if (ReferenceEquals(test, null))
+                throw new ArgumentNullException();
+
+            using (_session)
+            {
+                using (ITransaction transaction = _session.BeginTransaction())
+                {
+                    _session.Save(test);
+                    transaction.Commit();
+                }
+            }
         }
 
         public void Delete(Test test)
         {
-            var expectedTest = _context.Tests.Single(u => u.Id == test.Id);
-            if (!ReferenceEquals(expectedTest, null))
-                _context.Tests.Remove(expectedTest);
+            using (_session)
+            {
+                using (ITransaction transaction = _session.BeginTransaction())
+                {
+                    Test expectedTest = _session.Query<Test>().FirstOrDefault(i => i.Id == test.Id);
+                    if (!ReferenceEquals(expectedTest, null))
+                    {
+                        _session.Delete(expectedTest);
+                        transaction.Commit();
+                    }
+                }
+            }
         }
 
         public void Update(Test test)
         {
-            var entity = _context.Tests.Find(test.Id);
-            entity.Name = test.Name;
-            entity.GoodAnswers = test.GoodAnswers;
-            entity.BadAnswers = test.BadAnswers;
-            entity.Time = test.Time;
-            entity.Discription = test.Discription;
-            entity.IsValid = test.IsValid;
-            _context.Entry(entity).State = EntityState.Modified;
+            using (_session)
+            {
+                using (ITransaction transaction = _session.BeginTransaction())
+                {
+                    Test entity = _session.Query<Test>().FirstOrDefault(i => i.Id == test.Id);
+                    if (!ReferenceEquals(entity, null))
+                    {
+                        _session.SaveOrUpdate(entity);
+                        transaction.Commit();
+                    }
+                }
+            }
         }
 
         public void Delete(int key)
         {
-            var expectedTest = _context.Tests.Find(key);
-            if (!ReferenceEquals(expectedTest, null))
-                _context.Tests.Remove(expectedTest);
+            using (_session)
+            {
+                using (ITransaction transaction = _session.BeginTransaction())
+                {
+                    Test test = _session.Query<Test>().FirstOrDefault(i => i.Id == key);
+                    if (!ReferenceEquals(test, null))
+                    {
+                        _session.Delete(test);
+                        transaction.Commit();
+                    }
+                }
+            }
         }
     }
 }
