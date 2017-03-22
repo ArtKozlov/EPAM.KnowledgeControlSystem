@@ -2,7 +2,7 @@
 using System.Web.Mvc;
 using System.Web.Security;
 using BLL.Interfaces;
-using WebUI.Providers;
+using WebUI.Infrastructure.Providers;
 using WebUI.ViewModels;
 
 namespace WebUI.Controllers
@@ -11,10 +11,12 @@ namespace WebUI.Controllers
     public class AccountController : Controller
     {
         private readonly IUserService _userService;
+        private readonly CustomMembershipProvider _customMembershipProvider;
 
-        public AccountController(IUserService repository)
+        public AccountController(IUserService repository, CustomMembershipProvider customMembershipProvider)
         {
             _userService = repository;
+            _customMembershipProvider = customMembershipProvider;
         }
 
         [AllowAnonymous]
@@ -31,10 +33,9 @@ namespace WebUI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LogOnViewModel viewModel, string returnUrl)
         {
-            var provider = new CustomMembershipProvider();
             if (ModelState.IsValid)
             {
-                if (provider.ValidateUser(viewModel.Email, viewModel.Password))
+                if (_customMembershipProvider.ValidateUser(viewModel.Email, viewModel.Password))
                 {
                     FormsAuthentication.SetAuthCookie(viewModel.Email, viewModel.RememberMe);
                         return Redirect(returnUrl ?? Url.Action("Information", "Profile"));
@@ -77,10 +78,9 @@ namespace WebUI.Controllers
                 ModelState.AddModelError("", "User with this address already registered.");
                 return View(viewModel);
             }
-            var provider = new CustomMembershipProvider();
             if (ModelState.IsValid)
             {
-                bool membershipUserCreated = provider.CreateUser(viewModel.Name, viewModel.Email, viewModel.Password, viewModel.Age);
+                bool membershipUserCreated = _customMembershipProvider.CreateUser(viewModel.Name, viewModel.Email, viewModel.Password, viewModel.Age);
 
                 if (membershipUserCreated == true)
                 {

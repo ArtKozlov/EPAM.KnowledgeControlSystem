@@ -16,8 +16,8 @@ namespace DAL.NHibernate.Mapping
             Map(x => x.BadAnswers).Column("BadAnswers").Nullable();
             Map(x => x.IsValid).Column("IsValid").Nullable();
             Map(x => x.Creator).Column("Creator").Nullable();
-            HasMany(x => x.Answers).Cascade.All();
-            HasMany(x => x.Questions).Cascade.All();
+          //  HasMany(x => x.Answers).Cascade.All();
+          //  HasMany(x => x.Questions).Cascade.All();
         }
     }
 }

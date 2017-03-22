@@ -4,7 +4,6 @@ using System.Linq;
 using DAL.Interfaces;
 using DAL.Entities;
 using NHibernate;
-using NHibernate.Event.Default;
 using NHibernate.Linq;
 
 namespace DAL.Repositories

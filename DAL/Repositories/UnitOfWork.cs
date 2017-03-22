@@ -76,22 +76,14 @@ namespace DAL.Repositories
                 return _answerRepository;
             }
         }
-#endregion 
+        #endregion
 
-        //public void Save()
-        //{
-        //    if (!ReferenceEquals(_session, null))
-        //    {
-        //        _session.SaveChanges();
-        //    }
-        //}
-
-        //public void Dispose()
-        //{
-        //    if (!ReferenceEquals(_session, null))
-        //    {
-        //        _session.Dispose();
-        //    }
-        //}
+        public void Dispose()
+        {
+            if (!ReferenceEquals(_session, null))
+            {
+                _session.Dispose();
+            }
+        }
     }
 }

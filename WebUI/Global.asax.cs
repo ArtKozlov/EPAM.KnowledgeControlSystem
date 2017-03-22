@@ -4,6 +4,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using WebUI.App_Start;
+using WebUI.Infrastructure.DependencyResolver;
 
 namespace WebUI
 {
@@ -15,6 +17,7 @@ namespace WebUI
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            UnityWebActivator.Start();
         }
         protected void Application_Error(object sender, EventArgs e)
         {

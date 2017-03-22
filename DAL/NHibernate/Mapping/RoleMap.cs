@@ -11,7 +11,7 @@ namespace DAL.NHibernate.Mapping
             Id(x => x.Id).Column("Id").Not.Nullable().GeneratedBy.Increment();
             Map(x => x.Name).Column("Name").Nullable();
             Map(x => x.Description).Column("Description").Nullable();
-            HasMany(x => x.Users).Inverse().Cascade.All();
+          //  HasMany(x => x.Users).Inverse().Cascade.All();
         }
     }
 }
