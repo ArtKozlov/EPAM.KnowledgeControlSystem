@@ -24,8 +24,8 @@ namespace BLL.Mapping
                 Email = userEntity.Email,
                 Password = userEntity.Password,
                 Age = userEntity.Age,
-                Roles = userEntity.Roles.ToRoleDTOCollection().ToList(),
-                TestResults = userEntity.TestResults.ToTestResultDTOCollection().ToList()
+             //   Roles = userEntity.Roles.ToRoleDTOCollection().ToList(),
+             //   TestResults = userEntity.TestResults.ToTestResultDTOCollection().ToList()
             };
         }
 
@@ -43,7 +43,7 @@ namespace BLL.Mapping
                 Email = userDto.Email,
                 Password = userDto.Password,
                 Age = userDto.Age,
-                Roles = userDto.Roles.ToRoleCollection().ToList(),
+              //  Roles = userDto.Roles.ToRoleCollection().ToList(),
                 //TestResults = userDto.TestResults.ToTestResultCollection().ToList()
 
             };
@@ -103,8 +103,8 @@ namespace BLL.Mapping
                 Description = testEntity.Description,
                 IsValid = testEntity.IsValid,
                 Creator = testEntity.Creator,
-                Answers = testEntity.Answers.ToAnswerDtoCollection().ToList(),
-                Questions = testEntity.Questions.ToQuestionDtoCollection().ToList()
+              //  Answers = testEntity.Answers.ToAnswerDtoCollection().ToList(),
+             //   Questions = testEntity.Questions.ToQuestionDtoCollection().ToList()
             };
         }
 
@@ -125,8 +125,8 @@ namespace BLL.Mapping
                 Description = testDto.Description,
                 IsValid = testDto.IsValid,
                 Creator = testDto.Creator,
-                Answers = testDto.Answers.ToAnswerCollection().ToList(),
-                Questions = testDto.Questions.ToQuestionCollection().ToList()
+              //  Answers = testDto.Answers.ToAnswerCollection().ToList(),
+              //  Questions = testDto.Questions.ToQuestionCollection().ToList()
 
             };
         }
@@ -219,7 +219,6 @@ namespace BLL.Mapping
                 Name = testResultEntity.Name,
                 GoodAnswers = testResultEntity.GoodAnswers,
                 BadAnswers = testResultEntity.BadAnswers,
-                UserId = testResultEntity.UserId,
                 DateCompleted = testResultEntity.DateComplete
             };
         }
@@ -237,7 +236,6 @@ namespace BLL.Mapping
                 Name = testResultDto.Name,
                 GoodAnswers = testResultDto.GoodAnswers,
                 BadAnswers = testResultDto.BadAnswers,
-                UserId = testResultDto.UserId,
                 DateComplete = testResultDto.DateCompleted
 
             };

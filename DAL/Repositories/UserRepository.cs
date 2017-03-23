@@ -86,8 +86,8 @@ namespace DAL.Repositories
                         entity.Email = user.Email;
                         entity.Name = user.Name;
                         entity.Age = user.Age;
-                        entity.Roles.Clear();
-                        entity.Roles = user.Roles;
+                       // entity.Roles.Clear();
+                      //  entity.Roles = user.Roles;
                         _session.Save(entity);
                         transaction.Commit();
                     }

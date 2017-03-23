@@ -8,13 +8,13 @@ namespace DAL.NHibernate.Mapping
         public UserMap()
         {
             //Table("User");
-            Id(x => x.Id).Column("Id").Not.Nullable().GeneratedBy.Increment();
-            Map(x => x.Name).Column("Name").Nullable();
-            Map(x => x.Email).Column("Email").Nullable();
-            Map(x => x.Password).Column("Password").Nullable();
-            Map(x => x.Age).Column("Age").Nullable();
-           // HasMany(x => x.Roles).Inverse().Cascade.All();
-           // HasMany(x => x.TestResults).Inverse().Cascade.All();
+            Id(x => x.Id).Not.Nullable().GeneratedBy.Increment();
+            Map(x => x.Name).Nullable();
+            Map(x => x.Email).Nullable();
+            Map(x => x.Password).Nullable();
+            Map(x => x.Age).Nullable();
+            HasManyToMany(x => x.Roles).Cascade.All().Table("UsersRoles");
+            HasMany(x => x.TestResults).KeyColumn("TestResultId").Inverse();
         }
     }
 }

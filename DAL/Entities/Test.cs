@@ -20,7 +20,7 @@ namespace DAL.Entities
         public virtual int BadAnswers { get; set; }
         public virtual bool IsValid { get; set; }
         public virtual string Creator { get; set; }
-        public virtual ICollection<Answer> Answers { get; set; }
-        public virtual ICollection<Question> Questions { get; set; }
+        public virtual IList<Answer> Answers { get; set; }
+        public virtual IList<Question> Questions { get; set; }
     }
 }

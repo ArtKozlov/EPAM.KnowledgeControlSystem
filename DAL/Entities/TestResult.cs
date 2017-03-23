@@ -9,7 +9,6 @@ namespace DAL.Entities
         public virtual DateTime DateComplete { get; set; }
         public virtual int GoodAnswers { get; set; }
         public virtual int BadAnswers { get; set; }
-        public virtual int? UserId { get; set; }
         public virtual User User { get; set; }
     }
 }

@@ -8,13 +8,12 @@ namespace DAL.NHibernate.Mapping
         public TestResultMap()
         {
             //Table("TestResult");
-            Id(x => x.Id).Column("Id").Not.Nullable().GeneratedBy.Increment();
-            Map(x => x.Name).Column("Name").Nullable();
-            Map(x => x.DateComplete).Column("DateComplete").Nullable();
-            Map(x => x.GoodAnswers).Column("GoodAnswers").Nullable();
-            Map(x => x.BadAnswers).Column("BadAnswers").Nullable();
-            Map(x => x.UserId).Column("UserId").Nullable();
-          //  HasOne(x => x.User).Cascade.All();
+            Id(x => x.Id).Not.Nullable().GeneratedBy.Increment();
+            Map(x => x.Name).Nullable();
+            Map(x => x.DateComplete).Nullable();
+            Map(x => x.GoodAnswers).Nullable();
+            Map(x => x.BadAnswers).Nullable();
+            References(x => x.User).Column("UserId");
         }
     }
 }

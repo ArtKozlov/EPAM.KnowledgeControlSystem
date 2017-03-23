@@ -17,6 +17,6 @@ namespace DAL.Entities
 
         public virtual string Description { get; set; }
 
-        public virtual ICollection<User> Users { get; set; }
+        public virtual IList<User> Users { get; set; }
     }
 }

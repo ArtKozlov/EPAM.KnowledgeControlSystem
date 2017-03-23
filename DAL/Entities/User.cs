@@ -18,7 +18,7 @@ namespace DAL.Entities
 
         public virtual int Age { get; set; }
 
-        public virtual ICollection<Role> Roles { get; set; }
-        public virtual ICollection<TestResult> TestResults { get; set; }
+        public virtual IList<Role> Roles { get; set; }
+        public virtual IList<TestResult> TestResults { get; set; }
     }
 }
