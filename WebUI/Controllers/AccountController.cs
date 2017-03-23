@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
+using BLL.DTO;
 using BLL.Interfaces;
 using WebUI.Infrastructure.Providers;
 using WebUI.ViewModels;
@@ -11,12 +12,12 @@ namespace WebUI.Controllers
     public class AccountController : Controller
     {
         private readonly IUserService _userService;
-        private readonly CustomMembershipProvider _customMembershipProvider;
+        private readonly IRoleService _roleService;
 
-        public AccountController(IUserService repository, CustomMembershipProvider customMembershipProvider)
+        public AccountController(IUserService repository, IRoleService roleService)
         {
             _userService = repository;
-            _customMembershipProvider = customMembershipProvider;
+            _roleService = roleService;
         }
 
         [AllowAnonymous]
@@ -35,7 +36,8 @@ namespace WebUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (_customMembershipProvider.ValidateUser(viewModel.Email, viewModel.Password))
+                CustomMembershipProvider provider = new CustomMembershipProvider(_userService, _roleService);
+                if (provider.ValidateUser(viewModel.Email, viewModel.Password))
                 {
                     FormsAuthentication.SetAuthCookie(viewModel.Email, viewModel.RememberMe);
                         return Redirect(returnUrl ?? Url.Action("Information", "Profile"));
@@ -71,16 +73,18 @@ namespace WebUI.Controllers
         public ActionResult Register(RegisterViewModel viewModel)
         {
 
-            var anyUser = _userService.GetAllUsers().FirstOrDefault(u => u.Email == viewModel.Email);
+            UserDTO anyUser = _userService.GetAllUsers().FirstOrDefault(u => u.Email == viewModel.Email);
 
             if (!ReferenceEquals(anyUser, null))
             {
                 ModelState.AddModelError("", "User with this address already registered.");
                 return View(viewModel);
             }
+
             if (ModelState.IsValid)
             {
-                bool membershipUserCreated = _customMembershipProvider.CreateUser(viewModel.Name, viewModel.Email, viewModel.Password, viewModel.Age);
+                CustomMembershipProvider provider = new CustomMembershipProvider(_userService, _roleService);
+                bool membershipUserCreated = provider.CreateUser(viewModel.Name, viewModel.Email, viewModel.Password, viewModel.Age);
 
                 if (membershipUserCreated == true)
                 {
@@ -94,6 +98,7 @@ namespace WebUI.Controllers
             }
             return View(viewModel);
         }
+
         [ChildActionOnly]
         public ActionResult LoginPartial()
         {

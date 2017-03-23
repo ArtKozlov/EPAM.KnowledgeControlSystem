@@ -57,8 +57,8 @@ namespace WebUI.Infrastructure.Mappers
                 Discription = testEntity.Description,
                 IsValid = testEntity.IsValid,
                 Creator = testEntity.Creator,
-                Questions = (List<QuestionDTO>)testEntity.Questions,
-                Answers = (List<AnswerDTO>)testEntity.Answers
+                Questions = testEntity.Questions.ToList(),
+                Answers = testEntity.Answers.ToList()
 
             };
         }

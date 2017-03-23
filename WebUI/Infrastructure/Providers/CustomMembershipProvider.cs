@@ -12,16 +12,24 @@ namespace WebUI.Infrastructure.Providers
 {
     public class CustomMembershipProvider : MembershipProvider
     {
-        [Dependency]
-        private IUserService UserService { get; set; }
-        [Dependency]
-        private IRoleService RoleService { get; set; }
+        public readonly IUserService _userService;
+        private readonly IRoleService _roleService;
 
+        public CustomMembershipProvider()
+        {
+
+        }
+
+        public CustomMembershipProvider(IUserService userService, IRoleService roleService)
+        {
+            _userService = userService;
+            _roleService = roleService;
+        }
 
         public bool CreateUser(string name, string email, string password, int age)
         {
-            
-            var userDTO = new UserDTO
+
+            UserDTO userDTO = new UserDTO
             {
                 Name = name,
                 Email = email,
@@ -30,9 +38,9 @@ namespace WebUI.Infrastructure.Providers
                 TestResults = new List<TestResultDTO>()
             };
 
-           var adminRole = RoleService.GetRole(1);
-            var moderatorRole = RoleService.GetRole(2);
-            var userRole = RoleService.GetRole(3);
+            RoleDTO adminRole = _roleService.GetRole(1);
+            RoleDTO moderatorRole = _roleService.GetRole(2);
+            RoleDTO userRole = _roleService.GetRole(3);
             if (userRole != null)
             {
                 userDTO.Roles.Add(adminRole);
@@ -40,13 +48,13 @@ namespace WebUI.Infrastructure.Providers
                 userDTO.Roles.Add(userRole);
             }
 
-            UserService.CreateUser(userDTO);
+            _userService.CreateUser(userDTO);
             return true;
         }
 
         public override bool ValidateUser(string email, string password)
         {
-            var user = UserService.GetUserByEmail(email);
+            UserDTO user = _userService.GetUserByEmail(email);
 
             if (user != null && Crypto.VerifyHashedPassword(user.Password, password))
             {

@@ -1,28 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.Mvc;
 using System.Web.Security;
 using BLL.DTO;
 using BLL.Interfaces;
-using Microsoft.Practices.Unity;
+using BLL.Services;
 
 namespace WebUI.Infrastructure.Providers
 {
     public class CustomRoleProvider : RoleProvider
     {
-        [Dependency]
-        private IUserService UserService { get; set; }
-        [Dependency]
-        private IRoleService RoleService { get; set; }
+        private IUserService _userService = System.Web.Mvc.DependencyResolver.Current.GetService<UserService>();
+        private IRoleService _roleService = System.Web.Mvc.DependencyResolver.Current.GetService<RoleService>();
 
         public override bool IsUserInRole(string email, string roleName)
         {
 
-            UserDTO user = UserService.GetAllUsers().FirstOrDefault(u => u.Email == email);
+            UserDTO user = _userService.GetAllUsers().FirstOrDefault(u => u.Email == email);
 
             if (user == null) return false;
 
-            RoleDTO userRole = RoleService.GetRoleByName(roleName);
+            RoleDTO userRole = _roleService.GetRoleByName(roleName);
 
             if (userRole != null && user.Roles.Contains(userRole))
             {
@@ -35,7 +34,7 @@ namespace WebUI.Infrastructure.Providers
         public override string[] GetRolesForUser(string email)
         {
             List<string> roles = new List<string>();
-                var user = UserService.GetAllUsers().FirstOrDefault(u => u.Email == email);
+                var user = _userService.GetAllUsers().FirstOrDefault(u => u.Email == email);
 
                 if (user == null) return null;
 

@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 using BLL.DTO;
 
 namespace WebUI.ViewModels
@@ -19,7 +16,7 @@ namespace WebUI.ViewModels
         public int BadAnswers { get; set; }
         [Display(Name = "Complete date")]
         public DateTime DateComleted { get; set; }
-        public int? UserId { get; set; }
+        public int UserId { get; set; }
         public UserDTO User { get; set; }
     }
 }
