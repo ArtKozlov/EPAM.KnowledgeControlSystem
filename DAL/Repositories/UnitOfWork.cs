@@ -78,12 +78,12 @@ namespace DAL.Repositories
         }
         #endregion
 
-        public void Dispose()
-        {
-            if (!ReferenceEquals(_session, null))
-            {
-                _session.Dispose();
-            }
-        }
+        //public void Dispose()
+        //{
+        //    if (!ReferenceEquals(_session, null))
+        //    {
+        //        _session.Dispose();
+        //    }
+        //}
     }
 }

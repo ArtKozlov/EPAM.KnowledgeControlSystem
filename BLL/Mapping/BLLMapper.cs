@@ -24,8 +24,8 @@ namespace BLL.Mapping
                 Email = userEntity.Email,
                 Password = userEntity.Password,
                 Age = userEntity.Age,
-             //   Roles = userEntity.Roles.ToRoleDTOCollection().ToList(),
-             //   TestResults = userEntity.TestResults.ToTestResultDTOCollection().ToList()
+                Roles = userEntity.Roles.ToRoleDTOCollection().ToList(),
+                TestResults = userEntity.TestResults.ToTestResultDTOCollection().ToList()
             };
         }
 
@@ -43,8 +43,8 @@ namespace BLL.Mapping
                 Email = userDto.Email,
                 Password = userDto.Password,
                 Age = userDto.Age,
-              //  Roles = userDto.Roles.ToRoleCollection().ToList(),
-                //TestResults = userDto.TestResults.ToTestResultCollection().ToList()
+                Roles = userDto.Roles.ToRoleCollection().ToList(),
+                TestResults = userDto.TestResults.ToTestResultCollection().ToList()
 
             };
         }
@@ -103,8 +103,8 @@ namespace BLL.Mapping
                 Description = testEntity.Description,
                 IsValid = testEntity.IsValid,
                 Creator = testEntity.Creator,
-              //  Answers = testEntity.Answers.ToAnswerDtoCollection().ToList(),
-             //   Questions = testEntity.Questions.ToQuestionDtoCollection().ToList()
+                Answers = testEntity.Answers.ToAnswerDtoCollection().ToList(),
+                Questions = testEntity.Questions.ToQuestionDtoCollection().ToList()
             };
         }
 
@@ -125,8 +125,8 @@ namespace BLL.Mapping
                 Description = testDto.Description,
                 IsValid = testDto.IsValid,
                 Creator = testDto.Creator,
-              //  Answers = testDto.Answers.ToAnswerCollection().ToList(),
-              //  Questions = testDto.Questions.ToQuestionCollection().ToList()
+                Answers = testDto.Answers.ToAnswerCollection().ToList(),
+                Questions = testDto.Questions.ToQuestionCollection().ToList()
 
             };
         }
@@ -243,7 +243,7 @@ namespace BLL.Mapping
         #endregion
         #region private methods
 
-        private static IEnumerable<Role> ToRoleCollection(this ICollection<RoleDTO> collectionRoleDto)
+        private static IEnumerable<Role> ToRoleCollection(this IList<RoleDTO> collectionRoleDto)
         {
             foreach (var roleDTO in collectionRoleDto)
             {
@@ -251,14 +251,14 @@ namespace BLL.Mapping
             }
         }
 
-        private static IEnumerable<RoleDTO> ToRoleDTOCollection(this ICollection<Role> collectionRole)
+        private static IEnumerable<RoleDTO> ToRoleDTOCollection(this IList<Role> collectionRole)
         {
             foreach (var role in collectionRole)
             {
                 yield return role.ToRoleDto();
             }
         }
-        private static IEnumerable<Answer> ToAnswerCollection(this ICollection<AnswerDTO> collectionAnswerDto)
+        private static IEnumerable<Answer> ToAnswerCollection(this IList<AnswerDTO> collectionAnswerDto)
         {
             foreach (var AnswerDTO in collectionAnswerDto)
             {
@@ -266,14 +266,14 @@ namespace BLL.Mapping
             }
         }
 
-        private static IEnumerable<AnswerDTO> ToAnswerDtoCollection(this ICollection<Answer> collectionAnswer)
+        private static IEnumerable<AnswerDTO> ToAnswerDtoCollection(this IList<Answer> collectionAnswer)
         {
             foreach (var answer in collectionAnswer)
             {
                 yield return answer.ToAnswerDto();
             }
         }
-        private static IEnumerable<Question> ToQuestionCollection(this ICollection<QuestionDTO> collectionQuestionDto)
+        private static IEnumerable<Question> ToQuestionCollection(this IList<QuestionDTO> collectionQuestionDto)
         {
             foreach (var questionDTO in collectionQuestionDto)
             {
@@ -281,14 +281,14 @@ namespace BLL.Mapping
             }
         }
 
-        private static IEnumerable<QuestionDTO> ToQuestionDtoCollection(this ICollection<Question> collectionQuestion)
+        private static IEnumerable<QuestionDTO> ToQuestionDtoCollection(this IList<Question> collectionQuestion)
         {
             foreach (var question in collectionQuestion)
             {
                 yield return question.ToQuestionDto();
             }
         }
-        private static IEnumerable<TestResult> ToTestResultCollection(this ICollection<TestResultDTO> collectionTestResultDto)
+        private static IEnumerable<TestResult> ToTestResultCollection(this IList<TestResultDTO> collectionTestResultDto)
         {
             foreach (var testResultDTO in collectionTestResultDto)
             {
@@ -296,7 +296,7 @@ namespace BLL.Mapping
             }
         }
 
-        private static IEnumerable<TestResultDTO> ToTestResultDTOCollection(this ICollection<TestResult> collectionTestResult)
+        private static IEnumerable<TestResultDTO> ToTestResultDTOCollection(this IList<TestResult> collectionTestResult)
         {
             foreach (var testResult in collectionTestResult)
             {

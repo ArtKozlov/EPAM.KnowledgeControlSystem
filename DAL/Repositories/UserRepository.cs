@@ -18,50 +18,36 @@ namespace DAL.Repositories
         }
 
         public IEnumerable<User> GetAll()
-        {         
-            using (_session)
-            {
+        {        
                 IEnumerable<User> result = _session.Query<User>().ToList();
                 return result;
-            }
         }
 
         public User GetById(int key)
         {
-            using (_session)
-            {
                 User user = _session.Query<User>().FirstOrDefault(i => i.Id == key);
                 return user;
-            }
         }
 
         public User GetByEmail(string email)
         {
-            using (_session)
-            {
                 return _session.Query<User>().FirstOrDefault(user => user.Email == email);
-            }
         }
 
         public void Create(User user)
         {
             if (ReferenceEquals(user, null))
                 throw new ArgumentNullException();
-
-            using (_session)
-            {
+            
                 using (ITransaction transaction = _session.BeginTransaction())
                 {
                     _session.Save(user);
                     transaction.Commit();
                 }
-            }
         }
 
         public void Delete(User user)
         {
-            using (_session)
-            {
                 using (ITransaction transaction = _session.BeginTransaction())
                 {
                     User expectedUser = _session.Query<User>().FirstOrDefault(i => i.Id == user.Id);
@@ -71,13 +57,10 @@ namespace DAL.Repositories
                         transaction.Commit();
                     }
                 }
-            }
         }
 
         public void Update(User user)
         {
-            using (_session)
-            {
                 using (ITransaction transaction = _session.BeginTransaction())
                 {
                     User entity = _session.Query<User>().FirstOrDefault(i => i.Id == user.Id);
@@ -92,13 +75,10 @@ namespace DAL.Repositories
                         transaction.Commit();
                     }
                 }
-            }
         }
 
         public void UpdatePassword(User user)
         {
-            using (_session)
-            {
                 using (ITransaction transaction = _session.BeginTransaction())
                 {
                     var entity = _session.Query<User>().FirstOrDefault(i => i.Id == user.Id);
@@ -109,13 +89,10 @@ namespace DAL.Repositories
                         transaction.Commit();
                     }
                 }
-            }
         }
 
         public void Delete(int key)
         {
-            using (_session)
-            {
                 using (ITransaction transaction = _session.BeginTransaction())
                 {
                     User user = _session.Query<User>().FirstOrDefault(i => i.Id == key);
@@ -125,7 +102,6 @@ namespace DAL.Repositories
                         transaction.Commit();
                     }
                 }
-            }
         }
     }
 }

@@ -11,7 +11,7 @@ namespace BLL.Services
 {
     public class UserService : IUserService
     {
-        private readonly IUnitOfWork _uow;
+        private IUnitOfWork _uow;
 
         public UserService(IUnitOfWork uow)
         {

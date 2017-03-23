@@ -8,7 +8,7 @@ namespace BLL.Registrars
     {
         public static void BuildUnityBllContainer(IUnityContainer container)
         {
-            container.RegisterType<IUnitOfWork, UnitOfWork>(new PerResolveLifetimeManager());
+            container.RegisterType<IUnitOfWork, UnitOfWork>();
         }
     }
 }

@@ -19,8 +19,8 @@ namespace BLL.DTO
         public string NewPassword { get; set; }
         public string ConfirmPassword { get; set; }
         public int Age { get; set; }
-        public ICollection<RoleDTO> Roles { get; set; }
-        public ICollection<TestResultDTO> TestResults { get; set; }
+        public IList<RoleDTO> Roles { get; set; }
+        public IList<TestResultDTO> TestResults { get; set; }
 
     }
 }

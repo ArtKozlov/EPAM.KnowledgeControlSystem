@@ -18,41 +18,30 @@ namespace DAL.Repositories
         }
         public IEnumerable<Answer> GetAll()
         {
-            using (_session)
-            {
                 IEnumerable<Answer> result = _session.Query<Answer>().ToList();
                 return result;
-            }
         }
 
         public Answer GetById(int key)
         {
-            using (_session)
-            {
                 Answer answer = _session.Query<Answer>().FirstOrDefault(i => i.Id == key);
                 return answer;
-            }
         }
 
         public void Create(Answer answer)
         {
             if (ReferenceEquals(answer, null))
                 throw new ArgumentNullException();
-
-            using (_session)
-            {
+            
                 using (ITransaction transaction = _session.BeginTransaction())
                 {
                     _session.Save(answer);
                     transaction.Commit();
                 }
-            }
         }
 
         public void Delete(Answer answer)
         {
-            using (_session)
-            {
                 using (ITransaction transaction = _session.BeginTransaction())
                 {
                     Answer expectedAnswer = _session.Query<Answer>().FirstOrDefault(i => i.Id == answer.Id);
@@ -62,13 +51,10 @@ namespace DAL.Repositories
                         transaction.Commit();
                     }
                 }
-            }
         }
 
         public void Update(Answer answer)
         {
-            using (_session)
-            {
                 using (ITransaction transaction = _session.BeginTransaction())
                 {
                     Answer entity = _session.Query<Answer>().FirstOrDefault(i => i.Id == answer.Id);
@@ -78,13 +64,10 @@ namespace DAL.Repositories
                         transaction.Commit();
                     }
                 }
-            }
         }
 
         public void Delete(int key)
         {
-            using (_session)
-            {
                 using (ITransaction transaction = _session.BeginTransaction())
                 {
                     Answer answer = _session.Query<Answer>().FirstOrDefault(i => i.Id == key);
@@ -94,7 +77,6 @@ namespace DAL.Repositories
                         transaction.Commit();
                     }
                 }
-            }
         }
     }
 }

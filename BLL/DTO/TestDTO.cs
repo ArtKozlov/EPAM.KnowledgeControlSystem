@@ -22,8 +22,8 @@ namespace BLL.DTO
         public int BadAnswers { get; set; }
         public bool IsValid { get; set; }
         public string Creator { get; set; }
-        public ICollection<AnswerDTO> Answers { get; set; }
-        public ICollection<QuestionDTO> Questions { get; set; }
+        public IList<AnswerDTO> Answers { get; set; }
+        public IList<QuestionDTO> Questions { get; set; }
         public int? TestResultId { get; set; }
         public TestResultDTO TestResult { get; set; }
     }
