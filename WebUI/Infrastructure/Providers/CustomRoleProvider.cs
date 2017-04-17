@@ -11,8 +11,8 @@ namespace WebUI.Infrastructure.Providers
 {
     public class CustomRoleProvider : RoleProvider
     {
-        private IUserService _userService = System.Web.Mvc.DependencyResolver.Current.GetService<UserService>();
-        private IRoleService _roleService = System.Web.Mvc.DependencyResolver.Current.GetService<RoleService>();
+        private readonly IUserService _userService = System.Web.Mvc.DependencyResolver.Current.GetService<UserService>();
+        private readonly IRoleService _roleService = System.Web.Mvc.DependencyResolver.Current.GetService<RoleService>();
 
         public override bool IsUserInRole(string email, string roleName)
         {

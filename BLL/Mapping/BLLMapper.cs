@@ -145,8 +145,7 @@ namespace BLL.Mapping
             return new AnswerDTO()
             {
                 Id = answerEntity.Id,
-                Value = answerEntity.Value,
-                TestId = answerEntity.TestId
+                Value = answerEntity.Value
             };
         }
 
@@ -160,8 +159,7 @@ namespace BLL.Mapping
             return new Answer()
             {
                 Id = answerDto.Id,
-                Value = answerDto.Value,
-                TestId = answerDto.TestId
+                Value = answerDto.Value
 
             };
         }
@@ -180,8 +178,7 @@ namespace BLL.Mapping
             return new QuestionDTO()
             {
                 Id = questionEntity.Id,
-                Value = questionEntity.Value,
-                TestId = questionEntity.TestId
+                Value = questionEntity.Value
 
             };
         }
@@ -196,8 +193,7 @@ namespace BLL.Mapping
             return new Question()
             {
                 Id = questionDto.Id,
-                Value = questionDto.Value,
-                TestId = questionDto.TestId
+                Value = questionDto.Value
 
             };
         }

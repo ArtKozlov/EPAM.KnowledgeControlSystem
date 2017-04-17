@@ -10,8 +10,7 @@ namespace DAL.NHibernate.Mapping
             //Table("Question");
             Id(x => x.Id).Not.Nullable().GeneratedBy.Increment();
             Map(x => x.Value).Nullable();
-            Map(x => x.TestId).Nullable();
-            References(x => x.Test).Column("TestId");
+            References(x => x.Test).Not.Nullable();
         }
     }
 }

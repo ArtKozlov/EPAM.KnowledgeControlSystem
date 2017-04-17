@@ -20,15 +20,15 @@
                 <h1>Create test</h1>
                 <div class="container">
                     <div class="form-group">
-                        <label class="col-md-3 control-label">Test name</label>
+                        <label class="col-sm-1 control-label">Test name</label>
                         <input class="form-control" name="Name" type="text" maxlength="50" form="finishForm" required>
                     </div>
                     <div class="form-group">
-                        <label class="col-md-3 control-label">Test time</label>
+                        <label class="col-sm-1 control-label">Test time</label>
                         <input class="form-control" name="Time" type="number" min="1" max="60" form="finishForm" required/>
                     </div>
                     <div class="form-group">
-                        <label class="col-md-3 control-label">Discription</label>
+                        <label class="col-sm-1 control-label">Discription</label>
                         <textarea class="form-control" maxlength="200" name="Discription" form="finishForm" rows="5" required></textarea>
                     </div>
                 </div>
@@ -87,24 +87,24 @@
                 </div>
             </div>
             <div class="col-sm-3 text-center">
-                <div class="container" style="position: fixed">
-                    <h2>Options</h2>
-                    <p>
-                        Below are the control buttons. Use the "Add a question" you can add a question to your test.
-                        Name, Description and time are required for entry. When finished, click "Finish" button.
-                    </p>
-                    <div class="form-group">
-                        <form action="/Test/AddQuestion" class="col-sm-6" data-ajax="true" data-ajax-mode="before" data-ajax-update="#results" id="addQuestionForm" method="get">
-                            <button class="btn btn-info" type="submit" onclick="increaseCountQuestion()">Add question</button>
-                        </form>
-                        <form action="/Test/CreateTest" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#page" id="finishForm" method="post" role="form">
-                            <button class="btn btn-success" type="submit">Finish</button>
-                        </form>
+                <div class="col-sm-offset-2">
+                        <h2>Options</h2>
+                        <p>
+                            Below are the control buttons. Use the "Add a question" you can add a question to your test.
+                            Name, Description and time are required for entry. When finished, click "Finish" button.
+                        </p>
+                        <div class="form-group">
+                            <form action="/Test/AddQuestion" class="col-sm-6" data-ajax="true" data-ajax-mode="before" data-ajax-update="#results" id="addQuestionForm" method="get">
+                                <button class="btn btn-info" type="submit" onclick="increaseCountQuestion()">Add question</button>
+                            </form>
+                            <form action="/Test/CreateTest" class="col-sm-6" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#page" id="finishForm" method="post" role="form">
+                                <button class="btn btn-success" type="submit">Finish</button>
+                            </form>
 
-                    </div>
-                    <p>
-                        "Delete" button deletes the last question.
-                    </p>
+                        </div>
+                        <p>
+                            "Delete" button deletes the last question.
+                        </p>
                         <div class="form-group">
                             <div class="col-sm-6">
                                 <button class="btn btn-danger" onclick="deleteQuestion()">Delete</button>

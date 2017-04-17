@@ -16,8 +16,8 @@ namespace DAL.NHibernate.Mapping
             Map(x => x.BadAnswers).Nullable();
             Map(x => x.IsValid).Nullable();
             Map(x => x.Creator).Nullable();
-            HasMany(x => x.Answers).KeyColumn("AnswerId").Inverse();
-            HasMany(x => x.Questions).KeyColumn("QuestionId").Inverse();
+            HasMany(x => x.Answers).Cascade.SaveUpdate().AsBag();
+            HasMany(x => x.Questions).Cascade.SaveUpdate().AsBag();
         }
     }
 }

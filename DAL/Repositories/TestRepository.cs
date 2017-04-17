@@ -31,12 +31,17 @@ namespace DAL.Repositories
 
         public void Create(Test test)
         {
+            for (int i = 0; i < test.Questions.Count; i++)
+            {
+                test.Questions[i].Test = test;
+                test.Answers[i].Test = test;
+            }
             if (ReferenceEquals(test, null))
                 throw new ArgumentNullException();
             
                 using (ITransaction transaction = _session.BeginTransaction())
                 {
-                    _session.Save(test);
+                    _session.SaveOrUpdate(test);
                     transaction.Commit();
                 }
         }
