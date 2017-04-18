@@ -10,7 +10,6 @@ namespace BLL.DTO
         public string Name { get; set; }
         public int GoodAnswers { get; set; }
         public int BadAnswers { get; set; }
-        public int UserId { get; set; }
         public UserDTO User { get; set; }
         public DateTime DateCompleted { get; set; }
     }

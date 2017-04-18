@@ -59,9 +59,11 @@ namespace DAL.Repositories
                 using (ITransaction transaction = _session.BeginTransaction())
                 {
                     Question entity = _session.Query<Question>().FirstOrDefault(i => i.Id == question.Id);
-                    if (!ReferenceEquals(entity, null))
+                    if (!ReferenceEquals(question, null))
                     {
-                        _session.SaveOrUpdate(entity);
+                        question.Test = entity.Test;
+                        _session.Evict(entity);
+                        _session.Update(question);
                         transaction.Commit();
                     }
                 }

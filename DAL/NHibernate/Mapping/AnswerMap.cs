@@ -7,10 +7,9 @@ namespace DAL.NHibernate.Mapping
     {
         public AnswerMap()
         {
-            //Table("Answer");
             Id(x => x.Id).Not.Nullable().GeneratedBy.Increment();
             Map(x => x.Value).Nullable();
-            References(x => x.Test).Not.Nullable();
+            References(x => x.Test);
         }
     }
 }

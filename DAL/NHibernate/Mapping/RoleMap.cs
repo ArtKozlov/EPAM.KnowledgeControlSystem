@@ -7,11 +7,11 @@ namespace DAL.NHibernate.Mapping
     {
         public RoleMap()
         {
-           // Table("Role");
             Id(x => x.Id).Not.Nullable().GeneratedBy.Increment();
             Map(x => x.Name).Nullable();
             Map(x => x.Description).Nullable();
-            HasManyToMany(x => x.Users).Cascade.All().Inverse().Table("UsersRoles");
+            HasManyToMany(x => x.Users).ParentKeyColumn("role_fk")
+                .ChildKeyColumn("user_fk").Table("UsersRoles").Cascade.All();
         }
     }
 }

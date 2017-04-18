@@ -9,6 +9,7 @@ namespace WebUI.ViewModels
         public UserViewModel()
         {
             Roles = new List<RoleDTO>();
+            TestResults = new List<TestResultDTO>();
         }
         
         public int Id { get; set; }

@@ -24,7 +24,7 @@ namespace BLL.DTO
         public string Creator { get; set; }
         public IList<AnswerDTO> Answers { get; set; }
         public IList<QuestionDTO> Questions { get; set; }
-        public int? TestResultId { get; set; }
-        public TestResultDTO TestResult { get; set; }
+       // public int? TestResultId { get; set; }
+       // public TestResultDTO TestResult { get; set; }
     }
 }

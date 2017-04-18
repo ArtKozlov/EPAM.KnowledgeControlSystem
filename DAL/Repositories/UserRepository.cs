@@ -41,7 +41,7 @@ namespace DAL.Repositories
             
                 using (ITransaction transaction = _session.BeginTransaction())
                 {
-                    _session.Save(user);
+                    _session.SaveOrUpdate(user);
                     transaction.Commit();
                 }
         }
@@ -69,9 +69,8 @@ namespace DAL.Repositories
                         entity.Email = user.Email;
                         entity.Name = user.Name;
                         entity.Age = user.Age;
-                       // entity.Roles.Clear();
-                      //  entity.Roles = user.Roles;
-                        _session.Save(entity);
+                        _session.Evict(entity);
+                        _session.Update(entity);
                         transaction.Commit();
                     }
                 }

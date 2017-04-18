@@ -97,7 +97,7 @@ namespace WebUI.Controllers
             entityTest.BadAnswers += resultModel.BadAnswers;
             _testService.UpdateTest(entityTest);
             resultModel.Name = entityTest.Name;
-            resultModel.UserId = _userService.GetUserByEmail(User.Identity.Name).Id;
+            resultModel.User = _userService.GetUserByEmail(User.Identity.Name);
             resultModel.DateCompleted = DateTime.Now;
             _testResultService.CreateTestResult(resultModel);
             return RedirectToAction("TestComplete", resultModel.ToMvcTestComplete());

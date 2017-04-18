@@ -9,6 +9,7 @@ namespace BLL.DTO
         public UserDTO()
         {
             Roles = new List<RoleDTO>();
+            TestResults = new List<TestResultDTO>();
         }
         public int Id { get; set; }
         public string Name { get; set; }

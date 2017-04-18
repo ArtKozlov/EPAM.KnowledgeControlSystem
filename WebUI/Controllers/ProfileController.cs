@@ -48,8 +48,6 @@ namespace WebUI.Controllers
         [HttpPost]
         public ActionResult Settings(UserViewModel viewModel)
         {
-
-            viewModel.Roles = _userService.GetUser(viewModel.Id).Roles;
             _userService.UpdateUser(viewModel.ToBllUser());
             return RedirectToAction("Information");
         }

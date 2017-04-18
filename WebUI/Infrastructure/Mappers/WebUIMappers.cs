@@ -135,7 +135,7 @@ namespace WebUI.Infrastructure.Mappers
                 GoodAnswers = testResultEntity.GoodAnswers,
                 BadAnswers = testResultEntity.BadAnswers,
                 DateComleted = testResultEntity.DateCompleted,
-                UserId = testResultEntity.UserId
+                User = testResultEntity.User
 
             };
         }
@@ -149,7 +149,7 @@ namespace WebUI.Infrastructure.Mappers
                 GoodAnswers = testResultViewModel.GoodAnswers,
                 BadAnswers = testResultViewModel.BadAnswers,
                 DateCompleted = testResultViewModel.DateComleted,
-                UserId = testResultViewModel.UserId
+                User = testResultViewModel.User
             };
         }
         public static TestCompleteViewModel ToMvcTestComplete(this TestResultDTO testResult)

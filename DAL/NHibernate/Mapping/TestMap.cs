@@ -7,7 +7,6 @@ namespace DAL.NHibernate.Mapping
     {
         public TestMap()
         {
-            //Table("Test");
             Id(x => x.Id).Not.Nullable().GeneratedBy.Increment();
             Map(x => x.Name).Nullable();
             Map(x => x.Time).Nullable();
@@ -16,8 +15,8 @@ namespace DAL.NHibernate.Mapping
             Map(x => x.BadAnswers).Nullable();
             Map(x => x.IsValid).Nullable();
             Map(x => x.Creator).Nullable();
-            HasMany(x => x.Answers).Cascade.SaveUpdate().AsBag();
-            HasMany(x => x.Questions).Cascade.SaveUpdate().AsBag();
+            HasMany(x => x.Answers).Cascade.All().AsBag();
+            HasMany(x => x.Questions).Cascade.All().AsBag();
         }
     }
 }
