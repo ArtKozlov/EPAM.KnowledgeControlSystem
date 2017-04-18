@@ -24,25 +24,25 @@ namespace WebUI.Controllers
         public ActionResult UsersEditor(string searchItem, int page = 1)
         {
             var model = new UserEditorVIewModel();
-            List<UserViewModel> tests;
+            List<UserViewModel> users;
             if (ReferenceEquals(searchItem, null))
             {
-                tests =
+                users =
                     _userService.GetAllUsers()
                     .Select(u => u.ToMvcUser())
                     .ToList();
-                model.PageInfo = new PageInfoViewModel(page, 10, tests.Count, null);
+                model.PageInfo = new PageInfoViewModel(page, 10, users.Count, null);
             }
             else
             {
-                tests =
+                users =
                     _userService.GetAllUsers()
                     .Select(u => u.ToMvcUser())
                     .Where(a => a.Name.Contains(searchItem) || a.Email.Contains(searchItem))
                     .ToList();
-                model.PageInfo = new PageInfoViewModel(page, 10, tests.Count, searchItem);
+                model.PageInfo = new PageInfoViewModel(page, 10, users.Count, searchItem);
             }
-            model.Users = tests.Skip((page - 1) * 10).Take(10);
+            model.Users = users.Skip((page - 1) * 10).Take(10);
             if (Request.IsAjaxRequest())
             {
                 return PartialView(model);

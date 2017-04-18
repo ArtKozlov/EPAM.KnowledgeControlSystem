@@ -41,7 +41,8 @@ namespace DAL.Repositories
             
                 using (ITransaction transaction = _session.BeginTransaction())
                 {
-                    _session.SaveOrUpdate(user);
+                
+                    _session.Merge(user);
                     transaction.Commit();
                 }
         }

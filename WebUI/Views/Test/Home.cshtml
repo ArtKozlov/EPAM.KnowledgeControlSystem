@@ -25,7 +25,6 @@
         <div class="row content">
             <div class="col-sm-8 text-left">
                 <h3>List of tests</h3>
-                <div class="container">
                     <div class="list-group">
                         @foreach (var item in Model.Tests)
                         {
@@ -50,7 +49,6 @@
                             }
                         }
                     </div>
-                </div>
 
                 <div class="text-center">
                     @if (Model.PageInfo.TotalPages <= 4)

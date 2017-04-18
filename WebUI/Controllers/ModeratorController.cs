@@ -104,7 +104,7 @@ namespace WebUI.Controllers
             
             
             List<TestViewModel> tests;
-            if (ReferenceEquals(name, null))
+            if (ReferenceEquals(name, null) || name == string.Empty)
             {
                 tests = _testService.GetAllTests().Select(u => u.ToMvcTest()).ToList();
                 model.Tests = tests;
