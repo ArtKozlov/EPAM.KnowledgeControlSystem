@@ -7,28 +7,27 @@
         <div class="row content">
             <div class="col-sm-8 text-left ">
                 <h1 class="text-primary">@Model.Name</h1>
-                <div class="container">
                     <div class="list-group">
                         @for (int i = 0; i < Model.Questions.Count; i++)
                         {
                             <div class="list-group-item">
                                 <div class="container text-left">
-                                    <div class="col-sm">
-                                        <label class="col-sm control-label ">@Model.Questions[i]</label>
+                                    <div class="row">
+                                        <div class="col-sm">
+                                            <label class="col-sm control-label ">@Model.Questions[i]</label>
+                                        </div>
+                                        <div class="col-sm">
+                                            <h4 class="text-muted">Answer:</h4>
+                                            <input class="col-sm control-label" form="finishForm" type="text" name="Answers">
+                                        </div>
                                     </div>
-                                    <div class="col-sm">
-                                        <h4 class="text-muted">Answer:</h4>
-                                        <input class="col-sm control-label" form="finishForm" type="text" name="Answers">
                                     </div>
-
-                                </div>
                             </div>
                         }
                     </div>
-                </div>
             </div>
             <div class="col-sm-4 text-center">
-                <div class="container affix">
+                <div class="affix">
                     <h3 class="text-info">Time left until completion of the test:</h3>
                     <p class="text-center">
                         <h3 class="text-warning" id="countdown"></h3>

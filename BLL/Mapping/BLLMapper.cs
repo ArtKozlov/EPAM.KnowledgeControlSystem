@@ -233,7 +233,7 @@ namespace BLL.Mapping
                 GoodAnswers = testResultDto.GoodAnswers,
                 BadAnswers = testResultDto.BadAnswers,
                 DateComplete = testResultDto.DateCompleted,
-                User = testResultDto.User.ToUserEntity()
+                User = testResultDto.User?.ToUserEntity()
 
             };
         }

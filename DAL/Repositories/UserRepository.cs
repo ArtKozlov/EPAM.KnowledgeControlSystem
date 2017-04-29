@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DAL.Interfaces;
 using DAL.Entities;
+using FluentNHibernate.Conventions;
 using NHibernate;
 using NHibernate.Linq;
 
@@ -70,6 +71,15 @@ namespace DAL.Repositories
                         entity.Email = user.Email;
                         entity.Name = user.Name;
                         entity.Age = user.Age;
+                        foreach (var role in entity.Roles)
+                        {
+                            _session.Evict(role);
+                        }
+                        if (user.Roles.IsNotEmpty() && user.Roles.Count > 0)
+                        {
+                            entity.Roles.Clear();
+                            entity.Roles = user.Roles;
+                        }
                         _session.Evict(entity);
                         _session.Update(entity);
                         transaction.Commit();

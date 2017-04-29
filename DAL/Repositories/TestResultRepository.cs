@@ -36,6 +36,8 @@ namespace DAL.Repositories
             
                 using (ITransaction transaction = _session.BeginTransaction())
                 {
+
+                    _session.Evict(testResult.User);
                     _session.Save(testResult);
                     transaction.Commit();
                 }

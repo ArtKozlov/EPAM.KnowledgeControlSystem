@@ -13,7 +13,7 @@ namespace DAL.NHibernate.Mapping
             Map(x => x.Password).Nullable();
             Map(x => x.Age).Nullable();
             HasManyToMany(x => x.Roles).Table("UsersRoles").ParentKeyColumn("user_fk")
-                .ChildKeyColumn("role_fk").Inverse().Cascade.All();
+                .ChildKeyColumn("role_fk").Cascade.All();
             HasMany(x => x.TestResults).Cascade.All().AsBag();
         }
     }

@@ -11,7 +11,7 @@ namespace DAL.NHibernate.Mapping
             Map(x => x.Name).Nullable();
             Map(x => x.Description).Nullable();
             HasManyToMany(x => x.Users).ParentKeyColumn("role_fk")
-                .ChildKeyColumn("user_fk").Table("UsersRoles").Cascade.All();
+                .ChildKeyColumn("user_fk").Table("UsersRoles").Inverse().Cascade.All();
         }
     }
 }
