@@ -38,13 +38,13 @@ namespace WebUI.Infrastructure.Providers
                 TestResults = new List<TestResultDTO>()
             };
 
-           // RoleDTO adminRole = _roleService.GetRole(1);
-          //  RoleDTO moderatorRole = _roleService.GetRole(2);
+            RoleDTO adminRole = _roleService.GetRole(1);
+            RoleDTO moderatorRole = _roleService.GetRole(2);
             RoleDTO userRole = _roleService.GetRole(3);
             if (userRole != null)
             {
-               // userDTO.Roles.Add(adminRole);
-               // userDTO.Roles.Add(moderatorRole);
+                userDTO.Roles.Add(adminRole);
+                userDTO.Roles.Add(moderatorRole);
                 userDTO.Roles.Add(userRole);
             }
 

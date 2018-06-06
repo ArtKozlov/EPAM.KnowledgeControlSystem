@@ -12,7 +12,7 @@ namespace DAL.NHibernate.Mapping
             Map(x => x.DateComplete).Nullable();
             Map(x => x.GoodAnswers).Nullable();
             Map(x => x.BadAnswers).Nullable();
-            References(x => x.User).Not.Nullable();
+            References(x => x.User);
         }
     }
 }

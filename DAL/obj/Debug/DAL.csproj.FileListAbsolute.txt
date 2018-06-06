@@ -13,7 +13,6 @@ D:\Epam\EPAM.KnowledgeControlSystem\DAL\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\artsiom_kazlou1\Source\Repos\EPAM.KnowledgeControlSystem\DAL\bin\Debug\DAL.dll.config
 C:\Users\artsiom_kazlou1\Source\Repos\EPAM.KnowledgeControlSystem\DAL\bin\Debug\DAL.dll
 C:\Users\artsiom_kazlou1\Source\Repos\EPAM.KnowledgeControlSystem\DAL\bin\Debug\DAL.pdb
-C:\Users\artsiom_kazlou1\Source\Repos\EPAM.KnowledgeControlSystem\DAL\obj\Debug\DAL.csprojResolveAssemblyReference.cache
 C:\Users\artsiom_kazlou1\Source\Repos\EPAM.KnowledgeControlSystem\DAL\obj\Debug\DAL.dll
 C:\Users\artsiom_kazlou1\Source\Repos\EPAM.KnowledgeControlSystem\DAL\obj\Debug\DAL.pdb
 C:\Users\artsiom_kazlou1\Source\Repos\EPAM.KnowledgeControlSystem\DAL\bin\Debug\FluentNHibernate.dll
